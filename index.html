@@ -91,6 +91,14 @@
       { label: 'リアル', prompt: 'semi-realistic, detailed, anime' },
     ];
 
+    const qualityOptions = [
+      { label: '高解像度・詳細', prompt: 'high-resolution, ultra-detailed' },
+      { label: '4K画質', prompt: '4k quality, super-detailed illustrations' },
+      { label: 'シャープ・クリア', prompt: 'sharp focus, crystal clear' },
+      { label: '最高品質', prompt: 'masterpiece, best quality, highly detailed' },
+      { label: '8K', prompt: '8k resolution, extremely detailed' },
+    ];
+
     const characterSettings = {
       gender: { label: '性別', options: [{ label: '女性', prompt: '1girl, female' }, { label: '男性', prompt: '1boy, male' }, { label: '中性的', prompt: 'androgynous' }] },
       age: { label: '年齢層', options: [{ label: '若い', prompt: 'young adult (20s)' }, { label: '中年', prompt: 'middle aged' }, { label: '老人', prompt: 'elderly, old' }] },
@@ -106,7 +114,7 @@
       eyeState: { label: '目の状態', options: [{ label: '開いた', prompt: 'eyes open' }, { label: '閉じた', prompt: 'eyes closed' }, { label: '片目閉じ', prompt: 'one eye closed, wink' }, { label: '半開き', prompt: 'half-closed eyes' }] },
       eyeColor: { label: '瞳の色', options: [{ label: '黒', prompt: 'black eyes' }, { label: '茶色', prompt: 'brown eyes' }, { label: '青', prompt: 'blue eyes' }, { label: '緑', prompt: 'green eyes' }, { label: '紫', prompt: 'purple eyes' }, { label: '赤', prompt: 'red eyes' }, { label: '金', prompt: 'golden eyes' }, { label: 'ピンク', prompt: 'pink eyes' }, { label: 'オッドアイ', prompt: 'heterochromia, odd eyes' }] },
       eyeFeature: { label: '目の特徴', options: [{ label: 'ハイライト', prompt: 'eye highlights' }, { label: 'キラキラ', prompt: 'sparkling eyes' }, { label: '涙目', prompt: 'teary eyes, watery eyes' }] },
-                                             nose: { label: '鼻の特徴', options: [{ label: '小さい鼻', prompt: 'small nose' }, { label: '高い鼻', prompt: 'high nose bridge' }, { label: '丸い鼻', prompt: 'button nose' }] },
+      nose: { label: '鼻の特徴', options: [{ label: '小さい鼻', prompt: 'small nose' }, { label: '高い鼻', prompt: 'high nose bridge' }, { label: '丸い鼻', prompt: 'button nose' }] },
       mouthState: { label: '口の状態', options: [{ label: '閉じた口', prompt: 'closed mouth' }, { label: '少し開いた', prompt: 'slightly open mouth' }, { label: '笑顔', prompt: 'smiling mouth' }, { label: '歯を見せる', prompt: 'teeth showing' }, { label: '八重歯', prompt: 'fang, cute fang' }, { label: '舌を出す', prompt: 'tongue out' }, { label: 'への字口', prompt: 'frown' }] },
       ears: { label: '耳', options: [{ label: 'エルフ耳', prompt: 'elf ears, pointed ears' }, { label: '猫耳', prompt: 'cat ears, nekomimi' }, { label: '犬耳', prompt: 'dog ears, inumimi' }, { label: 'うさ耳', prompt: 'rabbit ears, bunny ears' }, { label: '狐耳', prompt: 'fox ears' }] }
     };
@@ -173,6 +181,7 @@
       const [customText, setCustomText] = useState('');
       const [copied, setCopied] = useState(false);
       const [style, setStyle] = useState(null);
+      const [quality, setQuality] = useState(null);
       const [presets, setPresets] = useState([]);
       const [showSaveModal, setShowSaveModal] = useState(false);
       const [showLoadModal, setShowLoadModal] = useState(false);
@@ -186,6 +195,7 @@
 
       const generatePrompt = () => {
         const parts = [];
+        if (quality) parts.push(quality.prompt);
         if (style) parts.push(style.prompt);
         Object.values(selections).forEach(sel => { if (sel?.prompt) parts.push(sel.prompt); });
         Object.values(multiSelections).flat().forEach(sel => { if (sel?.prompt) parts.push(sel.prompt); });
@@ -196,14 +206,15 @@
 
       const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
       const shareToTwitter = () => { const prompt = generatePrompt(); const text = `AIキャラクタープロンプトを作成しました！\n\n${prompt.substring(0, 200)}${prompt.length > 200 ? '...' : ''}\n\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
-      const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); };
-      const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
-      const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setShowLoadModal(false); };
+      const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); setQuality(null); };
+      const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style, quality } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
+      const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setQuality(preset.data.quality || null); setShowLoadModal(false); };
       const deletePreset = (id) => { const updated = presets.filter(p => p.id !== id); setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); };
 
       const generateRandom = () => {
         const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
         setStyle(randomPick(styleOptions));
+        setQuality(Math.random() > 0.3 ? randomPick(qualityOptions) : null);
         const randomGender = randomPick(characterSettings.gender.options);
         let hairStyleOptions = randomGender.label === '女性' ? characterSettings.hairStyle.female : randomGender.label === '男性' ? characterSettings.hairStyle.male : [...characterSettings.hairStyle.female, ...characterSettings.hairStyle.male];
         setSelections({ gender: randomGender, age: randomPick(characterSettings.age.options), bodyType: randomPick(characterSettings.bodyType.options), hairLength: randomPick(characterSettings.hairLength.options), hairStyle: randomPick(hairStyleOptions), hairColor: randomPick(characterSettings.hairColor.options), eyeType: randomPick(characterSettings.eyeType.options), eyeState: randomPick(characterSettings.eyeState.options), eyeColor: randomPick(characterSettings.eyeColor.options), eyeFeature: Math.random() > 0.5 ? randomPick(characterSettings.eyeFeature.options) : null, nose: Math.random() > 0.5 ? randomPick(characterSettings.nose.options) : null, mouthState: Math.random() > 0.5 ? randomPick(characterSettings.mouthState.options) : null, ears: Math.random() > 0.7 ? randomPick(characterSettings.ears.options) : null, expression: randomPick(expressionSettings.expression.options), emotion: Math.random() > 0.5 ? randomPick(expressionSettings.emotion.options) : null, pose: randomPick(poseSettings.pose.options), angle: randomPick(poseSettings.angle.options), shotType: randomPick(poseSettings.shotType.options), situation: randomPick(situationOptions), clothing: randomPick(clothingOptions) });
@@ -213,7 +224,7 @@
         setCustomInputs({}); setCustomText('');
       };
 
-      const selectedCount = Object.values(selections).filter(Boolean).length + Object.values(multiSelections).flat().length + Object.values(customInputs).filter(Boolean).length + (style ? 1 : 0);
+      const selectedCount = Object.values(selections).filter(Boolean).length + Object.values(multiSelections).flat().length + Object.values(customInputs).filter(Boolean).length + (style ? 1 : 0) + (quality ? 1 : 0);
       const getHairStyleOptions = () => { const gender = selections.gender?.label; if (gender === '女性') return characterSettings.hairStyle.female; if (gender === '男性') return characterSettings.hairStyle.male; const all = [...characterSettings.hairStyle.female, ...characterSettings.hairStyle.male]; return all.filter((item, index, self) => index === self.findIndex(t => t.prompt === item.prompt)); };
 
       if (currentPage === 'howto') {
@@ -227,7 +238,7 @@
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
                 <h2 className="text-lg font-bold text-gray-800 mb-4">使い方</h2>
                 <div className="space-y-4 text-gray-600">
-                  <div><h3 className="font-medium text-gray-800 mb-1">1. スタイルを選ぶ</h3><p className="text-sm">「萌え」「少年漫画」「リアル」など、作りたいイラストの雰囲気を選びます。</p></div>
+                  <div><h3 className="font-medium text-gray-800 mb-1">1. 画質・スタイルを選ぶ</h3><p className="text-sm">高画質設定と「萌え」「少年漫画」「リアル」など、作りたいイラストの雰囲気を選びます。</p></div>
                   <div><h3 className="font-medium text-gray-800 mb-1">2. キャラ設定を決める</h3><p className="text-sm">性別、年齢、髪型、目の色など細かく設定できます。</p></div>
                   <div><h3 className="font-medium text-gray-800 mb-1">3. 表情・ポーズ・シチュエーションを選ぶ</h3><p className="text-sm">キャラクターの表情やポーズ、どんな場所にいるかを設定します。</p></div>
                   <div><h3 className="font-medium text-gray-800 mb-1">4. 服装・アクセサリーを選ぶ</h3><p className="text-sm">アクセサリーは複数選択できます。</p></div>
@@ -265,15 +276,22 @@
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50 to-slate-100">
           <div className="max-w-2xl mx-auto p-4">
-            <div className="text-center mb-6 pt-2">
+            <div className="text-center pt-3 mb-2">
+              <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-500 hover:text-violet-600 transition-colors">
+                <Icons.Twitter className="w-4 h-4" />
+                <span className="text-sm font-medium">@sasami</span>
+              </a>
+            </div>
+
+            <div className="text-center mb-6">
               <div className="mb-4">
-  <img
-    src="/images/title.png"
-    alt="AIの庭"
-    className="mx-auto w-full h-auto max-w-[900px]"
-    onError={(e) => { e.target.style.display = 'none'; }}
-  />
-</div>
+                <img
+                  src="/images/title.png"
+                  alt="AIの庭"
+                  className="mx-auto w-full h-auto max-w-[900px]"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              </div>
               <p className="text-gray-500 text-sm">選ぶだけで英語プロンプトを自動生成</p>
               <div className="flex justify-center gap-2 mt-5 flex-wrap">
                 <button onClick={() => setCurrentPage('howto')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Info className="w-4 h-4" />使い方</button>
@@ -283,6 +301,11 @@
                 <button onClick={() => setShowLoadModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-600 hover:text-blue-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.FolderOpen className="w-4 h-4" />読込 {presets.length > 0 && <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded-full">{presets.length}</span>}</button>
               </div>
             </div>
+
+            <CollapsibleSection title="画質設定" defaultOpen={true}>
+              <div className="flex flex-wrap gap-2">{qualityOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={quality?.prompt === option.prompt} onClick={() => setQuality(quality?.prompt === option.prompt ? null : option)} />))}</div>
+              <p className="text-xs text-gray-400 mt-3">高画質・高解像度で生成したい場合に選択してください</p>
+            </CollapsibleSection>
 
             <CollapsibleSection title="スタイル" defaultOpen={true}>
               <div className="flex flex-wrap gap-2">{styleOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={style?.prompt === option.prompt} onClick={() => setStyle(style?.prompt === option.prompt ? null : option)} />))}</div>
@@ -385,17 +408,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
