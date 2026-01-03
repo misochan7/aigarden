@@ -205,7 +205,7 @@
       };
 
       const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\nお気に入りのキャラを作って遊んでね⭐\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
+      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\n👇お気に入りのキャラを作って遊んでね⭐\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
       const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); setQuality(null); };
       const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style, quality } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
       const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setQuality(preset.data.quality || null); setShowLoadModal(false); };
@@ -408,4 +408,5 @@
   </script>
 </body>
 </html>
+
 
