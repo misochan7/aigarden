@@ -381,10 +381,11 @@
       );
     }
 
-    ReactDOM.render(<PromptHelper />, document.getElementById('root'));
+    const root = ReactDOM.createRoot(document.getElementById('root')); root.render(<PromptHelper />);
   </script>
 </body>
 </html>
+
 
 
 
