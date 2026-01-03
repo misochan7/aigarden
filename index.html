@@ -6,21 +6,21 @@
   <title>AI画像生成プロンプト作成ツール｜AIの庭 - Midjourney・Stable Diffusion対応</title>
   <meta name="description" content="AI画像生成のプロンプトを簡単作成。キャラクターの髪型、目、表情、服装などを選ぶだけで英語プロンプトを自動生成。Midjourney、Stable Diffusion、DALL-E、にじジャーニー対応。">
   <meta name="keywords" content="AI画像生成,プロンプト,Midjourney,Stable Diffusion,DALL-E,にじジャーニー,キャラクター,イラスト">
-  <link rel="canonical" href="https://aigarden.pages.dev/">
+  <link rel="canonical" href="https://ai-garden-lab.com/">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="AI画像生成プロンプト作成ツール｜AIの庭">
   <meta property="og:description" content="キャラクターの特徴を選ぶだけで英語プロンプトを自動生成。Midjourney、Stable Diffusion対応。">
-  <meta property="og:url" content="https://aigarden.pages.dev/">
-  <meta property="og:image" content="https://aigarden.pages.dev/images/ogp.png">
+  <meta property="og:url" content="https://ai-garden-lab.com/">
+  <meta property="og:image" content="https://ai-garden-lab.com/images/ogp.png">
   <meta property="og:site_name" content="AIの庭">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@sasami">
   <meta name="twitter:title" content="AI画像生成プロンプト作成ツール｜AIの庭">
   <meta name="twitter:description" content="キャラクターの特徴を選ぶだけで英語プロンプトを自動生成">
-  <meta name="twitter:image" content="https://aigarden.pages.dev/images/ogp.png">
+  <meta name="twitter:image" content="https://ai-garden-lab.com/images/ogp.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -195,7 +195,7 @@
       };
 
       const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-      const shareToTwitter = () => { const prompt = generatePrompt(); const text = `AIキャラクタープロンプトを作成しました！\n\n${prompt.substring(0, 200)}${prompt.length > 200 ? '...' : ''}\n\n`; const url = 'https://aigarden.pages.dev/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
+      const shareToTwitter = () => { const prompt = generatePrompt(); const text = `AIキャラクタープロンプトを作成しました！\n\n${prompt.substring(0, 200)}${prompt.length > 200 ? '...' : ''}\n\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
       const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); };
       const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
       const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setShowLoadModal(false); };
@@ -386,6 +386,7 @@
   </script>
 </body>
 </html>
+
 
 
 
