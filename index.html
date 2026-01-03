@@ -205,7 +205,7 @@
       };
 
       const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-      const shareToTwitter = () => { const prompt = generatePrompt(); const text = `AIキャラクタープロンプトを作成しました！\n\n${prompt.substring(0, 200)}${prompt.length > 200 ? '...' : ''}\n\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
+      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\nお気に入りのキャラを作って遊んでね⭐`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
       const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); setQuality(null); };
       const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style, quality } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
       const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setQuality(preset.data.quality || null); setShowLoadModal(false); };
@@ -311,7 +311,7 @@
               <div className="flex flex-wrap gap-2">{styleOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={style?.prompt === option.prompt} onClick={() => setStyle(style?.prompt === option.prompt ? null : option)} />))}</div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="キャラ設定" defaultOpen={true}>
+            <CollapsibleSection title="キャラ設定">
               <OptionGroup label={characterSettings.gender.label} options={characterSettings.gender.options} selectedValue={selections.gender} onSelect={(opt) => handleSelect('gender', opt)} />
               <OptionGroup label={characterSettings.age.label} options={characterSettings.age.options} selectedValue={selections.age} onSelect={(opt) => handleSelect('age', opt)} />
               <OptionGroup label={characterSettings.bodyType.label} options={characterSettings.bodyType.options} selectedValue={selections.bodyType} onSelect={(opt) => handleSelect('bodyType', opt)} />
