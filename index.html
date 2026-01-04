@@ -147,13 +147,13 @@
     const CollapsibleSection = ({ title, children, defaultOpen = false }) => {
       const [isOpen, setIsOpen] = useState(defaultOpen);
       return (
-        <div className="mb-3 rounded-2xl overflow-hidden bg-white/60 backdrop-blur-sm border border-gray-200/50 shadow-sm">
-          <button onClick={() => setIsOpen(!isOpen)} className="w-full px-5 py-4 flex items-center justify-between transition-all hover:bg-white/80">
+        <div className="mb-3 rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-300 shadow-md">
+          <button onClick={() => setIsOpen(!isOpen)} className="w-full px-5 py-4 flex items-center justify-between transition-all hover:bg-white/90">
             <span className="font-semibold text-gray-700 tracking-wide">{title}</span>
             <div className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}><Icons.ChevronDown className="w-5 h-5 text-gray-400" /></div>
           </button>
           <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-            <div className="px-5 pb-5 pt-2 border-t border-gray-100">{children}</div>
+            <div className="px-5 pb-5 pt-2 border-t border-gray-200">{children}</div>
           </div>
         </div>
       );
@@ -295,12 +295,12 @@
               </div>
               <p className="text-gray-500 text-sm">選ぶだけで英語プロンプトを自動生成</p>
               <div className="flex justify-center gap-2 mt-5 flex-wrap">
-                <button onClick={() => setCurrentPage('howto')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Info className="w-4 h-4" />使い方</button>
+                <button onClick={() => setCurrentPage('howto')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-xl font-medium transition-all text-sm shadow-sm" style={{color: '#ff751f'}}><Icons.Info className="w-4 h-4" />使い方</button>
                 <button onClick={() => setShowSaveModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 text-gray-600 hover:text-emerald-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Save className="w-4 h-4" />保存</button>
                 <button onClick={() => setShowLoadModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-600 hover:text-blue-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.FolderOpen className="w-4 h-4" />読込 {presets.length > 0 && <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded-full">{presets.length}</span>}</button>
               </div>
               <div className="flex justify-center gap-2 mt-3 flex-wrap">
-                <button onClick={generateRandom} className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white rounded-xl font-medium transition-all text-sm shadow-md shadow-purple-200"><Icons.Shuffle className="w-4 h-4" />ランダム生成</button>
+                <button onClick={generateRandom} className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-gradient-to-r from-pink-300 to-rose-400 hover:from-pink-400 hover:to-rose-500 text-white rounded-xl font-medium transition-all text-sm shadow-md shadow-pink-200"><Icons.Shuffle className="w-4 h-4" />ランダム生成</button>
                 {selectedCount > 0 && (<button onClick={resetAll} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:bg-red-50 hover:border-red-200 text-gray-600 hover:text-red-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.RotateCcw className="w-4 h-4" />クリア</button>)}
               </div>
             </div>
@@ -369,12 +369,15 @@
               <div className="flex items-center justify-between mb-3">
                 <div className="text-sm font-semibold text-gray-700">生成されたプロンプト</div>
                 <div className="flex gap-2">
-                  <button onClick={shareToTwitter} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-medium transition-all"><Icons.Twitter className="w-4 h-4" />共有</button>
+                  <button onClick={resetAll} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-600 rounded-lg text-sm font-medium transition-all"><Icons.RotateCcw className="w-4 h-4" />クリア</button>
                   <button onClick={copyToClipboard} className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-violet-600 hover:bg-violet-700 text-white'}`}>{copied ? <Icons.Check className="w-4 h-4" /> : <Icons.Copy className="w-4 h-4" />}{copied ? 'コピー完了' : 'コピー'}</button>
                 </div>
               </div>
               <div className="text-sm text-gray-600 bg-gray-50 rounded-xl p-4 min-h-[60px] break-all border border-gray-100">{generatePrompt() || <span className="text-gray-400">オプションを選択してください</span>}</div>
-              <div className="text-center text-xs text-gray-400 mt-3">Midjourney、ChatGPT、Geminiなどにペースト</div>
+              <div className="flex items-center justify-between mt-3">
+                <button onClick={shareToTwitter} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm font-medium transition-all"><Icons.Twitter className="w-4 h-4" />共有</button>
+                <div className="text-xs text-gray-400">Midjourney、ChatGPT、Geminiなどにペースト</div>
+              </div>
             </div>
 
             <div className="text-center py-6 mt-6">
