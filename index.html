@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="AI画像生成プロンプト作成ツール｜AIの庭">
-  <meta property="og:description" content="キャラクターの特徴を選ぶだけでプロンプトを自動生成。Midjourney、Stable Diffusion対応。">
+  <meta property="og:description" content="キャラクターの特徴を選ぶだけで英語プロンプトを自動生成。Midjourney、Stable Diffusion対応。">
   <meta property="og:url" content="https://ai-garden-lab.com/">
   <meta property="og:image" content="https://ai-garden-lab.com/images/ogp.png">
   <meta property="og:site_name" content="AIの庭">
@@ -280,26 +280,28 @@
             <a href="https://ai-garden-lab.com/" className="block hover:opacity-90 transition-opacity">
               <img src="/images/logo.png" alt="AIの庭" width="1000" height="200" className="mx-auto block max-w-full h-auto" />
             </a>
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4">
-              <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 sm:gap-2 text-white/90 hover:text-white transition-colors">
-                <Icons.Twitter className="w-4 h-4" />
-                <span className="text-xs sm:text-sm font-medium">@sasami</span>
-              </a>
-            </div>
           </div>
 
           <div className="max-w-2xl mx-auto p-4">
             <div className="text-center mb-6">
+              <div className="mb-3">
+                <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-medium transition-all text-sm shadow-sm">
+                  <Icons.Twitter className="w-4 h-4" />
+                  作者X@sasami フォローしてね！
+                </a>
+              </div>
               <div className="mb-4">
                 <h1 className="text-2xl sm:text-3xl font-bold text-black">AIキャラプロンプトメーカー</h1>
               </div>
               <p className="text-gray-500 text-sm">選ぶだけで英語プロンプトを自動生成</p>
               <div className="flex justify-center gap-2 mt-5 flex-wrap">
                 <button onClick={() => setCurrentPage('howto')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Info className="w-4 h-4" />使い方</button>
-                <button onClick={generateRandom} className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white rounded-xl font-medium transition-all text-sm shadow-sm shadow-orange-200"><Icons.Shuffle className="w-4 h-4" />ランダム</button>
-                {selectedCount > 0 && (<button onClick={resetAll} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:bg-red-50 hover:border-red-200 text-gray-600 hover:text-red-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.RotateCcw className="w-4 h-4" />クリア</button>)}
                 <button onClick={() => setShowSaveModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 text-gray-600 hover:text-emerald-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Save className="w-4 h-4" />保存</button>
                 <button onClick={() => setShowLoadModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-600 hover:text-blue-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.FolderOpen className="w-4 h-4" />読込 {presets.length > 0 && <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded-full">{presets.length}</span>}</button>
+              </div>
+              <div className="flex justify-center gap-2 mt-3 flex-wrap">
+                <button onClick={generateRandom} className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 text-white rounded-xl font-medium transition-all text-sm shadow-md shadow-purple-200"><Icons.Shuffle className="w-4 h-4" />ランダム生成</button>
+                {selectedCount > 0 && (<button onClick={resetAll} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:bg-red-50 hover:border-red-200 text-gray-600 hover:text-red-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.RotateCcw className="w-4 h-4" />クリア</button>)}
               </div>
             </div>
 
@@ -409,4 +411,3 @@
   </script>
 </body>
 </html>
-
