@@ -253,6 +253,7 @@
                 <h2 className="text-lg font-bold text-gray-800 mb-4">便利な機能</h2>
                 <div className="space-y-3 text-sm text-gray-600">
                   <div><span className="font-medium text-gray-800">保存機能：</span>作成したキャラ設定を名前をつけて保存できます。</div>
+                  <div><span className="font-medium text-gray-800">シェア機能：</span>作成したプロンプトをX（Twitter）でシェアできます。</div>
                 </div>
               </div>
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
@@ -275,7 +276,8 @@
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50 to-slate-100">
           <div className="max-w-2xl mx-auto p-4">
-            <div className="text-center pt-3 mb-2">
+            <div className="flex justify-between items-center pt-3 mb-2">
+              <a href="https://ai-garden-lab.com/" className="hover:opacity-80 transition-opacity"><img src="/images/logo.png" alt="AIの庭" className="h-8" /></a>
               <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-500 hover:text-violet-600 transition-colors">
                 <Icons.Twitter className="w-4 h-4" />
                 <span className="text-sm font-medium">@sasami</span>
