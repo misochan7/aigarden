@@ -205,7 +205,7 @@
       };
 
       const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\n👇お気に入りのキャラを作って遊んでね⭐\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
+      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\nお気に入りのキャラを作って遊んでね⭐\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
       const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); setQuality(null); };
       const savePreset = () => { if (!presetName.trim()) return; const newPreset = { id: Date.now(), name: presetName, data: { selections, multiSelections, customInputs, customText, style, quality } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
       const loadPreset = (preset) => { setSelections(preset.data.selections || {}); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setCustomText(preset.data.customText || ''); setStyle(preset.data.style || null); setQuality(preset.data.quality || null); setShowLoadModal(false); };
@@ -253,7 +253,6 @@
                 <h2 className="text-lg font-bold text-gray-800 mb-4">便利な機能</h2>
                 <div className="space-y-3 text-sm text-gray-600">
                   <div><span className="font-medium text-gray-800">保存機能：</span>作成したキャラ設定を名前をつけて保存できます。</div>
-                  <div><span className="font-medium text-gray-800">シェア機能：</span>作成したプロンプトをX（Twitter）でシェアできます。</div>
                 </div>
               </div>
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
@@ -362,7 +361,7 @@
               <textarea value={customText} onChange={(e) => setCustomText(e.target.value)} placeholder="追加のプロンプトを自由に入力（日本語OK）..." className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-violet-400 focus:ring-2 focus:ring-violet-100 focus:outline-none resize-none transition-all" rows={2} />
             </div>
 
-            <div className="sticky bottom-4 bg-white/95 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-gray-200/50">
+            <div className="sticky bottom-4 bg-violet-100/95 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-violet-300/50">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-sm font-semibold text-gray-700">生成されたプロンプト</div>
                 <div className="flex gap-2">
@@ -408,5 +407,3 @@
   </script>
 </body>
 </html>
-
-
