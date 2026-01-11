@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDV Calculator - トークン価格予測ツール</title>
+  <meta name="description" content="仮想通貨のFDV（完全希釈後時価総額）から将来のトークン価格を予測。総供給量とAllocationを入力して、各FDVでの価格をシミュレーション。">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #00d4ff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* タブスタイル */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #ccc;
+    }
+
+    .tab-btn.active {
+      background: rgba(0, 212, 255, 0.2);
+      color: #00d4ff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #fff;
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+
+    input::placeholder {
+      color: #555;
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .quick-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quick-btn {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(0, 212, 255, 0.15);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 8px;
+      color: #00d4ff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: rgba(0, 212, 255, 0.25);
+      border-color: #00d4ff;
+    }
+
+    .quick-btn:active {
+      transform: scale(0.95);
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 14px 12px;
+      text-align: right;
+    }
+
+    .results-table th {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .results-table th:first-child,
+    .results-table td:first-child {
+      text-align: left;
+    }
+
+    .results-table td {
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .results-table tr:hover td {
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    .fdv-label {
+      font-weight: 600;
+      color: #00d4ff;
+    }
+
+    .price-value {
+      color: #4ade80;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .holding-value {
+      color: #fbbf24;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .token-amount {
+      color: #c084fc;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #666;
+      padding: 40px 20px;
+    }
+
+    .formula {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .formula code {
+      color: #00d4ff;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .info-box {
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: #88d4f0;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .footer-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #555;
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 20px 16px;
+      }
+
+      .results-table th,
+      .results-table td {
+        padding: 12px 8px;
+        font-size: 0.85rem;
+      }
+
+      .results-table th {
+        font-size: 0.7rem;
+      }
+
+      .tab-btn {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>FDV Calculator</h1>
+      <p class="subtitle">将来のFDVからトークン価格を予測</p>
+    </header>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+        基本情報
+      </div>
+
+      <!-- タブ -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('normal')">通常モード</button>
+        <button class="tab-btn" onclick="switchTab('point')">ポイントモード</button>
+      </div>
+
+      <!-- 通常モード -->
+      <div id="normalTab" class="tab-content active">
+        <div class="input-group">
+          <label for="totalSupply">総供給量（Total Supply）</label>
+          <input type="text" id="totalSupply" placeholder="例: 1000000000" inputmode="numeric">
+          <div class="quick-buttons">
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 1000000000)">1B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 5000000000)">5B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 10000000000)">10B</button>
+          </div>
+          <p class="input-hint">トークンの最大供給量を入力</p>
+        </div>
+        <div class="input-group">
+          <label for="allocation">対象 Allocation（%）</label>
+          <input type="text" id="allocation" placeholder="例: 10" inputmode="decimal">
+          <p class="input-hint">総供給量のうち対象となる割合</p>
+        </div>
+        <div class="input-group">
+          <label for="holdings">あなたの保有量（オプション）</label>
+          <input type="text" id="holdings" placeholder="例: 50000" inputmode="numeric">
+          <p class="input-hint">保有トークン数を入力すると評価額も表示</p>
+        </div>
+      </div>
+
+      <!-- ポイントモード -->
+      <div id="pointTab" class="tab-content">
+        <div class="info-box">
+          💡 エアドロップのポイントから獲得トークン数と価値を予測
+        </div>
+        <div class="input-group">
+          <label for="totalSupplyPoint">総供給量（Total Supply）</label>
+          <input type="text" id="totalSupplyPoint" placeholder="例: 1000000000" inputmode="numeric">
+          <div class="quick-buttons">
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 1000000000)">1B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 5000000000)">5B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 10000000000)">10B</button>
+          </div>
+          <p class="input-hint">トークンの最大供給量を入力</p>
+        </div>
+        <div class="input-group">
+          <label for="totalPoints">総配布ポイント</label>
+          <input type="text" id="totalPoints" placeholder="例: 500000000" inputmode="numeric">
+          <p class="input-hint">全ユーザーに配布されたポイントの合計</p>
+        </div>
+        <div class="input-group">
+          <label for="allocationPoint">対象 Allocation（%）</label>
+          <input type="text" id="allocationPoint" placeholder="例: 10" inputmode="decimal">
+          <p class="input-hint">エアドロップに割り当てられる割合</p>
+        </div>
+        <div class="input-group">
+          <label for="myPoints">あなたのポイント</label>
+          <input type="text" id="myPoints" placeholder="例: 100000" inputmode="numeric">
+          <p class="input-hint">あなたが獲得したポイント数</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        価格予測
+      </div>
+      <div id="resultsContainer">
+        <p class="no-data">情報を入力してください</p>
+      </div>
+      <div id="formulaContainer" class="formula">
+        計算式: <code>トークン価格 = FDV × (Allocation% / 100) ÷ 総供給量</code>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/crypto/" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Crypto Tools
+        </a>
+        <a href="/" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          AIGARDEN
+        </a>
+      </div>
+      <p>© 2025 <a href="/">AIGARDEN</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const fdvList = [
+      { label: '$100M', value: 100000000 },
+      { label: '$300M', value: 300000000 },
+      { label: '$500M', value: 500000000 },
+      { label: '$700M', value: 700000000 },
+      { label: '$1B', value: 1000000000 },
+      { label: '$2B', value: 2000000000 },
+      { label: '$3B', value: 3000000000 },
+      { label: '$4B', value: 4000000000 },
+      { label: '$5B', value: 5000000000 },
+    ];
+
+    let currentMode = 'normal';
+
+    // 通常モード用
+    const totalSupplyInput = document.getElementById('totalSupply');
+    const allocationInput = document.getElementById('allocation');
+    const holdingsInput = document.getElementById('holdings');
+
+    // ポイントモード用
+    const totalSupplyPointInput = document.getElementById('totalSupplyPoint');
+    const totalPointsInput = document.getElementById('totalPoints');
+    const allocationPointInput = document.getElementById('allocationPoint');
+    const myPointsInput = document.getElementById('myPoints');
+
+    const resultsContainer = document.getElementById('resultsContainer');
+    const formulaContainer = document.getElementById('formulaContainer');
+
+    function switchTab(mode) {
+      currentMode = mode;
+      
+      // タブボタンの更新
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[mode === 'normal' ? 0 : 1].classList.add('active');
+      
+      // タブコンテンツの更新
+      document.getElementById('normalTab').classList.toggle('active', mode === 'normal');
+      document.getElementById('pointTab').classList.toggle('active', mode === 'point');
+      
+      // 計算式の更新
+      if (mode === 'normal') {
+        formulaContainer.innerHTML = '計算式: <code>トークン価格 = FDV × (Allocation% / 100) ÷ 総供給量</code>';
+      } else {
+        formulaContainer.innerHTML = '計算式: <code>獲得トークン = 総供給量 × Allocation% × (自分のポイント ÷ 総ポイント)</code>';
+      }
+      
+      calculate();
+    }
+
+    function parseNumber(str) {
+      if (!str) return NaN;
+      return parseFloat(str.replace(/,/g, ''));
+    }
+
+    function setTotalSupply(inputId, value) {
+      document.getElementById(inputId).value = value.toLocaleString('en-US');
+      calculate();
+    }
+
+    function formatNumber(num, decimals = 2) {
+      if (num >= 1) {
+        return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      } else if (num >= 0.0001) {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      } else {
+        return num.toExponential(4);
+      }
+    }
+
+    function formatTokenAmount(num) {
+      if (num >= 1000000) {
+        return (num / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'M';
+      } else if (num >= 1000) {
+        return (num / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'K';
+      } else {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }
+
+    function formatCurrency(num) {
+      if (num >= 1000000) {
+        return '$' + (num / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'M';
+      } else if (num >= 1000) {
+        return '$' + (num / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'K';
+      } else {
+        return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }
+
+    function calculateNormal() {
+      const totalSupply = parseNumber(totalSupplyInput.value);
+      const allocation = parseNumber(allocationInput.value);
+      const holdings = parseNumber(holdingsInput.value);
+
+      if (isNaN(totalSupply) || isNaN(allocation) || totalSupply <= 0 || allocation <= 0) {
+        resultsContainer.innerHTML = '<p class="no-data">総供給量とAllocationを入力してください</p>';
+        return;
+      }
+
+      const hasHoldings = !isNaN(holdings) && holdings > 0;
+
+      let html = `
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>FDV</th>
+              <th>トークン価格</th>
+              ${hasHoldings ? '<th>保有価値</th>' : ''}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      fdvList.forEach(fdv => {
+        const price = (fdv.value * (allocation / 100)) / totalSupply;
+        const holdingValue = hasHoldings ? price * holdings : 0;
+
+        html += `
+          <tr>
+            <td class="fdv-label">${fdv.label}</td>
+            <td class="price-value">$${formatNumber(price)}</td>
+            ${hasHoldings ? `<td class="holding-value">${formatCurrency(holdingValue)}</td>` : ''}
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      resultsContainer.innerHTML = html;
+    }
+
+    function calculatePoint() {
+      const totalSupply = parseNumber(totalSupplyPointInput.value);
+      const totalPoints = parseNumber(totalPointsInput.value);
+      const allocation = parseNumber(allocationPointInput.value);
+      const myPoints = parseNumber(myPointsInput.value);
+
+      if (isNaN(totalSupply) || isNaN(totalPoints) || isNaN(allocation) || 
+          totalSupply <= 0 || totalPoints <= 0 || allocation <= 0) {
+        resultsContainer.innerHTML = '<p class="no-data">総供給量、総配布ポイント、Allocationを入力してください</p>';
+        return;
+      }
+
+      const hasMyPoints = !isNaN(myPoints) && myPoints > 0;
+      
+      // 自分の獲得トークン数を計算
+      const myTokens = hasMyPoints ? totalSupply * (allocation / 100) * (myPoints / totalPoints) : 0;
+
+      let html = '';
+      
+      if (hasMyPoints) {
+        html += `
+          <div style="background: rgba(192, 132, 252, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+            <div style="font-size: 0.85rem; color: #a78bfa; margin-bottom: 4px;">あなたの獲得トークン数（予測）</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: #c084fc; font-family: 'SF Mono', monospace;">${formatTokenAmount(myTokens)} tokens</div>
+            <div style="font-size: 0.75rem; color: #888; margin-top: 4px;">${myTokens.toLocaleString('en-US', {maximumFractionDigits: 0})} tokens</div>
+          </div>
+        `;
+      }
+
+      html += `
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>FDV</th>
+              <th>トークン価格</th>
+              ${hasMyPoints ? '<th>あなたの価値</th>' : ''}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      fdvList.forEach(fdv => {
+        const price = (fdv.value * (allocation / 100)) / totalSupply;
+        const myValue = hasMyPoints ? price * myTokens : 0;
+
+        html += `
+          <tr>
+            <td class="fdv-label">${fdv.label}</td>
+            <td class="price-value">$${formatNumber(price)}</td>
+            ${hasMyPoints ? `<td class="holding-value">${formatCurrency(myValue)}</td>` : ''}
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      resultsContainer.innerHTML = html;
+    }
+
+    function calculate() {
+      if (currentMode === 'normal') {
+        calculateNormal();
+      } else {
+        calculatePoint();
+      }
+    }
+
+    // イベントリスナー
+    totalSupplyInput.addEventListener('input', calculate);
+    allocationInput.addEventListener('input', calculate);
+    holdingsInput.addEventListener('input', calculate);
+
+    totalSupplyPointInput.addEventListener('input', calculate);
+    totalPointsInput.addEventListener('input', calculate);
+    allocationPointInput.addEventListener('input', calculate);
+    myPointsInput.addEventListener('input', calculate);
+  </script>
+</body>
+</html>
