@@ -384,11 +384,6 @@
           <p class="input-hint">トークンの最大供給量を入力</p>
         </div>
         <div class="input-group">
-          <label for="allocation">対象 Allocation（%）</label>
-          <input type="text" id="allocation" placeholder="例: 10" inputmode="decimal">
-          <p class="input-hint">総供給量のうち対象となる割合</p>
-        </div>
-        <div class="input-group">
           <label for="holdings">あなたの保有量（オプション）</label>
           <input type="text" id="holdings" placeholder="例: 50000" inputmode="numeric">
           <p class="input-hint">保有トークン数を入力すると評価額も表示</p>
@@ -480,7 +475,6 @@
 
     // 通常モード用
     const totalSupplyInput = document.getElementById('totalSupply');
-    const allocationInput = document.getElementById('allocation');
     const holdingsInput = document.getElementById('holdings');
 
     // ポイントモード用
@@ -505,7 +499,7 @@
       
       // 計算式の更新
       if (mode === 'normal') {
-        formulaContainer.innerHTML = '計算式: <code>トークン価格 = FDV × (Allocation% / 100) ÷ 総供給量</code>';
+        formulaContainer.innerHTML = '計算式: <code>トークン価格 = FDV ÷ 総供給量</code>';
       } else {
         formulaContainer.innerHTML = '計算式: <code>1ポイント価格 = FDV × (Allocation% / 100) ÷ 総配布ポイント</code>';
       }
@@ -555,11 +549,10 @@
 
     function calculateNormal() {
       const totalSupply = parseNumber(totalSupplyInput.value);
-      const allocation = parseNumber(allocationInput.value);
       const holdings = parseNumber(holdingsInput.value);
 
-      if (isNaN(totalSupply) || isNaN(allocation) || totalSupply <= 0 || allocation <= 0) {
-        resultsContainer.innerHTML = '<p class="no-data">総供給量とAllocationを入力してください</p>';
+      if (isNaN(totalSupply) || totalSupply <= 0) {
+        resultsContainer.innerHTML = '<p class="no-data">総供給量を入力してください</p>';
         return;
       }
 
@@ -578,7 +571,7 @@
       `;
 
       fdvList.forEach(fdv => {
-        const price = (fdv.value * (allocation / 100)) / totalSupply;
+        const price = fdv.value / totalSupply;
         const holdingValue = hasHoldings ? price * holdings : 0;
 
         html += `
@@ -663,7 +656,6 @@
 
     // イベントリスナー
     totalSupplyInput.addEventListener('input', calculate);
-    allocationInput.addEventListener('input', calculate);
     holdingsInput.addEventListener('input', calculate);
 
     totalSupplyPointInput.addEventListener('input', calculate);
