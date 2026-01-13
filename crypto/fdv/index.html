@@ -433,9 +433,6 @@
       <div id="resultsContainer">
         <p class="no-data">情報を入力してください</p>
       </div>
-      <div id="formulaContainer" class="formula">
-        計算式: <code>トークン価格 = FDV × (Allocation% / 100) ÷ 総供給量</code>
-      </div>
     </div>
 
     <footer>
@@ -484,7 +481,6 @@
     const myPointsInput = document.getElementById('myPoints');
 
     const resultsContainer = document.getElementById('resultsContainer');
-    const formulaContainer = document.getElementById('formulaContainer');
 
     function switchTab(mode) {
       currentMode = mode;
@@ -496,13 +492,6 @@
       // タブコンテンツの更新
       document.getElementById('normalTab').classList.toggle('active', mode === 'normal');
       document.getElementById('pointTab').classList.toggle('active', mode === 'point');
-      
-      // 計算式の更新
-      if (mode === 'normal') {
-        formulaContainer.innerHTML = '計算式: <code>トークン価格 = FDV ÷ 総供給量</code>';
-      } else {
-        formulaContainer.innerHTML = '計算式: <code>1ポイント価格 = FDV × (Allocation% / 100) ÷ 総配布ポイント</code>';
-      }
       
       calculate();
     }
