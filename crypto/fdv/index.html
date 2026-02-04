@@ -542,8 +542,10 @@
         return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       } else if (num >= 0.0001) {
         return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      } else if (num >= 0.00000001) {
+        return num.toFixed(8);
       } else {
-        return num.toExponential(2);
+        return num.toFixed(10);
       }
     }
 
