@@ -487,6 +487,7 @@
 
   <script>
     const fdvList = [
+      { label: '$50M', value: 50000000 },
       { label: '$100M', value: 100000000 },
       { label: '$300M', value: 300000000 },
       { label: '$500M', value: 500000000 },
@@ -537,12 +538,12 @@
     }
 
     function formatNumber(num, decimals = 2) {
-      if (num >= 1) {
-        return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      if (num >= 0.01) {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       } else if (num >= 0.0001) {
-        return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+        return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
       } else {
-        return num.toExponential(4);
+        return num.toExponential(2);
       }
     }
 
@@ -673,14 +674,31 @@
       }
     }
 
+    function formatInputWithCommas(input) {
+      let value = input.value.replace(/,/g, '');
+      if (value && !isNaN(value)) {
+        const num = parseFloat(value);
+        if (Number.isInteger(num)) {
+          input.value = num.toLocaleString('en-US');
+        } else {
+          input.value = num.toLocaleString('en-US', { maximumFractionDigits: 10 });
+        }
+      }
+    }
+
     // イベントリスナー
     totalSupplyInput.addEventListener('input', calculate);
+    totalSupplyInput.addEventListener('blur', function() { formatInputWithCommas(this); });
     holdingsInput.addEventListener('input', calculate);
+    holdingsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
 
     totalSupplyPointInput.addEventListener('input', calculate);
+    totalSupplyPointInput.addEventListener('blur', function() { formatInputWithCommas(this); });
     totalPointsInput.addEventListener('input', calculate);
+    totalPointsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
     allocationPointInput.addEventListener('input', calculate);
     myPointsInput.addEventListener('input', calculate);
+    myPointsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
   </script>
 </body>
 </html>
