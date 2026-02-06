@@ -470,7 +470,8 @@
     }
 
     function getPromptText(prompt) {
-       return prompt.text.replace(/{TOKEN}/g, token);
+      const token = tokenInput.value || '$PENGU';
+      return prompt.text.replace(/{TOKEN}/g, token);
     }
 
     function renderPrompts() {
@@ -507,10 +508,7 @@
     function updateAllPrompts() {
       document.querySelectorAll('.prompt-text').forEach(el => {
         const template = el.dataset.template;
-        const token = = (() => {
-                let val = tokenInput.value || 'PENGU';
-                return val.startsWith('$') ? val : '$' + val;
-        })();
+        const token = tokenInput.value || '$PENGU';
         el.textContent = template.replace(/{TOKEN}/g, token);
       });
     }
