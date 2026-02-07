@@ -106,9 +106,32 @@
     }
 
     .ai-tab.active {
+      color: white;
+    }
+
+    .ai-tab.active.nansen {
       background: #10b981;
       border-color: #10b981;
-      color: white;
+    }
+
+    .ai-tab.active.surf {
+      background: #ec4899;
+      border-color: #ec4899;
+    }
+
+    .ai-tab.active.messari {
+      background: #06b6d4;
+      border-color: #06b6d4;
+    }
+
+    .ai-tab.active.cmc {
+      background: #8b5cf6;
+      border-color: #8b5cf6;
+    }
+
+    .ai-tab.active.general {
+      background: #f59e0b;
+      border-color: #f59e0b;
     }
 
     .ai-tab.disabled {
@@ -163,6 +186,104 @@
     .card-title.purple { color: #a78bfa; }
     .card-title.green { color: #4ade80; }
     .card-title.orange { color: #fbbf24; }
+    .card-title.pink { color: #f472b6; }
+
+    .info-box {
+      margin-bottom: 20px;
+    }
+
+    .info-text {
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .ref-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .ref-link.nansen {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .ref-link.nansen:hover {
+      background: rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .ref-link.surf {
+      background: rgba(236, 72, 153, 0.2);
+      color: #ec4899;
+      border: 1px solid rgba(236, 72, 153, 0.3);
+    }
+
+    .ref-link.surf:hover {
+      background: rgba(236, 72, 153, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .prompt-item-dual {
+      padding: 15px 0;
+    }
+
+    .prompt-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .copy-btn.short,
+    .copy-btn.long {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .copy-btn.short {
+      background: rgba(139, 92, 246, 0.2);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .copy-btn.short:hover {
+      background: rgba(139, 92, 246, 0.3);
+    }
+
+    .copy-btn.long {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .copy-btn.long:hover {
+      background: rgba(245, 158, 11, 0.3);
+    }
+
+    .copy-btn.short.copied,
+    .copy-btn.long.copied {
+      background: rgba(74, 222, 128, 0.2);
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.3);
+    }
 
     .token-input {
       width: 100%;
@@ -334,22 +455,31 @@
       <p class="subtitle">クリプト特化AIに使えるプロンプト集</p>
     </header>
 
+    <!-- 使い方・リファラル -->
+    <div class="card info-box">
+      <div class="card-title cyan">📖 使い方</div>
+      <p class="info-text">各AIサービス向けのプロンプト集。コピーしてそのまま使えるよ。トークン入力欄に分析したいトークン名を入れると、プロンプト内の{TOKEN}部分が自動で置き換わる。</p>
+      <div class="ref-links">
+        <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-link nansen">🟢 Nansen登録</a>
+        <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-link surf">🩷 Surf登録</a>
+      </div>
+    </div>
+
     <!-- AIタブ -->
     <div class="ai-tabs">
-      <button class="ai-tab active" onclick="switchAI('nansen')">Nansen</button>
-      <button class="ai-tab disabled" onclick="switchAI('surf')">Surf</button>
-      <button class="ai-tab disabled" onclick="switchAI('minara')">Minara</button>
-      <button class="ai-tab disabled" onclick="switchAI('cmc')">CMC</button>
+      <button class="ai-tab nansen active" onclick="switchAI('nansen')">Nansen</button>
+      <button class="ai-tab general" onclick="switchAI('general')">汎用</button>
+    </div>
+
+    <!-- トークン入力（全タブ共通） -->
+    <div class="card">
+      <div class="card-title cyan">🎯 分析したいトークンを入力</div>
+      <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
+      <p class="input-hint">💡 入力したトークン名が各プロンプトに自動挿入されます</p>
     </div>
 
     <!-- Nansen コンテンツ -->
     <div id="nansenContent" class="ai-content active">
-      <!-- トークン入力 -->
-      <div class="card">
-        <div class="card-title cyan">🎯 分析したいトークンを入力</div>
-        <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$PENGU">
-        <p class="input-hint">💡 入力したトークン名が各プロンプトに自動挿入されます</p>
-      </div>
 
       <!-- スマートマネー分析 -->
       <div class="card">
@@ -376,27 +506,17 @@
       </div>
     </div>
 
-    <!-- Surf コンテンツ -->
-    <div id="surfContent" class="ai-content">
-      <div class="coming-soon-message">
-        <h2>🏄 Surf</h2>
-        <p>Coming Soon...</p>
-      </div>
-    </div>
-
-    <!-- Minara コンテンツ -->
-    <div id="minaraContent" class="ai-content">
-      <div class="coming-soon-message">
-        <h2>🔮 Minara</h2>
-        <p>Coming Soon...</p>
-      </div>
-    </div>
-
-    <!-- CMC コンテンツ -->
-    <div id="cmcContent" class="ai-content">
-      <div class="coming-soon-message">
-        <h2>📊 CMC</h2>
-        <p>Coming Soon...</p>
+    <!-- 汎用 コンテンツ -->
+    <div id="generalContent" class="ai-content">
+      <!-- 市場分析 -->
+      <div class="card">
+        <div class="card-title orange">📊 今週の暗号資産市場の地合いを一瞬で判断するプロンプト</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('short')">短いプロンプトコピー</button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('long')">長いプロンプトコピー</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -425,41 +545,64 @@
 
     const prompts = {
       smartMoney: [
-        { text: "DeFi、ゲーミング、AIなどのセクターにおけるスマートマネーの配分は最近どのように変化しましたか？", hasToken: false },
-        { text: "最近の市場調整中における{TOKEN}のスマートマネー vs リテール投資家の行動を比較してください", hasToken: true },
-        { text: "スマートマネー投資家がどのトークンから資金を移動し、どのトークンに流入させているか教えてください", hasToken: false },
-        { text: "現在スマートマネーが保有しているトップ10トークンは何ですか？", hasToken: false },
-        { text: "現在スマートマネーの保有においてどのセクターが優勢ですか？", hasToken: false },
-        { text: "スマートマネーのポートフォリオのうちステーブルコインに配分されている割合は何％ですか？", hasToken: false },
+        { text: "DeFi、ゲーミング、AIなどのセクターにおけるスマートマネーの配分は最近どのように変化した？", hasToken: false },
+        { text: "最近の市場調整中における{TOKEN}のスマートマネー vs リテール投資家の行動を比較して", hasToken: true },
+        { text: "スマートマネー投資家がどのトークンから資金を移動し、どのトークンに流入させているか教えて", hasToken: false },
+        { text: "現在スマートマネーが保有しているトップ10トークンは何？", hasToken: false },
+        { text: "現在スマートマネーの保有においてどのセクターが優勢？", hasToken: false },
+        { text: "スマートマネーのポートフォリオのうちステーブルコインに配分されている割合は何％？", hasToken: false },
       ],
       tokenDiscovery: [
-        { text: "クジラの蓄積が増加しているがまだポンプしていないトークンを特定してください", hasToken: false },
-        { text: "スマートマネーの流入が増加しソーシャルメディアでトレンドになっているが、まだ顕著な価格変動がないトークンは何ですか？", hasToken: false },
-        { text: "現在Base、Solana、Ethereumでポンプしているトークンは何ですか？", hasToken: false },
-        { text: "流動性100万ドル以上、時価総額1000万ドル以上のミームコインを見つけてください", hasToken: false },
-        { text: "24時間の取引高が最も高いトークンはどれですか？", hasToken: false },
-        { text: "今日最もトレンドのAIトークンは何ですか？", hasToken: false },
-        { text: "今ミームコインにローテーションすべきですか？", hasToken: false },
+        { text: "クジラの蓄積が増加しているがまだpumpしていないトークンを特定して", hasToken: false },
+        { text: "スマートマネーの流入が増加しソーシャルメディアでトレンドになっているが、まだ顕著な価格変動がないトークンは何？", hasToken: false },
+        { text: "現在Base、Solana、Ethereumでpumpしているトークンは何？", hasToken: false },
+        { text: "流動性100万ドル以上、時価総額1000万ドル以上のミームコインを見つけて", hasToken: false },
+        { text: "24時間の取引高が最も高いトークンはどれ？", hasToken: false },
+        { text: "今日最もトレンドのAIトークンは何？", hasToken: false },
+        { text: "今ミームコインにローテーションすべき？", hasToken: false },
       ],
       entity: [
-        { text: "Wintermuteが過去7日間でマーケットメイクしているトップトークンは何ですか？", hasToken: false },
-        { text: "{TOKEN}に投資しているファンドとその現在の保有量を教えてください", hasToken: true },
-        { text: "Panteraの現在最大の保有銘柄は何ですか？", hasToken: false },
-        { text: "ファンドが保有しているDePINとAIトークンはどれですか？", hasToken: false },
+        { text: "Wintermuteが過去7日間でマーケットメイクしているトップトークンは何？", hasToken: false },
+        { text: "{TOKEN}に投資しているファンドとその現在の保有量を教えて", hasToken: true },
+        { text: "各ファンドの現在の保有銘柄上位5種類を教えて", hasToken: false },
+        { text: "ファンドが保有しているDePINとAIトークンはどれ？", hasToken: false },
       ],
       dueDiligence: [
-        { text: "{TOKEN}がポンプまたはダンプしている理由は何ですか？なぜそうなっているのですか？買うべきですか、売るべきですか？", hasToken: true },
-        { text: "{TOKEN}のスマートマネー活動を分析してください - 保有量、最近の取引、流入を表示してください", hasToken: true },
-        { text: "{TOKEN}の投資論文を書いてください", hasToken: true },
-        { text: "{TOKEN}を買うべきですか、売るべきですか？", hasToken: true },
-        { text: "スマートマネーは{TOKEN}を保有していますか？", hasToken: true },
-        { text: "{TOKEN}を購入しているトップウォレットは誰ですか？", hasToken: true },
-        { text: "{TOKEN}の主要なオンチェーン指標をまとめてください", hasToken: true },
-        { text: "{TOKEN}はXで強気または弱気のセンチメントがありますか？", hasToken: true },
+        { text: "{TOKEN}がpumpまたはdumpしている理由は何？なぜそうなっている？買うべき？売るべき？", hasToken: true },
+        { text: "{TOKEN}のスマートマネー活動を分析して - 保有量、最近の取引、流入を表示して", hasToken: true },
+        { text: "{TOKEN}の投資論文を書いて", hasToken: true },
+        { text: "{TOKEN}を買うべき？売るべき？", hasToken: true },
+        { text: "スマートマネーは{TOKEN}を保有している？", hasToken: true },
+        { text: "{TOKEN}を購入しているトップウォレットは誰？", hasToken: true },
+        { text: "{TOKEN}の主要なオンチェーン指標をまとめて", hasToken: true },
+        { text: "{TOKEN}はXで強気または弱気のセンチメントがある？", hasToken: true },
       ],
     };
 
+    // 汎用プロンプト
+    const generalPrompts = {
+      marketShort: "今週の暗号資産市場を、時価総額・BTCドミナンス・出来高の3指標を数値ベースで評価し、市場レジーム（リスクオン/オフ/中立）、リスクオフの種類、現在の下落フェーズを判断。最後に短期的な値動きの見通しを述べてください。",
+      marketLong: "今週の暗号資産市場について、以下の3指標を必ず数値ベースで評価して。各指標について、「7日前比の変化 → 何が起きているか（事実） → なぜそうなったか（背景） → 市場参加者の心理」の順で整理して。\n\n・暗号資産全体の時価総額（7日前比）\n・BTCドミナンス（7日前比）\n・市場全体の出来高（7日前比）\n\nその上で、以下を明確にして。\n\n1. 今週の市場レジームは「リスクオン / リスクオフ / 中立」のどれか\n\n2. リスクオフの場合は、その性質を「健全な調整 / パニック寄り / 高値圏警戒」のいずれかで分類して\n\n3. 出来高と価格の関係から見た現在のフェーズ（投げ売り初動 / 投げ売り終盤 / 売り枯れ / 戻り売り局面 など）\n\n最後に、\n・なぜその判断になるのか（1文）\n・短期的に起こりやすい値動き（1〜2行）\nを必ず付けて。",
+    };
+
+    function copyGeneralPrompt(type) {
+      const text = type === 'short' ? generalPrompts.marketShort : generalPrompts.marketLong;
+      const btn = event.target;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'コピー完了';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
     function switchAI(ai) {
+      // disabledタブはクリック無効
+      if (event.target.classList.contains('disabled')) return;
+      
       // タブの切り替え
       document.querySelectorAll('.ai-tab').forEach(tab => tab.classList.remove('active'));
       event.target.classList.add('active');
@@ -470,7 +613,7 @@
     }
 
     function getPromptText(prompt) {
-      const token = tokenInput.value || '$PENGU';
+      const token = tokenInput.value || '$';
       return prompt.text.replace(/{TOKEN}/g, token);
     }
 
@@ -492,6 +635,22 @@
       `).join('');
     }
 
+    function renderSimplePromptList(containerId, promptList) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const token = tokenInput.value || '$';
+      container.innerHTML = promptList.map((prompt, index) => {
+        const displayText = prompt.text.replace(/{TOKEN}/g, token);
+        return `
+        <div class="prompt-item">
+          <span class="prompt-number">${index + 1}.</span>
+          <span class="prompt-text" data-template="${prompt.text}">${displayText}</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+        </div>
+      `;
+      }).join('');
+    }
+
     function copyPrompt(btn) {
       const promptText = btn.previousElementSibling.textContent;
       navigator.clipboard.writeText(promptText).then(() => {
@@ -508,8 +667,10 @@
     function updateAllPrompts() {
       document.querySelectorAll('.prompt-text').forEach(el => {
         const template = el.dataset.template;
-        const token = tokenInput.value || '$PENGU';
-        el.textContent = template.replace(/{TOKEN}/g, token);
+        if (template) {
+          const token = tokenInput.value || '$';
+          el.textContent = template.replace(/{TOKEN}/g, token);
+        }
       });
     }
 
