@@ -79,8 +79,8 @@
       background: #0284c7;
     }
 
-    /* AIタブ */
-    .ai-tabs {
+    /* カテゴリタブ */
+    .category-tabs {
       display: flex;
       gap: 8px;
       margin-bottom: 24px;
@@ -88,68 +88,64 @@
       justify-content: center;
     }
 
-    .ai-tab {
-      padding: 12px 24px;
-      font-size: 0.9rem;
-      font-weight: 600;
+    .category-tab {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      border-radius: 8px;
       color: #888;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .ai-tab:hover {
+    .category-tab:hover {
       background: rgba(255, 255, 255, 0.1);
       color: #ccc;
     }
 
-    .ai-tab.active {
+    .category-tab.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
       color: white;
     }
 
-    .ai-tab.active.nansen {
+    .category-tab.nansen-tab {
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #10b981;
+    }
+
+    .category-tab.nansen-tab:hover {
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .category-tab.nansen-tab.active {
       background: #10b981;
       border-color: #10b981;
+      color: white;
     }
 
-    .ai-tab.active.surf {
-      background: #ec4899;
-      border-color: #ec4899;
-    }
-
-    .ai-tab.active.messari {
-      background: #06b6d4;
-      border-color: #06b6d4;
-    }
-
-    .ai-tab.active.cmc {
-      background: #8b5cf6;
-      border-color: #8b5cf6;
-    }
-
-    .ai-tab.active.general {
-      background: #f59e0b;
-      border-color: #f59e0b;
-    }
-
-    .ai-tab.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .ai-tab.disabled:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: #888;
-    }
-
-    .ai-content {
+    .category-content {
       display: none;
     }
 
-    .ai-content.active {
+    .category-content.active {
       display: block;
+    }
+
+    .category-content {
+      display: none;
+    }
+
+    .category-content.active {
+      display: block;
+    }
+
+    .coming-soon-card {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
     }
 
     .coming-soon-message {
@@ -240,49 +236,47 @@
     }
 
     .prompt-item-dual {
-      padding: 15px 0;
+      padding: 10px 0;
     }
 
     .prompt-buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .copy-btn.short,
     .copy-btn.long {
-      padding: 10px 20px;
-      font-size: 14px;
-      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ccc;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .copy-btn.short {
-      background: rgba(139, 92, 246, 0.2);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-    }
-
-    .copy-btn.short:hover {
-      background: rgba(139, 92, 246, 0.3);
-    }
-
-    .copy-btn.long {
-      background: rgba(245, 158, 11, 0.2);
-      color: #f59e0b;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
+    .copy-btn.short:hover,
     .copy-btn.long:hover {
-      background: rgba(245, 158, 11, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
     }
 
     .copy-btn.short.copied,
     .copy-btn.long.copied {
-      background: rgba(74, 222, 128, 0.2);
-      color: #4ade80;
-      border-color: rgba(74, 222, 128, 0.3);
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .copy-icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0.7;
     }
 
     .token-input {
@@ -458,17 +452,23 @@
     <!-- 使い方・リファラル -->
     <div class="card info-box">
       <div class="card-title cyan">📖 使い方</div>
-      <p class="info-text">各AIサービス向けのプロンプト集。コピーしてそのまま使えるよ。トークン入力欄に分析したいトークン名を入れると、プロンプト内の{TOKEN}部分が自動で置き換わる。</p>
+      <p class="info-text">各AIサービス向けのプロンプト集。コピーしてそのまま使えるよ。トークン入力欄に分析したいトークン名を入れると、プロンプト内の$TOKEN部分が自動で置き換わる。入力文字数に制限がある場合はシンプル版を使ってね。<br><span style="color: #f59e0b;">⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任で！</span></p>
       <div class="ref-links">
         <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-link nansen">🟢 Nansen登録</a>
         <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-link surf">🩷 Surf登録</a>
       </div>
     </div>
 
-    <!-- AIタブ -->
-    <div class="ai-tabs">
-      <button class="ai-tab nansen active" onclick="switchAI('nansen')">Nansen</button>
-      <button class="ai-tab general" onclick="switchAI('general')">汎用</button>
+    <!-- カテゴリタブ -->
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="switchCategory('market')">マーケット</button>
+      <button class="category-tab" onclick="switchCategory('coin')">個別コイン</button>
+      <button class="category-tab" onclick="switchCategory('research')">リサーチ</button>
+      <button class="category-tab" onclick="switchCategory('news')">ニュース</button>
+      <button class="category-tab" onclick="switchCategory('invest')">投資判断</button>
+      <button class="category-tab" onclick="switchCategory('trend')">トレンド</button>
+      <button class="category-tab" onclick="switchCategory('risk')">リスク評価</button>
+      <button class="category-tab nansen-tab" onclick="switchCategory('nansen')">Nansen専用オンチェーン分析</button>
     </div>
 
     <!-- トークン入力（全タブ共通） -->
@@ -478,12 +478,544 @@
       <p class="input-hint">💡 入力したトークン名が各プロンプトに自動挿入されます</p>
     </div>
 
-    <!-- Nansen コンテンツ -->
-    <div id="nansenContent" class="ai-content active">
+    <!-- マーケット -->
+    <div id="marketContent" class="category-content active">
+      <div class="card">
+        <div class="card-title">📊 今週の暗号資産市場の地合いを一瞬で判断する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('market', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('market', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-title">📰 直近7日間の暗号資産市場を動かした重要トピック整理</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('topics', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('topics', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 個別コイン -->
+    <div id="coinContent" class="category-content">
+      <div class="card">
+        <div class="card-title">$TOKENのプロジェクト構造とリスクを把握する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('coinStructure', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('coinStructure', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの現在地をセンチメントとオンチェーンから確認する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('coinSentiment', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('coinSentiment', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの短期テクニカル状態を判断する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('coinTechnical', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('coinTechnical', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの中期（〜3か月）価格要因を整理する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('coinMidterm', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('coinMidterm', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの直近の値動きの理由を分解する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('coinMove', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('coinMove', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- リサーチ -->
+    <div id="researchContent" class="category-content">
+      <div class="card">
+        <div class="card-title">高利回りステーブルコインファーム探索</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('stableFarm', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('stableFarm', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Baseチェーン急成長プロジェクト発掘</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('baseGrowth', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('baseGrowth', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">[PROJECT]の価値蓄積モデルをトークノミクスから読む</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('tokenomics', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('tokenomics', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">[PROJECT]のTVL急増の理由を分解する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('tvlAnalysis', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('tvlAnalysis', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">直近7日間の資金調達プロジェクト調査</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('funding', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('funding', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENのアンロック予定と売り圧インパクトを整理</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('unlockToken', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('unlockToken', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">今後1か月の大型アンロック予定を一覧化</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('unlockMarket', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('unlockMarket', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ニュース -->
+    <div id="newsContent" class="category-content">
+      <div class="card">
+        <div class="card-title">直近1週間の重要暗号ニュース要点整理</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('weeklyNews', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              コピー
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">主要マクロイベントが暗号市場に与えた影響分析</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('macroImpact', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              コピー
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">このニュースは暗号市場にどんな影響を与える？評価</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('newsImpact', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              コピー
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">暗号ニュースから取るべき行動を整理する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('newsAction', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              コピー
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 投資判断 -->
+    <div id="investContent" class="category-content">
+      <div class="card">
+        <div class="card-title">$TOKENはいま買うべきか？総合投資判断</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('investBuy', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('investBuy', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの強み・弱み整理</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('investStrength', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('investStrength', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの上昇余地と期待値を評価する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('investUpside', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('investUpside', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENのエントリータイミング判断</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('investEntry', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('investEntry', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKEN投資前に確認すべき最大リスク抽出</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('investRisk', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('investRisk', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- トレンド -->
+    <div id="trendContent" class="category-content">
+      <div class="card">
+        <div class="card-title">現在の暗号資産トレンドを俯瞰する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('trendOverview', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('trendOverview', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">資金流入から見る暗号資産トレンド発見</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('trendFlow', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('trendFlow', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">次に来そうな暗号資産トレンド予測</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('trendNext', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('trendNext', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">暗号資産トレンドの持続性を見極める</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('trendDuration', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('trendDuration', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">暗号資産トレンドの向き合い方を判断する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('trendApproach', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('trendApproach', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- リスク評価 -->
+    <div id="riskContent" class="category-content">
+      <div class="card">
+        <div class="card-title">$TOKENの総合リスクを一気に診断する</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('riskTotal', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('riskTotal', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの売り圧・希薄化リスク評価</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('riskSellPressure', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('riskSellPressure', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの流動性・価格変動リスク評価</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('riskLiquidity', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('riskLiquidity', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの運営・開発リスクを見抜く</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('riskProject', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('riskProject', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">$TOKENの最悪ケースを想定するリスクシナリオ</div>
+        <div class="prompt-item-dual">
+          <div class="prompt-buttons">
+            <button class="copy-btn short" onclick="copyGeneralPrompt('riskWorstCase', 'short')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              シンプル
+            </button>
+            <button class="copy-btn long" onclick="copyGeneralPrompt('riskWorstCase', 'long')">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              詳細
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nansen専用オンチェーン分析 -->
+    <div id="nansenContent" class="category-content">
       <!-- スマートマネー分析 -->
       <div class="card">
-        <div class="card-title purple">🔮 スマートマネー分析</div>
+        <div class="card-title green">🔮 スマートマネー分析</div>
         <div class="prompt-list" id="smartMoneyPrompts"></div>
       </div>
 
@@ -495,28 +1027,14 @@
 
       <!-- エンティティ・セグメント -->
       <div class="card">
-        <div class="card-title orange">🏢 エンティティ・セグメント</div>
+        <div class="card-title green">🏢 エンティティ・セグメント</div>
         <div class="prompt-list" id="entityPrompts"></div>
       </div>
 
       <!-- トークンデューデリジェンス -->
       <div class="card">
-        <div class="card-title cyan">📊 トークンデューデリジェンス</div>
+        <div class="card-title green">📊 トークンデューデリジェンス</div>
         <div class="prompt-list" id="dueDiligencePrompts"></div>
-      </div>
-    </div>
-
-    <!-- 汎用 コンテンツ -->
-    <div id="generalContent" class="ai-content">
-      <!-- 市場分析 -->
-      <div class="card">
-        <div class="card-title orange">📊 今週の暗号資産市場の地合いを一瞬で判断するプロンプト</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('short')">短いプロンプトコピー</button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('long')">長いプロンプトコピー</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -545,55 +1063,188 @@
 
     const prompts = {
       smartMoney: [
-        { text: "DeFi、ゲーミング、AIなどのセクターにおけるスマートマネーの配分は最近どのように変化した？", hasToken: false },
-        { text: "最近の市場調整中における{TOKEN}のスマートマネー vs リテール投資家の行動を比較して", hasToken: true },
-        { text: "スマートマネー投資家がどのトークンから資金を移動し、どのトークンに流入させているか教えて", hasToken: false },
-        { text: "現在スマートマネーが保有しているトップ10トークンは何？", hasToken: false },
-        { text: "現在スマートマネーの保有においてどのセクターが優勢？", hasToken: false },
-        { text: "スマートマネーのポートフォリオのうちステーブルコインに配分されている割合は何％？", hasToken: false },
+        { title: "セクター別スマートマネー配分の変化", text: "直近30日間で、スマートマネーの資金配分がDeFi・Gaming・AI・RWA・Memeなどの主要セクター間でどのように変化したかを分析してください。各セクターについて、保有額または純流入の増減、変化の要因、現在の配分が示唆する市場心理を整理してください。", hasToken: false },
+        { title: "$TOKENのスマートマネー vs リテール比較", text: "最近の市場調整局面において、$TOKENに対するスマートマネーとリテール投資家の行動を比較してください。保有量の増減、売買タイミング、流入・流出の違いを整理し、どちらが優位なポジションを取っているかを評価してください。", hasToken: true },
+        { title: "スマートマネーの資金移動先を特定", text: "直近14日間で、スマートマネーが資金を流出させているトークンと、新たに流入させているトークンを特定してください。それぞれの共通点（セクター、時価総額帯、チェーン）と、資金移動の意図を分析してください。", hasToken: false },
+        { title: "スマートマネー保有トップ10", text: "現在スマートマネーが最も多く保有しているトップ10トークンを抽出してください。各トークンについて、保有割合、直近の増減傾向、短期売買か中期保有かの傾向を整理してください。", hasToken: false },
+        { title: "優勢セクターの分析", text: "現在のスマートマネーの保有データをもとに、どのセクター（DeFi、AI、Gaming、RWAなど）が相対的に優勢かを分析してください。直近の変化とその背景も含めて整理してください。", hasToken: false },
+        { title: "ステーブルコイン配分とリスク傾向", text: "スマートマネーのポートフォリオ全体において、ステーブルコインに配分されている割合を算出してください。過去数週間との比較から、リスクオン・リスクオフ傾向も評価してください。", hasToken: false },
       ],
       tokenDiscovery: [
-        { text: "クジラの蓄積が増加しているがまだpumpしていないトークンを特定して", hasToken: false },
-        { text: "スマートマネーの流入が増加しソーシャルメディアでトレンドになっているが、まだ顕著な価格変動がないトークンは何？", hasToken: false },
-        { text: "現在Base、Solana、Ethereumでpumpしているトークンは何？", hasToken: false },
-        { text: "流動性100万ドル以上、時価総額1000万ドル以上のミームコインを見つけて", hasToken: false },
-        { text: "24時間の取引高が最も高いトークンはどれ？", hasToken: false },
-        { text: "今日最もトレンドのAIトークンは何？", hasToken: false },
-        { text: "今ミームコインにローテーションすべき？", hasToken: false },
+        { title: "蓄積中だが未上昇のトークン発掘", text: "クジラまたはスマートマネーによる保有量が増加している一方で、まだ大きな価格上昇が起きていないトークンを特定してください。各トークンについて、想定される狙いと注意点を整理してください。", hasToken: false },
+        { title: "話題＋流入増だが未反応のトークン", text: "スマートマネーの流入が増加しており、ソーシャルメディア上でも話題になり始めているが、まだ顕著な価格変動が出ていないトークンを特定してください。オンチェーンとソーシャルの乖離を評価してください。", hasToken: false },
+        { title: "各チェーンでpump中のトークン", text: "現在Base・Solana・Ethereum各チェーンで短期的に強い上昇（pump）が起きているトークンを抽出してください。スマートマネーの関与度と、一時的か継続性があるかを分析してください。", hasToken: false },
+        { title: "条件付きミームコイン抽出", text: "以下の条件を満たすミームコインを抽出してください。・流動性：100万ドル以上・時価総額：1000万ドル以上。各トークンについて、スマートマネー関与の有無と主なリスクを整理してください。", hasToken: false },
+        { title: "24時間取引高トップと背景分析", text: "直近24時間で取引高が最も高いトークンを抽出し、その背景（ニュース、スマートマネー取引、投機的要因）を分析してください。", hasToken: false },
+        { title: "本日注目のAIトークン", text: "本日、最も注目されているAI関連トークンを特定し、スマートマネーの動きと価格反応を整理してください。", hasToken: false },
+        { title: "ミームコインへのローテーション判断", text: "現在のオンチェーンデータとスマートマネーの動きを踏まえて、市場資金をミームコインへローテーションすべき局面かを評価してください。根拠と注意点も示してください。", hasToken: false },
       ],
       entity: [
-        { text: "Wintermuteが過去7日間でマーケットメイクしているトップトークンは何？", hasToken: false },
-        { text: "{TOKEN}に投資しているファンドとその現在の保有量を教えて", hasToken: true },
-        { text: "各ファンドの現在の保有銘柄上位5種類を教えて", hasToken: false },
-        { text: "ファンドが保有しているDePINとAIトークンはどれ？", hasToken: false },
+        { title: "Wintermuteの関与トークン", text: "Wintermuteが過去7日間でマーケットメイクまたは取引関与しているトークンを特定してください。関与の種類と価格への影響を整理してください。", hasToken: false },
+        { title: "$TOKEN投資ファンドと保有量", text: "$TOKENに投資しているファンドを特定し、各ファンドの現在の保有量と直近の増減を整理してください。", hasToken: true },
+        { title: "各ファンドの保有上位5銘柄", text: "主要ファンドごとに、現在の保有銘柄上位5種類を抽出し、セクター分布と投資スタイルの違いを分析してください。", hasToken: false },
+        { title: "ファンドのDePIN・AI保有状況", text: "ファンドが現在保有しているDePINおよびAI関連トークンを抽出し、どの分野に重点が置かれているかを分析してください。", hasToken: false },
       ],
       dueDiligence: [
-        { text: "{TOKEN}がpumpまたはdumpしている理由は何？なぜそうなっている？買うべき？売るべき？", hasToken: true },
-        { text: "{TOKEN}のスマートマネー活動を分析して - 保有量、最近の取引、流入を表示して", hasToken: true },
-        { text: "{TOKEN}の投資論文を書いて", hasToken: true },
-        { text: "{TOKEN}を買うべき？売るべき？", hasToken: true },
-        { text: "スマートマネーは{TOKEN}を保有している？", hasToken: true },
-        { text: "{TOKEN}を購入しているトップウォレットは誰？", hasToken: true },
-        { text: "{TOKEN}の主要なオンチェーン指標をまとめて", hasToken: true },
-        { text: "{TOKEN}はXで強気または弱気のセンチメントがある？", hasToken: true },
+        { title: "$TOKENのpump/dump理由分析", text: "$TOKENが直近でpumpまたはdumpしている理由を、オンチェーンデータを中心に分析してください。なぜそうなっているのかを整理し、短期的に買い・売り・様子見のどれに近いかを示してください。", hasToken: true },
+        { title: "$TOKENのスマートマネー活動", text: "$TOKENのスマートマネー活動を分析してください。現在の保有量、最近の取引履歴、純流入・流出の傾向を整理し、蓄積局面か分配局面かを判断してください。", hasToken: true },
+        { title: "$TOKENの投資論文（強気・弱気）", text: "$TOKENについて、オンチェーンデータと市場環境を根拠にした簡潔な投資論文（強気・弱気の両面）を書いてください。", hasToken: true },
+        { title: "$TOKENを買うべきか売るべきか", text: "現在のオンチェーンデータとスマートマネー動向を踏まえて、$TOKENを「買うべき / 売るべき / 様子見」のどれに近いかを理由付きで示してください。", hasToken: true },
+        { title: "スマートマネーの$TOKEN保有状況", text: "スマートマネーは現在$TOKENを保有しているかを分析し、保有割合の変化と意味合いを整理してください。", hasToken: true },
+        { title: "$TOKEN購入トップウォレット", text: "最近$TOKENを購入しているトップウォレットを特定し、それぞれの過去の取引傾向や成功率を分析してください。", hasToken: true },
+        { title: "$TOKENの主要オンチェーン指標", text: "$TOKENの主要オンチェーン指標（保有分布、アクティブアドレス、流動性、取引量）を整理し、健全性と潜在リスクを評価してください。", hasToken: true },
+        { title: "$TOKENのオンチェーン vs Xセンチメント", text: "$TOKENについて、オンチェーンデータとX（旧Twitter）のセンチメントを比較し、強気または弱気の偏りと乖離を分析してください。", hasToken: true },
       ],
     };
 
     // 汎用プロンプト
     const generalPrompts = {
-      marketShort: "今週の暗号資産市場を、時価総額・BTCドミナンス・出来高の3指標を数値ベースで評価し、市場レジーム（リスクオン/オフ/中立）、リスクオフの種類、現在の下落フェーズを判断。最後に短期的な値動きの見通しを述べてください。",
-      marketLong: "今週の暗号資産市場について、以下の3指標を必ず数値ベースで評価して。各指標について、「7日前比の変化 → 何が起きているか（事実） → なぜそうなったか（背景） → 市場参加者の心理」の順で整理して。\n\n・暗号資産全体の時価総額（7日前比）\n・BTCドミナンス（7日前比）\n・市場全体の出来高（7日前比）\n\nその上で、以下を明確にして。\n\n1. 今週の市場レジームは「リスクオン / リスクオフ / 中立」のどれか\n\n2. リスクオフの場合は、その性質を「健全な調整 / パニック寄り / 高値圏警戒」のいずれかで分類して\n\n3. 出来高と価格の関係から見た現在のフェーズ（投げ売り初動 / 投げ売り終盤 / 売り枯れ / 戻り売り局面 など）\n\n最後に、\n・なぜその判断になるのか（1文）\n・短期的に起こりやすい値動き（1〜2行）\nを必ず付けて。",
+      market: {
+        short: "今週の暗号資産市場を、時価総額・BTCドミナンス・出来高の3指標を数値ベースで評価し、市場レジーム（リスクオン/オフ/中立）、リスクオフの種類、現在の下落フェーズを判断。最後に短期的な値動きの見通しを述べてください。",
+        long: "今週の暗号資産市場について、以下の3指標を必ず数値ベースで評価して。各指標について、「7日前比の変化 → 何が起きているか（事実） → なぜそうなったか（背景） → 市場参加者の心理」の順で整理して。\n\n・暗号資産全体の時価総額（7日前比）\n・BTCドミナンス（7日前比）\n・市場全体の出来高（7日前比）\n\nその上で、以下を明確にして。\n\n1. 今週の市場レジームは「リスクオン / リスクオフ / 中立」のどれか\n\n2. リスクオフの場合は、その性質を「健全な調整 / パニック寄り / 高値圏警戒」のいずれかで分類して\n\n3. 出来高と価格の関係から見た現在のフェーズ（投げ売り初動 / 投げ売り終盤 / 売り枯れ / 戻り売り局面 など）\n\n最後に、\n・なぜその判断になるのか（1文）\n・短期的に起こりやすい値動き（1〜2行）\nを必ず付けて。",
+      },
+      topics: {
+        short: "直近7日間の暗号資産市場について、価格やセンチメントに影響した重要トピックを3〜5個抽出し、事実・背景・市場への影響・影響の持続性（短期/構造的）を整理してください。マクロ要因と暗号資産固有要因の両方を必ず含めてください。",
+        long: "直近7日間の暗号資産市場について、価格やセンチメントに影響を与えた重要トピックを3〜5個抽出してください。\n\n各トピックについて、以下の形式で整理してください。\n・何が起きたか（事実）\n・背景となるマクロ要因 または ニュース\n・市場への影響（BTC / アルト / 特定セクター）\n・その影響は短期的か、構造的か（持続性の評価）\n\nなお、以下の条件を必ず満たしてください。\n・マクロ要因（FOMC、金利、株式市場など）を最低1つ含める\n・暗号資産固有要因（ETFフロー、規制、オンチェーン動向など）を最低1つ含める\n\n最後に、これらのトピックから読み取れる「今の市場の大きな流れ」を2〜3行で要約してください。",
+      },
+      coinStructure: {
+        short: "$TOKENについて、プロジェクト概要・トークノミクス・主なリスクを整理し、構造的な強みと弱みを簡潔にまとめてください。",
+        long: "$TOKENについて、基礎的な構造理解を目的として分析してください。\n\n以下の順で整理してください。\n① どんなプロジェクトか（目的、特徴、立ち位置）\n② トークノミクスと供給構造（総供給量、流通量、インフレ要因）\n③ 供給面・運営面・競争環境などの主なリスク\n\nその上で、\nこのプロジェクトの強みと弱みを簡潔にまとめ、\nどんな前提が崩れると評価が変わりやすいかを指摘してください。",
+      },
+      coinSentiment: {
+        short: "今週の$TOKENについて、センチメントとオンチェーンフローから資金の向きと市場心理を整理してください。",
+        long: "今週の$TOKENについて、市場センチメントとオンチェーンデータをもとに現在の状況を分析してください。\n\n以下を整理してください。\n・投資家心理や注目度の変化\n・オンチェーン上の資金流入・流出の傾向\n・短期トレーダーと中長期保有者の動きの違い\n\nその上で、\n今このトークンに資金が集まっているのか、\nそれとも関心が薄れているのかを判断してください。",
+      },
+      coinTechnical: {
+        short: "$TOKENの現在のテクニカル状況を分析し、短期（〜1か月）の値動きと注意点をまとめてください。",
+        long: "$TOKENの短期的な売買判断を目的として、現在のテクニカル状況を分析してください。\n\n以下を含めてください。\n・直近の価格トレンドと出来高の特徴\n・重要なサポート・レジスタンス\n・過熱感や警戒すべきシグナル\n\nその上で、\n短期（〜1か月）で\n「触りやすい / 様子見 / リスクが高い」\nのどれに近いかを理由とともに示してください。",
+      },
+      coinMidterm: {
+        short: "$TOKENについて、今後3か月以内に価格へ影響しそうな主要要因を整理してください。",
+        long: "$TOKENについて、今後3か月以内の価格に影響を与えそうな要因を分析してください。\n\n以下の観点から整理してください。\n・予定されているイベントやアップデート\n・需給に影響する要素（アンロック、発行、報酬など）\n・市場環境やナラティブとの関係\n\n各要因が価格にとって\nプラスかマイナスかを示し、\n中期的な方向性を簡潔にまとめてください。",
+      },
+      coinMove: {
+        short: "$TOKENの直近の値動きについて、ニュース・オンチェーン・市場構造の観点から理由を整理してください。",
+        long: "$TOKENの直近の大きな値動きについて、その理由を以下の3つの観点から分析してください。\n\n・ニュースや公式発表などの情報要因\n・オンチェーンデータから見た需給変化\n・市場構造やセンチメントによる影響\n\nそれぞれがどの程度影響したかを整理し、\n今回の値動きが一過性か再発しやすいかを評価してください。",
+      },
+      // リサーチ
+      stableFarm: {
+        short: "現在利回りが高いステーブルコイン運用先を複数挙げ、APYと利回り原資、主要リスクを比較して分類してください。",
+        long: "現在利回りが高いステーブルコイン運用先を、チェーン横断で3〜7件挙げてください。\n各候補について、APY/利回り内訳（手数料/インセンティブ）/必要手順（LP、レンディング等）/主要リスク（デペグ、スマコン、流動性、IL、運営）を整理してください。\n最後に「利回りは高いが危険」「中程度だが堅め」などリスク別に分類し、初心者向けの無難な選択肢も1つ示してください。",
+      },
+      baseGrowth: {
+        short: "Baseで直近伸びているプロジェクトを挙げ、伸びた理由と持続性（短期/構造）を整理して注目候補を選んでください。",
+        long: "Baseチェーンで直近伸びているプロジェクトを3〜7個挙げてください。\n各プロジェクトについて、セクター（DeFi/NFT/ゲーム等）、成長指標（TVL/出来高/ユーザー/手数料など可能な範囲）、伸びた理由（インセンティブ、提携、トレンド、機能改善等）、短期要因か構造要因かを整理してください。\n最後に「今後も追う価値が高い候補」を理由付きで1〜2個選んでください。",
+      },
+      tokenomics: {
+        short: "[PROJECT]のトークノミクスを、供給・需要・価値還元の観点で整理し、ロードマップ進捗と今後の重要点を要約してください。",
+        long: "[PROJECT]のトークノミクスを分析し、価値がどのように蓄積される設計かを分かりやすく整理してください。\n具体的に、供給（総供給/流通/インフレ/アンロック）、需要（手数料、必須ユースケース、ステーキング等）、価値還元（バーン、買い戻し、配当的仕組み等）を確認し、トークン保有者が得るメリットと弱点をまとめてください。\n最後にロードマップの進捗と今後の重要マイルストーンを要約してください。",
+      },
+      tvlAnalysis: {
+        short: "[PROJECT]のTVL急増（急減）の要因を分解し、実需か一時的インセンティブかを判定、剥落条件も整理してください。",
+        long: "[PROJECT]のTVL推移を見て、直近の急増（または急減）の要因を分析してください。\n要因は少なくとも3つに分解し、①インセンティブ/ポイント施策 ②新機能や提携 ③市場環境（チェーン需要、資金循環）などの観点から整理してください。\nさらに、その増加が「実需による定着」か「一時的な報酬目的」かを判断し、TVLが剥落しやすい条件（利回り低下・終了等）を明確にしてください。",
+      },
+      funding: {
+        short: "直近7日で資金調達したプロジェクトを列挙し、概要・調達額・投資家・注目理由を整理して優先度上位を選んでください。",
+        long: "直近7日間で資金調達（シード/シリーズ/戦略/助成金等）を発表した暗号資産関連プロジェクトを5〜10件リストアップしてください。\n各案件について、プロジェクト概要、セクター、調達額とラウンド、主な投資家、資金用途（公表範囲）、なぜ注目か（市場テーマとの一致、実績、差別化）を整理してください。\n最後に「ウォッチ優先度が高い案件」を理由付きで上位3つ選んでください。",
+      },
+      unlockToken: {
+        short: "$TOKENの今後6か月のアンロック予定を、日付・量・流通比率で整理し、過去のアンロック前後の価格傾向も要約してください。",
+        long: "$TOKENの今後6か月の主なトークンアンロック予定を調べ、各イベントについて「日付・解除量・解除先（チーム/投資家/コミュニティ等）・流通供給に対する割合」を整理してください。\n\n可能なら過去のアンロック前後で、価格・出来高・ボラティリティがどう変化したかの傾向も要約してください。\n\n最後に、次のアンロックが市場に与えうる影響（売り圧/織り込み/無風）を簡潔に評価してください。",
+      },
+      unlockMarket: {
+        short: "今後1か月の大型アンロック予定を、日付・解除量・流通比率で一覧化し、影響が大きそうな上位3件を示してください。",
+        long: "今後1か月で予定されている主要トークンの「大きなアンロック」を一覧化してください。\n各銘柄について「日付・解除量（USD換算が可能なら併記）・流通供給に対する割合・解除先（チーム/投資家等）」を整理してください。\n\nその上で、規模と市場影響の大きさ（売り圧懸念/中立/軽微）で優先度を付け、特に注目すべきイベントを3つ挙げてください。",
+      },
+      // ニュース
+      weeklyNews: {
+        short: "直近1週間の暗号資産関連ニュースから、市場に影響が大きかったものを重要度順に10件以内で要約してください。各ニュースについて、影響対象（BTC/アルト/特定セクター）も示してください。",
+      },
+      macroImpact: {
+        short: "直近の主要マクロイベント（FOMC、金利、株式市場など）が、暗号資産市場に与えた影響を整理し、短期的か構造的かを評価してください。",
+      },
+      newsImpact: {
+        short: "以下のニュースが暗号資産市場に与える影響を評価してください。影響範囲（BTC/アルト/特定セクター）と、短期的か中期的かを分けて整理してください。\n[ニュースリンク]",
+      },
+      newsAction: {
+        short: "以下の暗号資産ニュースを踏まえて、短期トレーダーと中期ホルダーそれぞれにとって考えられる行動（警戒/様子見/注目など）を整理してください。\n[ニュースリンク]",
+      },
+      // 投資判断
+      investBuy: {
+        short: "$TOKENについて、市場環境・ファンダメンタル・価格動向を踏まえ、短期と中期の投資判断（買い/様子見/回避）を示してください。",
+        long: "$TOKENについて、現在の投資判断を目的として分析してください。\n\n以下の観点を必ず含めてください。\n・市場環境（リスクオン/オフ、資金フロー）\n・$TOKENのファンダメンタル（採用状況、開発、ナラティブ）\n・価格と需給（直近のトレンド、出来高、売り圧要因）\n・想定される主なリスク\n\nその上で、\n短期（〜1か月）・中期（〜3か月）について\n「買い / 様子見 / 避ける」\nのどれに近いかを理由付きで示してください。",
+      },
+      investStrength: {
+        short: "$TOKENの強みと弱みを、投資判断に直結する観点で整理してください。",
+        long: "$TOKENについて、投資判断に直結する「強み」と「弱み」を整理してください。\n\n・技術やプロダクトの優位性\n・ナラティブや市場での立ち位置\n・トークノミクスや需給面の評価\n・競合や外部リスク\n\nその上で、\nどの前提が崩れると評価が大きく変わるかを明確にし、\n投資時に注視すべきポイントをまとめてください。",
+      },
+      investUpside: {
+        short: "$TOKENについて、セクター内比較をもとに上昇余地と注意点を評価してください。",
+        long: "$TOKENについて、今後の上昇余地を評価してください。\n\n以下の観点を含めてください。\n・現在の時価総額と想定レンジ\n・同セクター内での相対的ポジション\n・過去の類似事例やナラティブの広がり\n\nその上で、\n短期（〜1か月）・中期（〜3か月）における\n現実的な上昇シナリオと注意点を整理してください。",
+      },
+      investEntry: {
+        short: "$TOKENについて、今がエントリーに適しているかを価格・センチメントから判断してください。",
+        long: "$TOKENについて、今がエントリーに適したタイミングかを分析してください。\n\n・現在の価格位置と過熱感\n・市場センチメントと資金の向き\n・押し目/ブレイクなど想定される形\n\nその上で、\n「今すぐ / 条件付き / 待つべき」\nのどれに近いかを示し、\nエントリーする場合の注意点もまとめてください。",
+      },
+      investRisk: {
+        short: "$TOKENについて、投資前に最も注意すべきリスクと失敗パターンを整理してください。",
+        long: "$TOKENについて、投資判断の前に最も注意すべきリスクを洗い出してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営や開発リスク\n・市場環境悪化時の影響\n\nその上で、\n「この投資で最も起こりやすい失敗パターン」を示し、\nそれを避けるための視点をまとめてください。",
+      },
+      // トレンド
+      trendOverview: {
+        short: "現在の暗号資産市場で注目されているトレンドを抽出し、代表銘柄と注目理由、持続性を整理してください。",
+        long: "現在の暗号資産市場で注目されているトレンドやテーマを3〜5個抽出してください。\n\n各トレンドについて、\n・テーマ名（例：AI、RWA、L2、ミームなど）\n・代表的なプロジェクトやトークン\n・なぜ今注目されているのか（背景）\n・短期的な流行か、構造的なトレンドか\n\nを整理してください。\n\n最後に、\n今後も追う価値がありそうなトレンドを理由付きで1〜2個選んでください。",
+      },
+      trendFlow: {
+        short: "資金流入や出来高の変化から、現在注目されている暗号資産トレンドを整理してください。",
+        long: "暗号資産市場において、直近で資金流入が目立つトレンドやセクターを分析してください。\n\n・出来高やTVLの変化\n・どのチェーンや分野に資金が集まっているか\n・一時的な回転か、継続的な流入か\n\nを整理した上で、\n現在資金が向かいやすいトレンドを特定してください。",
+      },
+      trendNext: {
+        short: "今後トレンド化する可能性がある暗号資産テーマを、根拠付きでいくつか挙げてください。",
+        long: "現時点ではまだ主流ではないが、今後トレンド化する可能性がある暗号資産テーマを挙げてください。\n\n・最近増えているプロジェクトや話題\n・VC投資や開発動向\n・既存トレンドとの連続性\n\nを踏まえ、\n「なぜ次に来そうか」を根拠付きで説明してください。",
+      },
+      trendDuration: {
+        short: "注目トレンドについて、資金・実需・過熱感から持続性を評価してください。",
+        long: "注目されている暗号資産トレンドについて、その勢いが今後も続くかを評価してください。\n\n・資金流入の継続性\n・実需や利用状況の有無\n・ナラティブ疲れや過熱感\n\nを踏まえ、\n短期的な流行か、中期的に残るテーマかを判断してください。",
+      },
+      trendApproach: {
+        short: "特定の暗号資産トレンドについて、投資・トレードでの向き合い方と注意点を整理してください。",
+        long: "特定の暗号資産トレンドについて、投資・トレードの観点からどう向き合うべきかを整理してください。\n\n・短期回転向きか、中期保有向きか\n・個別銘柄選別が重要か、テーマ全体を見るべきか\n・注意すべきリスクや失敗パターン\n\nを踏まえ、\nこのトレンドへの適切な関わり方をまとめてください。",
+      },
+      // リスク評価
+      riskTotal: {
+        short: "$TOKENについて、信頼性・供給・価格・市場環境の観点から総合リスク水準を評価してください。",
+        long: "$TOKENについて、投資・トレード前の総合リスク評価を行ってください。\n\n以下の観点を必ず含めてください。\n・プロジェクト/チームの信頼性\n・トークノミクスと供給面の売り圧\n・価格と流動性の安定性\n・市場環境悪化時の耐性\n\nその上で、\n総合的なリスク水準を\n「低 / 中 / 高」\nで評価し、最も注意すべきポイントを明確にしてください。",
+      },
+      riskSellPressure: {
+        short: "$TOKENのアンロックや発行構造から、売り圧・希薄化リスクを整理してください。",
+        long: "$TOKENのトークノミクスを中心に、将来的な売り圧や希薄化リスクを評価してください。\n\n・アンロック予定と受益者\n・インフレ/発行メカニズム\n・過去のアンロック前後の価格傾向\n\nを整理した上で、\n短期（〜1か月）・中期（〜3か月）で\n売り圧が高まりやすい局面を指摘してください。",
+      },
+      riskLiquidity: {
+        short: "$TOKENの取引量や板の厚みから、流動性と価格変動リスクを評価してください。",
+        long: "$TOKENについて、流動性や市場構造の観点からリスクを評価してください。\n\n・取引量と板の厚み\n・急落・急騰が起きやすい条件\n・大口売買の影響度\n\nを整理した上で、\n短期トレードに向くか、\n価格変動リスクが高いかを判断してください。",
+      },
+      riskProject: {
+        short: "$TOKENのチーム・開発状況から、運営リスクや注意点を整理してください。",
+        long: "$TOKENについて、プロジェクト運営や開発面のリスクを分析してください。\n\n・チームの透明性と実績\n・開発の継続性や停滞リスク\n・過去のトラブルや懸念点\n\nを踏まえ、\n信頼性に影響する要素と、\n注意すべきサインを整理してください。",
+      },
+      riskWorstCase: {
+        short: "$TOKENについて、想定される最悪シナリオと事前に気づける兆候を整理してください。",
+        long: "$TOKENについて、投資前に想定しておくべき最悪シナリオを整理してください。\n\n・市場全体が急落した場合\n・プロジェクトに悪材料が出た場合\n・流動性が急低下した場合\n\nそれぞれで起こりうる影響を示し、\nその兆候や事前に気づけるサインをまとめてください。",
+      },
     };
 
-    function copyGeneralPrompt(type) {
-      const text = type === 'short' ? generalPrompts.marketShort : generalPrompts.marketLong;
-      const btn = event.target;
+    function copyGeneralPrompt(category, type) {
+      const token = tokenInput.value || '$TOKEN名';
+      const promptData = generalPrompts[category];
+      const text = (typeof promptData === 'string' ? promptData : promptData[type]).replace(/$TOKEN/g, token);
+      const btn = event.target.closest('.copy-btn');
       navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.textContent;
-        btn.textContent = 'コピー完了';
+        const originalText = btn.textContent.trim();
+        btn.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>コピー完了`;
         btn.classList.add('copied');
         setTimeout(() => {
-          btn.textContent = originalText;
+          btn.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>${originalText}`;
           btn.classList.remove('copied');
         }, 2000);
       });
@@ -612,9 +1263,19 @@
       document.getElementById(ai + 'Content').classList.add('active');
     }
 
+    function switchCategory(category) {
+      // タブの切り替え
+      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // コンテンツの切り替え
+      document.querySelectorAll('.category-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(category + 'Content').classList.add('active');
+    }
+
     function getPromptText(prompt) {
       const token = tokenInput.value || '$';
-      return prompt.text.replace(/{TOKEN}/g, token);
+      return prompt.text.replace(/$TOKEN/g, token);
     }
 
     function renderPrompts() {
@@ -626,13 +1287,18 @@
 
     function renderPromptList(containerId, promptList) {
       const container = document.getElementById(containerId);
-      container.innerHTML = promptList.map((prompt, index) => `
+      const token = tokenInput.value || '$TOKEN';
+      container.innerHTML = promptList.map((prompt, index) => {
+        const displayTitle = (prompt.title || prompt.text).replace(/\$TOKEN/g, token);
+        const copyText = prompt.text.replace(/\$TOKEN/g, token);
+        return `
         <div class="prompt-item">
           <span class="prompt-number">${index + 1}.</span>
-          <span class="prompt-text" data-template="${prompt.text}">${getPromptText(prompt)}</span>
+          <span class="prompt-text" data-template="${prompt.text}" data-title="${prompt.title || prompt.text}">${displayTitle}</span>
           <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function renderSimplePromptList(containerId, promptList) {
@@ -640,7 +1306,7 @@
       if (!container) return;
       const token = tokenInput.value || '$';
       container.innerHTML = promptList.map((prompt, index) => {
-        const displayText = prompt.text.replace(/{TOKEN}/g, token);
+        const displayText = prompt.text.replace(/$TOKEN/g, token);
         return `
         <div class="prompt-item">
           <span class="prompt-number">${index + 1}.</span>
@@ -652,7 +1318,10 @@
     }
 
     function copyPrompt(btn) {
-      const promptText = btn.previousElementSibling.textContent;
+      const promptEl = btn.previousElementSibling;
+      const template = promptEl.dataset.template;
+      const token = tokenInput.value || '$TOKEN';
+      const promptText = template.replace(/\$TOKEN/g, token);
       navigator.clipboard.writeText(promptText).then(() => {
         const originalText = btn.textContent;
         btn.textContent = 'コピー完了';
@@ -666,10 +1335,10 @@
 
     function updateAllPrompts() {
       document.querySelectorAll('.prompt-text').forEach(el => {
-        const template = el.dataset.template;
-        if (template) {
-          const token = tokenInput.value || '$';
-          el.textContent = template.replace(/{TOKEN}/g, token);
+        const title = el.dataset.title;
+        if (title) {
+          const token = tokenInput.value || '$TOKEN';
+          el.textContent = title.replace(/\$TOKEN/g, token);
         }
       });
     }
