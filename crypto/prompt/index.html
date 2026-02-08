@@ -195,6 +195,59 @@
     .card-title.orange { color: #fbbf24; }
     .card-title.pink { color: #f472b6; }
 
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 32px 0 16px 0;
+      padding-left: 12px;
+      border-left: 3px solid;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    .section-title.green {
+      color: #4ade80;
+      border-left-color: #4ade80;
+    }
+
+    /* Nansen green theme */
+    .nansen-card {
+      border-left: 3px solid #4ade80 !important;
+    }
+
+    .nansen-card:hover {
+      border-color: rgba(74, 222, 128, 0.3) !important;
+      box-shadow: 0 4px 20px rgba(74, 222, 128, 0.1) !important;
+    }
+
+    .nansen-display {
+      background: linear-gradient(180deg, rgba(74, 222, 128, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%) !important;
+      border: 1px solid rgba(74, 222, 128, 0.2) !important;
+    }
+
+    .nansen-content {
+      color: #bbb !important;
+      border-left: 2px solid rgba(74, 222, 128, 0.5) !important;
+    }
+
+    .nansen-btn {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 197, 94, 0.15)) !important;
+      color: #86efac !important;
+      border: 1px solid rgba(74, 222, 128, 0.3) !important;
+    }
+
+    .nansen-btn::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386efac' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E") !important;
+    }
+
+    .nansen-btn:hover {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.35), rgba(34, 197, 94, 0.3)) !important;
+      color: #fff !important;
+      border-color: rgba(74, 222, 128, 0.5) !important;
+    }
+
     .info-box {
       margin-bottom: 20px;
     }
@@ -355,7 +408,7 @@
 
     .prompt-content {
       font-size: 13px;
-      color: #c4b5fd;
+      color: #bbb;
       line-height: 1.7;
       white-space: pre-wrap;
       word-break: break-word;
@@ -474,8 +527,13 @@
 
     .input-hint {
       font-size: 0.8rem;
-      color: #666;
+      color: #fff;
       margin-top: 8px;
+    }
+
+    .token-highlight {
+      color: #ff69b4;
+      font-weight: 600;
     }
 
     .prompt-list {
@@ -669,23 +727,22 @@
       <div class="ref-links">
         <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-card nansen">
           <div class="ref-card-header">🟢 Nansen</div>
-          <div class="ref-card-desc">オンチェーン超特化で資金移動、Smart Money、セクター/トークンのフロー把握</div>
+          <div class="ref-card-desc">オンチェーン超特化で資金移動、Smart Money、<br>セクター/トークンのフロー把握</div>
         </a>
         <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-card surf">
           <div class="ref-card-header">🩷 Surf</div>
-          <div class="ref-card-desc">オンチェーン＋ソーシャルセンチメント＋テクニカル＋ニュース監視</div>
+          <div class="ref-card-desc">オンチェーン＋ソーシャルセンチメント＋<br>テクニカル＋ニュース監視</div>
         </a>
       </div>
     </div>
 
     <!-- カテゴリタブ -->
     <div class="category-tabs">
-      <button class="category-tab active" onclick="switchCategory('market')">マーケット</button>
-      <button class="category-tab" onclick="switchCategory('coin')">個別コイン</button>
+      <button class="category-tab active" onclick="switchCategory('coin')">個別コイン</button>
       <button class="category-tab" onclick="switchCategory('research')">リサーチ</button>
-      <button class="category-tab" onclick="switchCategory('news')">ニュース</button>
-      <button class="category-tab" onclick="switchCategory('invest')">投資判断</button>
       <button class="category-tab" onclick="switchCategory('trend')">トレンド</button>
+      <button class="category-tab" onclick="switchCategory('market')">マーケット</button>
+      <button class="category-tab" onclick="switchCategory('news')">ニュース</button>
       <button class="category-tab" onclick="switchCategory('risk')">リスク評価</button>
       <button class="category-tab nansen-tab" onclick="switchCategory('nansen')">Nansen専用オンチェーン分析</button>
     </div>
@@ -694,11 +751,11 @@
     <div class="card">
       <div class="card-title cyan">🎯 分析したいトークンを入力</div>
       <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
-      <p class="input-hint">💡 入力したトークン名が各プロンプトに自動挿入されます</p>
+      <p class="input-hint">💡 入力したトークンが各プロンプトに自動入力されます</p>
     </div>
 
     <!-- マーケット -->
-    <div id="marketContent" class="category-content active">
+    <div id="marketContent" class="category-content">
       <div class="card">
         <div class="card-title">📊 今週の暗号資産市場の地合いを一瞬で判断する</div>
         <div class="prompt-tabs">
@@ -725,9 +782,21 @@
     </div>
 
     <!-- 個別コイン -->
-    <div id="coinContent" class="category-content">
+    <div id="coinContent" class="category-content active">
       <div class="card">
-        <div class="card-title token-title" data-template="$TOKENのプロジェクト構造とリスクを把握する">$TOKENのプロジェクト構造とリスクを把握する</div>
+        <div class="card-title token-title" data-template="$TOKEN｜現状評価サマリー（市場全体像）">$TOKEN｜現状評価サマリー（市場全体像）</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinSummary" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜プロジェクト構造と前提リスク整理">$TOKEN｜プロジェクト構造と前提リスク整理</div>
         <div class="prompt-tabs">
           <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
@@ -739,7 +808,19 @@
       </div>
 
       <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの現在地をセンチメントとオンチェーンから確認する">$TOKENの現在地をセンチメントとオンチェーンから確認する</div>
+        <div class="card-title token-title" data-template="$TOKEN｜強み・弱みと注視ポイント">$TOKEN｜強み・弱みと注視ポイント</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinStrength" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜センチメントと資金フローの現在地">$TOKEN｜センチメントと資金フローの現在地</div>
         <div class="prompt-tabs">
           <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
@@ -751,7 +832,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの短期テクニカル状態を判断する">$TOKENの短期テクニカル状態を判断する</div>
+        <div class="card-title token-title" data-template="$TOKEN｜短期テクニカルと価格位置整理">$TOKEN｜短期テクニカルと価格位置整理</div>
         <div class="prompt-tabs">
           <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
@@ -763,7 +844,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの中期（〜3か月）価格要因を整理する">$TOKENの中期（〜3か月）価格要因を整理する</div>
+        <div class="card-title token-title" data-template="$TOKEN｜中期（3か月）価格影響要因整理">$TOKEN｜中期（3か月）価格影響要因整理</div>
         <div class="prompt-tabs">
           <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
@@ -775,12 +856,24 @@
       </div>
 
       <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの直近の値動きの理由を分解する">$TOKENの直近の値動きの理由を分解する</div>
+        <div class="card-title token-title" data-template="$TOKEN｜成長余地とセクター内ポジション評価">$TOKEN｜成長余地とセクター内ポジション評価</div>
         <div class="prompt-tabs">
           <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
         </div>
-        <div class="prompt-display" data-key="coinMove" data-mode="short">
+        <div class="prompt-display" data-key="coinGrowth" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜主要リスクと失敗パターン整理">$TOKEN｜主要リスクと失敗パターン整理</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRisk" data-mode="short">
           <div class="prompt-content"></div>
           <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
@@ -808,30 +901,6 @@
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
         </div>
         <div class="prompt-display" data-key="baseGrowth" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">[PROJECT]の価値蓄積モデルをトークノミクスから読む</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="tokenomics" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">[PROJECT]のTVL急増の理由を分解する</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="tvlAnalysis" data-mode="short">
           <div class="prompt-content"></div>
           <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
@@ -903,69 +972,6 @@
       <div class="card">
         <div class="card-title">暗号ニュースから取るべき行動を整理する</div>
         <div class="prompt-display" data-key="newsAction" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 投資判断 -->
-    <div id="investContent" class="category-content">
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENはいま買うべきか？総合投資判断">$TOKENはいま買うべきか？総合投資判断</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="investBuy" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの強み・弱み整理">$TOKENの強み・弱み整理</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="investStrength" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの上昇余地と期待値を評価する">$TOKENの上昇余地と期待値を評価する</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="investUpside" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENのエントリータイミング判断">$TOKENのエントリータイミング判断</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="investEntry" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKEN投資前に確認すべき最大リスク抽出">$TOKEN投資前に確認すべき最大リスク抽出</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="investRisk" data-mode="short">
           <div class="prompt-content"></div>
           <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
@@ -1101,28 +1107,20 @@
     <!-- Nansen専用オンチェーン分析 -->
     <div id="nansenContent" class="category-content">
       <!-- スマートマネー分析 -->
-      <div class="card">
-        <div class="card-title green">🔮 スマートマネー分析</div>
-        <div class="prompt-list" id="smartMoneyPrompts"></div>
-      </div>
+      <h3 class="section-title green">🔮 スマートマネー分析</h3>
+      <div class="prompt-list" id="smartMoneyPrompts"></div>
 
       <!-- トークン発見 -->
-      <div class="card">
-        <div class="card-title green">🔍 トークン発見</div>
-        <div class="prompt-list" id="tokenDiscoveryPrompts"></div>
-      </div>
+      <h3 class="section-title green">🔍 トークン発見</h3>
+      <div class="prompt-list" id="tokenDiscoveryPrompts"></div>
 
       <!-- エンティティ・セグメント -->
-      <div class="card">
-        <div class="card-title green">🏢 エンティティ・セグメント</div>
-        <div class="prompt-list" id="entityPrompts"></div>
-      </div>
+      <h3 class="section-title green">🏢 エンティティ・セグメント</h3>
+      <div class="prompt-list" id="entityPrompts"></div>
 
       <!-- トークンデューデリジェンス -->
-      <div class="card">
-        <div class="card-title green">📊 トークンデューデリジェンス</div>
-        <div class="prompt-list" id="dueDiligencePrompts"></div>
-      </div>
+      <h3 class="section-title green">📊 トークンデューデリジェンス</h3>
+      <div class="prompt-list" id="dueDiligencePrompts"></div>
     </div>
 
     <footer>
@@ -1194,25 +1192,38 @@
         short: "直近7日間の暗号資産市場について、価格やセンチメントに影響した重要トピックを3〜5個抽出し、事実・背景・市場への影響・影響の持続性（短期/構造的）を整理してください。マクロ要因と暗号資産固有要因の両方を必ず含めてください。",
         long: "直近7日間の暗号資産市場について、価格やセンチメントに影響を与えた重要トピックを3〜5個抽出してください。\n\n各トピックについて、以下の形式で整理してください。\n・何が起きたか（事実）\n・背景となるマクロ要因 または ニュース\n・市場への影響（BTC / アルト / 特定セクター）\n・その影響は短期的か、構造的か（持続性の評価）\n\nなお、以下の条件を必ず満たしてください。\n・マクロ要因（FOMC、金利、株式市場など）を最低1つ含める\n・暗号資産固有要因（ETFフロー、規制、オンチェーン動向など）を最低1つ含める\n\n最後に、これらのトピックから読み取れる「今の市場の大きな流れ」を2〜3行で要約してください。",
       },
+      // 個別コイン
+      coinSummary: {
+        short: "$TOKENについて、市場環境・ファンダメンタル・価格動向・主なリスクを整理し、短期・中期で市場参加者がどのような姿勢を取りやすいかをまとめてください。",
+        long: "$TOKENについて、現在の市場状況を把握するための総合的な整理を行ってください。\n\n以下の観点を必ず含めてください。\n・市場環境（リスクオン/オフ、セクター資金フロー）\n・ファンダメンタル（採用状況、開発進捗、ナラティブ）\n・価格と需給（直近トレンド、出来高、売り圧要因）\n・想定される主なリスク\n\nその上で、短期（〜1か月）・中期（〜3か月）について、市場参加者の姿勢が「強気・中立・慎重」のどれに傾きやすいかを理由付きで整理してください。\n売買の推奨や最終的な投資判断は行わないでください。",
+      },
       coinStructure: {
-        short: "$TOKENについて、プロジェクト概要・トークノミクス・主なリスクを整理し、構造的な強みと弱みを簡潔にまとめてください。",
-        long: "$TOKENについて、基礎的な構造理解を目的として分析してください。\n\n以下の順で整理してください。\n① どんなプロジェクトか（目的、特徴、立ち位置）\n② トークノミクスと供給構造（総供給量、流通量、インフレ要因）\n③ 供給面・運営面・競争環境などの主なリスク\n\nその上で、\nこのプロジェクトの強みと弱みを簡潔にまとめ、\nどんな前提が崩れると評価が変わりやすいかを指摘してください。",
+        short: "$TOKENのプロジェクト構造、トークノミクス、前提条件を整理し、どの要素が崩れると評価が変わるかを明確にしてください。",
+        long: "$TOKENについて、プロジェクトの構造的理解を目的として以下を整理してください。\n\n・プロジェクト概要と役割\n・トークノミクス（供給構造、インセンティブ）\n・成長が成立する前提条件\n・構造的な強みと弱み\n\nその上で、どの前提が崩れた場合に評価が大きく変化するか、また長期的に注意すべき構造リスクを明確にしてください。\n価格予測や売買判断は行わず、構造理解に徹してください。",
+      },
+      coinStrength: {
+        short: "$TOKENの強みと弱みを、技術・ナラティブ・需給・競合の観点から整理し、注視すべきポイントをまとめてください。",
+        long: "$TOKENについて、検討時に重要となる強みと弱みを以下の観点で整理してください。\n\n・技術やプロダクトの特徴\n・ナラティブや市場での立ち位置\n・トークノミクスや需給構造\n・競合プロジェクトや外部環境\n\nその上で、評価が大きく変わり得るポイントや、今後注視すべき変数を明確にしてください。\n結論や投資判断は示さず、比較・整理に徹してください。",
       },
       coinSentiment: {
-        short: "今週の$TOKENについて、センチメントとオンチェーンフローから資金の向きと市場心理を整理してください。",
-        long: "今週の$TOKENについて、市場センチメントとオンチェーンデータをもとに現在の状況を分析してください。\n\n以下を整理してください。\n・投資家心理や注目度の変化\n・オンチェーン上の資金流入・流出の傾向\n・短期トレーダーと中長期保有者の動きの違い\n\nその上で、\n今このトークンに資金が集まっているのか、\nそれとも関心が薄れているのかを判断してください。",
+        short: "$TOKENについて、センチメントとオンチェーンデータから資金の向きと市場心理を整理してください。",
+        long: "$TOKENについて、直近の市場心理を把握するために以下を整理してください。\n\n・SNSやニュースから読み取れるセンチメント\n・オンチェーンデータに基づく資金フロー\n・短期投資家と中期参加者の行動傾向\n\nその上で、現在の市場参加者がどのような心理状態にあるか、注意点とともにまとめてください。\n売買行動の指示や推奨は行わないでください。",
       },
       coinTechnical: {
-        short: "$TOKENの現在のテクニカル状況を分析し、短期（〜1か月）の値動きと注意点をまとめてください。",
-        long: "$TOKENの短期的な売買判断を目的として、現在のテクニカル状況を分析してください。\n\n以下を含めてください。\n・直近の価格トレンドと出来高の特徴\n・重要なサポート・レジスタンス\n・過熱感や警戒すべきシグナル\n\nその上で、\n短期（〜1か月）で\n「触りやすい / 様子見 / リスクが高い」\nのどれに近いかを理由とともに示してください。",
+        short: "$TOKENの短期テクニカル状況と価格位置を整理し、注意すべきポイントをまとめてください。",
+        long: "$TOKENについて、短期（〜1か月）の価格状況を整理してください。\n\n・現在の価格位置と過熱感\n・出来高やトレンドの特徴\n・一般的に意識されやすい価格帯や形\n\nその上で、市場参加者が警戒しやすいポイントや注意点を整理してください。\n具体的な売買タイミングや行動指示は行わないでください。",
       },
       coinMidterm: {
-        short: "$TOKENについて、今後3か月以内に価格へ影響しそうな主要要因を整理してください。",
-        long: "$TOKENについて、今後3か月以内の価格に影響を与えそうな要因を分析してください。\n\n以下の観点から整理してください。\n・予定されているイベントやアップデート\n・需給に影響する要素（アンロック、発行、報酬など）\n・市場環境やナラティブとの関係\n\n各要因が価格にとって\nプラスかマイナスかを示し、\n中期的な方向性を簡潔にまとめてください。",
+        short: "$TOKENについて、今後3か月以内に価格へ影響し得る主要要因を整理してください。",
+        long: "$TOKENについて、今後3か月程度を想定し、価格へ影響を与え得る要因を整理してください。\n\n・プロダクトや開発面のイベント\n・需給やアンロック要因\n・セクター動向や市場環境\n\nその上で、ポジティブ・ネガティブ両面の可能性と注意点を整理してください。\n予測や推奨は行わず、要因整理に徹してください。",
       },
-      coinMove: {
-        short: "$TOKENの直近の値動きについて、ニュース・オンチェーン・市場構造の観点から理由を整理してください。",
-        long: "$TOKENの直近の大きな値動きについて、その理由を以下の3つの観点から分析してください。\n\n・ニュースや公式発表などの情報要因\n・オンチェーンデータから見た需給変化\n・市場構造やセンチメントによる影響\n\nそれぞれがどの程度影響したかを整理し、\n今回の値動きが一過性か再発しやすいかを評価してください。",
+      coinGrowth: {
+        short: "$TOKENのセクター内での立ち位置と、成長余地を考える材料を整理してください。",
+        long: "$TOKENについて、セクター内での相対的なポジションを整理してください。\n\n・現在の時価総額と想定レンジ感\n・同セクター内プロジェクトとの比較\n・過去の類似事例やナラティブ拡大の経緯\n\nその上で、考えられるシナリオと注意点を整理してください。\n価格目標や投資判断は示さないでください。",
+      },
+      coinRisk: {
+        short: "$TOKENについて、事前に把握すべき主要リスクと失敗パターンを整理してください。",
+        long: "$TOKENについて、検討前に把握しておくべきリスクを整理してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営・開発リスク\n・市場環境悪化時の影響\n\nその上で、起こりやすい失敗パターンと、それを回避するための視点をまとめてください。\n売買判断や推奨は行わないでください。",
       },
       // リサーチ
       stableFarm: {
@@ -1222,14 +1233,6 @@
       baseGrowth: {
         short: "Baseで直近伸びているプロジェクトを挙げ、伸びた理由と持続性（短期/構造）を整理して注目候補を選んでください。",
         long: "Baseチェーンで直近伸びているプロジェクトを3〜7個挙げてください。\n各プロジェクトについて、セクター（DeFi/NFT/ゲーム等）、成長指標（TVL/出来高/ユーザー/手数料など可能な範囲）、伸びた理由（インセンティブ、提携、トレンド、機能改善等）、短期要因か構造要因かを整理してください。\n最後に「今後も追う価値が高い候補」を理由付きで1〜2個選んでください。",
-      },
-      tokenomics: {
-        short: "[PROJECT]のトークノミクスを、供給・需要・価値還元の観点で整理し、ロードマップ進捗と今後の重要点を要約してください。",
-        long: "[PROJECT]のトークノミクスを分析し、価値がどのように蓄積される設計かを分かりやすく整理してください。\n具体的に、供給（総供給/流通/インフレ/アンロック）、需要（手数料、必須ユースケース、ステーキング等）、価値還元（バーン、買い戻し、配当的仕組み等）を確認し、トークン保有者が得るメリットと弱点をまとめてください。\n最後にロードマップの進捗と今後の重要マイルストーンを要約してください。",
-      },
-      tvlAnalysis: {
-        short: "[PROJECT]のTVL急増（急減）の要因を分解し、実需か一時的インセンティブかを判定、剥落条件も整理してください。",
-        long: "[PROJECT]のTVL推移を見て、直近の急増（または急減）の要因を分析してください。\n要因は少なくとも3つに分解し、①インセンティブ/ポイント施策 ②新機能や提携 ③市場環境（チェーン需要、資金循環）などの観点から整理してください。\nさらに、その増加が「実需による定着」か「一時的な報酬目的」かを判断し、TVLが剥落しやすい条件（利回り低下・終了等）を明確にしてください。",
       },
       funding: {
         short: "直近7日で資金調達したプロジェクトを列挙し、概要・調達額・投資家・注目理由を整理して優先度上位を選んでください。",
@@ -1255,27 +1258,6 @@
       },
       newsAction: {
         short: "以下の暗号資産ニュースを踏まえて、短期トレーダーと中期ホルダーそれぞれにとって考えられる行動（警戒/様子見/注目など）を整理してください。\n[ニュースリンク]",
-      },
-      // 投資判断
-      investBuy: {
-        short: "$TOKENについて、市場環境・ファンダメンタル・価格動向を踏まえ、短期と中期の投資判断（買い/様子見/回避）を示してください。",
-        long: "$TOKENについて、現在の投資判断を目的として分析してください。\n\n以下の観点を必ず含めてください。\n・市場環境（リスクオン/オフ、資金フロー）\n・$TOKENのファンダメンタル（採用状況、開発、ナラティブ）\n・価格と需給（直近のトレンド、出来高、売り圧要因）\n・想定される主なリスク\n\nその上で、\n短期（〜1か月）・中期（〜3か月）について\n「買い / 様子見 / 避ける」\nのどれに近いかを理由付きで示してください。",
-      },
-      investStrength: {
-        short: "$TOKENの強みと弱みを、投資判断に直結する観点で整理してください。",
-        long: "$TOKENについて、投資判断に直結する「強み」と「弱み」を整理してください。\n\n・技術やプロダクトの優位性\n・ナラティブや市場での立ち位置\n・トークノミクスや需給面の評価\n・競合や外部リスク\n\nその上で、\nどの前提が崩れると評価が大きく変わるかを明確にし、\n投資時に注視すべきポイントをまとめてください。",
-      },
-      investUpside: {
-        short: "$TOKENについて、セクター内比較をもとに上昇余地と注意点を評価してください。",
-        long: "$TOKENについて、今後の上昇余地を評価してください。\n\n以下の観点を含めてください。\n・現在の時価総額と想定レンジ\n・同セクター内での相対的ポジション\n・過去の類似事例やナラティブの広がり\n\nその上で、\n短期（〜1か月）・中期（〜3か月）における\n現実的な上昇シナリオと注意点を整理してください。",
-      },
-      investEntry: {
-        short: "$TOKENについて、今がエントリーに適しているかを価格・センチメントから判断してください。",
-        long: "$TOKENについて、今がエントリーに適したタイミングかを分析してください。\n\n・現在の価格位置と過熱感\n・市場センチメントと資金の向き\n・押し目/ブレイクなど想定される形\n\nその上で、\n「今すぐ / 条件付き / 待つべき」\nのどれに近いかを示し、\nエントリーする場合の注意点もまとめてください。",
-      },
-      investRisk: {
-        short: "$TOKENについて、投資前に最も注意すべきリスクと失敗パターンを整理してください。",
-        long: "$TOKENについて、投資判断の前に最も注意すべきリスクを洗い出してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営や開発リスク\n・市場環境悪化時の影響\n\nその上で、\n「この投資で最も起こりやすい失敗パターン」を示し、\nそれを避けるための視点をまとめてください。",
       },
       // トレンド
       trendOverview: {
@@ -1375,14 +1357,20 @@
     function renderPromptList(containerId, promptList) {
       const container = document.getElementById(containerId);
       const token = tokenInput.value || '$TOKEN';
-      container.innerHTML = promptList.map((prompt, index) => {
-        const displayTitle = (prompt.title || prompt.text).replace(/\$TOKEN/g, token);
-        const copyText = prompt.text.replace(/\$TOKEN/g, token);
+      container.innerHTML = promptList.map((prompt) => {
+        // Escape and highlight for title
+        const titleEscaped = (prompt.title || prompt.text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const displayTitle = titleEscaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
+        // Escape and highlight for content
+        const textEscaped = prompt.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const copyTextHighlighted = textEscaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
         return `
-        <div class="prompt-item">
-          <span class="prompt-number">${index + 1}.</span>
-          <span class="prompt-text" data-template="${prompt.text}" data-title="${prompt.title || prompt.text}">${displayTitle}</span>
-          <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+        <div class="card nansen-card" style="margin-bottom: 16px;">
+          <div class="card-title" style="color: #fff;">${displayTitle}</div>
+          <div class="prompt-display nansen-display" style="border-radius: 8px; border-top: 1px solid rgba(74, 222, 128, 0.2);">
+            <div class="prompt-content nansen-content">${copyTextHighlighted}</div>
+            <button class="copy-btn nansen-btn" onclick="copyNansenPrompt(this, '${prompt.text.replace(/'/g, "\\'")}')">コピー</button>
+          </div>
         </div>
       `;
       }).join('');
@@ -1420,20 +1408,30 @@
       });
     }
 
+    function copyNansenPrompt(btn, template) {
+      const token = tokenInput.value || '$TOKEN';
+      const promptText = template.replace(/\$TOKEN/g, token);
+      navigator.clipboard.writeText(promptText).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'コピー完了';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
     function updateAllPrompts() {
       const token = tokenInput.value || '$TOKEN';
-      // Nansen prompts
-      document.querySelectorAll('.prompt-text').forEach(el => {
-        const title = el.dataset.title;
-        if (title) {
-          el.textContent = title.replace(/\$TOKEN/g, token);
-        }
-      });
-      // Card titles with $TOKEN
+      // Re-render Nansen prompts with new token
+      renderPrompts();
+      // Card titles with $TOKEN - highlight the token
       document.querySelectorAll('.token-title').forEach(el => {
         const template = el.dataset.template;
         if (template) {
-          el.textContent = template.replace(/\$TOKEN/g, token);
+          const escaped = template.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          el.innerHTML = escaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
         }
       });
       // Update prompt displays
@@ -1464,10 +1462,13 @@
       if (!promptData) return;
       
       const token = tokenInput.value || '$TOKEN';
-      const text = (promptData[mode] || promptData.short || '').replace(/\$TOKEN/g, token);
+      const rawText = (promptData[mode] || promptData.short || '');
+      // Escape HTML first, then replace $TOKEN with highlighted span
+      const escapedText = rawText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const highlightedText = escapedText.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
       const content = display.querySelector('.prompt-content');
       if (content) {
-        content.textContent = text;
+        content.innerHTML = highlightedText;
       }
     }
 
@@ -1488,8 +1489,7 @@
     tokenInput.addEventListener('input', updateAllPrompts);
 
     // 初期レンダリング
-    renderPrompts();
-    updatePromptDisplays();
+    updateAllPrompts();
   </script>
 </body>
 </html>
