@@ -9,7 +9,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Crypto AIプロンプト集 - トークン分析用プロンプト">
   <meta property="og:description" content="仮想通貨・クリプト特化AIに使えるプロンプト集。スマートマネー分析、トークン発見など。">
-  <meta property="og:url" content="https://ai-garden-lab.com/crypto/prompts/">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/prompt/">
   <meta property="og:image" content="https://ai-garden-lab.com/images/cryptotools.png">
   <meta property="og:site_name" content="AIGARDEN">
   <meta name="twitter:card" content="summary_large_image">
@@ -204,6 +204,66 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .ref-card {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .ref-card-header {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .ref-card-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      opacity: 0.8;
+    }
+
+    .ref-card.nansen {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .ref-card.nansen .ref-card-header {
+      color: #10b981;
+    }
+
+    .ref-card.nansen .ref-card-desc {
+      color: #6ee7b7;
+    }
+
+    .ref-card.nansen:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .ref-card.surf {
+      background: rgba(236, 72, 153, 0.1);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .ref-card.surf .ref-card-header {
+      color: #ec4899;
+    }
+
+    .ref-card.surf .ref-card-desc {
+      color: #f9a8d4;
+    }
+
+    .ref-card.surf:hover {
+      background: rgba(236, 72, 153, 0.15);
+      border-color: rgba(236, 72, 153, 0.4);
+      transform: translateY(-1px);
     }
 
     .ref-link {
@@ -528,9 +588,42 @@
         font-size: 0.8rem;
       }
     }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .nav-link.active {
+      background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+    }
   </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <a href="/crypto/" class="nav-link">🏠 Crypto Tools</a>
+    <a href="/crypto/fdv/" class="nav-link">💰 FDV Calculator</a>
+    <a href="/crypto/prompt/" class="nav-link active">📋 AIプロンプト集</a>
+  </nav>
   <div class="container">
     <header>
       <h1>📋 Crypto AIプロンプト集</h1>
@@ -558,8 +651,14 @@
         <p style="margin-top: 12px;"><span style="color: #f59e0b;">⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任でお願いします。</span></p>
       </div>
       <div class="ref-links">
-        <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-link nansen">🟢 Nansen登録</a>
-        <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-link surf">🩷 Surf登録</a>
+        <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-card nansen">
+          <div class="ref-card-header">🟢 Nansen</div>
+          <div class="ref-card-desc">オンチェーンに強い。ウォレット起点の資金移動、Smart Money、セクター/トークンのフロー把握</div>
+        </a>
+        <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-card surf">
+          <div class="ref-card-header">🩷 Surf</div>
+          <div class="ref-card-desc">オンチェーン＋ソーシャルセンチメント＋テクニカル＋ニュース監視</div>
+        </a>
       </div>
     </div>
 
