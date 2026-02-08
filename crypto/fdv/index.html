@@ -31,6 +31,34 @@
       line-height: 1.6;
     }
 
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .nav-link.active {
+      background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+    }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -372,6 +400,11 @@
   </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <a href="/crypto/" class="nav-link">🏠 Crypto Tools</a>
+    <a href="/crypto/fdv/" class="nav-link active">💰 FDV Calculator</a>
+    <a href="/crypto/prompts/" class="nav-link">📋 AIプロンプト集</a>
+  </nav>
   <div class="container">
     <header>
       <h1>FDV Calculator</h1>
