@@ -31,6 +31,34 @@
       line-height: 1.6;
     }
 
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .nav-link.active {
+      background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+    }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -71,7 +99,7 @@
     }
 
     .subtitle {
-      color: #888;
+      color: #fff;
       font-size: 1rem;
     }
 
@@ -124,7 +152,7 @@
 
     .tool-description {
       font-size: 0.9rem;
-      color: #888;
+      color: #ddd;
       line-height: 1.6;
     }
 
@@ -151,7 +179,7 @@
     footer {
       text-align: center;
       padding: 50px 20px 30px;
-      color: #555;
+      color: #aaa;
       font-size: 0.85rem;
     }
 
@@ -180,7 +208,7 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
-      color: #aaa;
+      color: #ddd;
       text-decoration: none;
       font-size: 0.85rem;
       transition: all 0.2s;
@@ -212,6 +240,11 @@
   </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <a href="/crypto/" class="nav-link active">🏠 Crypto Tools</a>
+    <a href="/crypto/fdv/" class="nav-link">💰 FDV Calculator</a>
+    <a href="/crypto/prompts/" class="nav-link">📋 AIプロンプト集</a>
+  </nav>
   <div class="container">
     <header>
       <img src="/images/cryptotools.png" alt="Crypto Tools" class="header-banner">
@@ -237,7 +270,22 @@
         <div class="tool-description">
           将来のFDVからトークン価格を予測。エアドロップのポイントから獲得トークン数と価値も計算できます。
         </div>
-        <span class="tool-badge">無料で使える</span>
+      </a>
+
+      <a href="/crypto/prompts/" class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div class="tool-title">Crypto AIプロンプト集</div>
+        <div class="tool-description">
+          ChatGPT・Claudeなどで使えるクリプト分析プロンプト集。市場分析、個別コイン、リサーチ、Nansen専用など50種類以上。
+        </div>
       </a>
 
     </div>
