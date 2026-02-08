@@ -167,6 +167,16 @@
       padding: 24px;
       margin-bottom: 24px;
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .card:has(.prompt-tabs) {
+      border-left: 3px solid #6366f1;
+    }
+
+    .card:has(.prompt-tabs):hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
     }
 
     .card-title {
@@ -176,6 +186,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      color: #fff;
     }
 
     .card-title.cyan { color: #00d4ff; }
@@ -217,15 +228,15 @@
     }
 
     .ref-card-header {
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .ref-card-desc {
-      font-size: 11px;
+      font-size: 13px;
       line-height: 1.5;
-      opacity: 0.8;
+      color: #fff;
     }
 
     .ref-card.nansen {
@@ -235,10 +246,6 @@
 
     .ref-card.nansen .ref-card-header {
       color: #10b981;
-    }
-
-    .ref-card.nansen .ref-card-desc {
-      color: #6ee7b7;
     }
 
     .ref-card.nansen:hover {
@@ -254,10 +261,6 @@
 
     .ref-card.surf .ref-card-header {
       color: #ec4899;
-    }
-
-    .ref-card.surf .ref-card-desc {
-      color: #f9a8d4;
     }
 
     .ref-card.surf:hover {
@@ -311,78 +314,91 @@
     }
 
     .prompt-tab {
-      padding: 8px 16px;
+      padding: 10px 20px;
       font-size: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.05);
-      color: #888;
+      font-weight: 500;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      background: rgba(99, 102, 241, 0.05);
+      color: #a5b4fc;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .prompt-tab:first-child {
-      border-radius: 6px 0 0 0;
+      border-radius: 8px 0 0 0;
       border-right: none;
     }
 
     .prompt-tab:last-child {
-      border-radius: 0 6px 0 0;
+      border-radius: 0 8px 0 0;
+    }
+
+    .prompt-tab:hover {
+      background: rgba(99, 102, 241, 0.15);
+      color: #c7d2fe;
     }
 
     .prompt-tab.active {
-      background: rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.2));
       color: #fff;
+      border-color: rgba(99, 102, 241, 0.4);
       border-bottom-color: transparent;
     }
 
     .prompt-display {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.2);
       border-top: none;
-      border-radius: 0 6px 6px 6px;
-      padding: 12px;
+      border-radius: 0 8px 8px 8px;
+      padding: 16px;
     }
 
     .prompt-content {
-      font-size: 12px;
-      color: #999;
-      line-height: 1.6;
+      font-size: 13px;
+      color: #c4b5fd;
+      line-height: 1.7;
       white-space: pre-wrap;
       word-break: break-word;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      border-left: 2px solid rgba(139, 92, 246, 0.5);
     }
 
     .prompt-display .copy-btn {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
-      font-size: 11px;
-      border-radius: 4px;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
-      background: transparent;
-      color: #666;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
     }
 
     .prompt-display .copy-btn::before {
       content: '';
-      width: 12px;
-      height: 12px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+      width: 14px;
+      height: 14px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a5b4fc' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
       background-size: contain;
       background-repeat: no-repeat;
     }
 
     .prompt-display .copy-btn:hover {
-      background: rgba(99, 102, 241, 0.1);
-      color: #818cf8;
-      border-color: rgba(99, 102, 241, 0.3);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(139, 92, 246, 0.3));
+      color: #fff;
+      border-color: rgba(99, 102, 241, 0.5);
+      transform: translateY(-1px);
     }
 
     .prompt-display .copy-btn:hover::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
     }
 
     .prompt-display .copy-btn.copied {
@@ -653,7 +669,7 @@
       <div class="ref-links">
         <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-card nansen">
           <div class="ref-card-header">🟢 Nansen</div>
-          <div class="ref-card-desc">オンチェーンに強い。ウォレット起点の資金移動、Smart Money、セクター/トークンのフロー把握</div>
+          <div class="ref-card-desc">オンチェーン超特化で資金移動、Smart Money、セクター/トークンのフロー把握</div>
         </a>
         <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-card surf">
           <div class="ref-card-header">🩷 Surf</div>
