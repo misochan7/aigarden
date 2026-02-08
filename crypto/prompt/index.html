@@ -190,9 +190,14 @@
 
     .info-text {
       color: #ffffff;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.6;
       margin-bottom: 15px;
+    }
+
+    .usage-steps p {
+      margin: 6px 0;
+      color: #ccc;
     }
 
     .ref-links {
@@ -237,6 +242,97 @@
 
     .prompt-item-dual {
       padding: 10px 0;
+    }
+
+    .prompt-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .prompt-tab {
+      padding: 8px 16px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .prompt-tab:first-child {
+      border-radius: 6px 0 0 0;
+      border-right: none;
+    }
+
+    .prompt-tab:last-child {
+      border-radius: 0 6px 0 0;
+    }
+
+    .prompt-tab.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-bottom-color: transparent;
+    }
+
+    .prompt-display {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: none;
+      border-radius: 0 6px 6px 6px;
+      padding: 12px;
+    }
+
+    .prompt-content {
+      font-size: 12px;
+      color: #999;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 10px;
+    }
+
+    .prompt-display .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      color: #666;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .prompt-display .copy-btn::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .prompt-display .copy-btn:hover {
+      background: rgba(99, 102, 241, 0.1);
+      color: #818cf8;
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .prompt-display .copy-btn:hover::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .prompt-display .copy-btn.copied {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .prompt-display .copy-btn.copied::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
     }
 
     .prompt-buttons {
@@ -452,7 +548,15 @@
     <!-- 使い方・リファラル -->
     <div class="card info-box">
       <div class="card-title cyan">📖 使い方</div>
-      <p class="info-text">各AIサービス向けのプロンプト集。コピーしてそのまま使えるよ。トークン入力欄に分析したいトークン名を入れると、プロンプト内の$TOKEN部分が自動で置き換わる。入力文字数に制限がある場合はシンプル版を使ってね。<br><span style="color: #f59e0b;">⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任で！</span></p>
+      <div class="info-text">
+        <div class="usage-steps">
+          <p>1. 調べたいカテゴリを選択</p>
+          <p>2. 指定のトークンについて調べたい場合はトークン名を入力<br><span style="color: #888; font-size: 12px;">（プロンプト内容に自動的に組み込まれます）</span></p>
+          <p>3. シンプル版と詳細版好きな方をコピー</p>
+          <p>4. お好きなチャットAIで使えます</p>
+        </div>
+        <p style="margin-top: 12px;"><span style="color: #f59e0b;">⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任でお願いします。</span></p>
+      </div>
       <div class="ref-links">
         <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-link nansen">🟢 Nansen登録</a>
         <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-link surf">🩷 Surf登録</a>
@@ -482,33 +586,25 @@
     <div id="marketContent" class="category-content active">
       <div class="card">
         <div class="card-title">📊 今週の暗号資産市場の地合いを一瞬で判断する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('market', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('market', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="market" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">📰 直近7日間の暗号資産市場を動かした重要トピック整理</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('topics', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('topics', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="topics" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -516,82 +612,62 @@
     <!-- 個別コイン -->
     <div id="coinContent" class="category-content">
       <div class="card">
-        <div class="card-title">$TOKENのプロジェクト構造とリスクを把握する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('coinStructure', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('coinStructure', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENのプロジェクト構造とリスクを把握する">$TOKENのプロジェクト構造とリスクを把握する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinStructure" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの現在地をセンチメントとオンチェーンから確認する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('coinSentiment', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('coinSentiment', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの現在地をセンチメントとオンチェーンから確認する">$TOKENの現在地をセンチメントとオンチェーンから確認する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinSentiment" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの短期テクニカル状態を判断する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('coinTechnical', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('coinTechnical', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの短期テクニカル状態を判断する">$TOKENの短期テクニカル状態を判断する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinTechnical" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの中期（〜3か月）価格要因を整理する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('coinMidterm', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('coinMidterm', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの中期（〜3か月）価格要因を整理する">$TOKENの中期（〜3か月）価格要因を整理する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinMidterm" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの直近の値動きの理由を分解する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('coinMove', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('coinMove', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの直近の値動きの理由を分解する">$TOKENの直近の値動きの理由を分解する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinMove" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -600,113 +676,85 @@
     <div id="researchContent" class="category-content">
       <div class="card">
         <div class="card-title">高利回りステーブルコインファーム探索</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('stableFarm', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('stableFarm', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="stableFarm" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">Baseチェーン急成長プロジェクト発掘</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('baseGrowth', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('baseGrowth', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="baseGrowth" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">[PROJECT]の価値蓄積モデルをトークノミクスから読む</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('tokenomics', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('tokenomics', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="tokenomics" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">[PROJECT]のTVL急増の理由を分解する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('tvlAnalysis', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('tvlAnalysis', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="tvlAnalysis" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">直近7日間の資金調達プロジェクト調査</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('funding', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('funding', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="funding" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENのアンロック予定と売り圧インパクトを整理</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('unlockToken', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('unlockToken', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENのアンロック予定と売り圧インパクトを整理">$TOKENのアンロック予定と売り圧インパクトを整理</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="unlockToken" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">今後1か月の大型アンロック予定を一覧化</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('unlockMarket', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('unlockMarket', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="unlockMarket" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -715,49 +763,33 @@
     <div id="newsContent" class="category-content">
       <div class="card">
         <div class="card-title">直近1週間の重要暗号ニュース要点整理</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('weeklyNews', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              コピー
-            </button>
-          </div>
+        <div class="prompt-display" data-key="weeklyNews" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">主要マクロイベントが暗号市場に与えた影響分析</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('macroImpact', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              コピー
-            </button>
-          </div>
+        <div class="prompt-display" data-key="macroImpact" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">このニュースは暗号市場にどんな影響を与える？評価</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('newsImpact', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              コピー
-            </button>
-          </div>
+        <div class="prompt-display" data-key="newsImpact" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">暗号ニュースから取るべき行動を整理する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('newsAction', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              コピー
-            </button>
-          </div>
+        <div class="prompt-display" data-key="newsAction" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -765,82 +797,62 @@
     <!-- 投資判断 -->
     <div id="investContent" class="category-content">
       <div class="card">
-        <div class="card-title">$TOKENはいま買うべきか？総合投資判断</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('investBuy', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('investBuy', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENはいま買うべきか？総合投資判断">$TOKENはいま買うべきか？総合投資判断</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="investBuy" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの強み・弱み整理</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('investStrength', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('investStrength', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの強み・弱み整理">$TOKENの強み・弱み整理</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="investStrength" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの上昇余地と期待値を評価する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('investUpside', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('investUpside', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの上昇余地と期待値を評価する">$TOKENの上昇余地と期待値を評価する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="investUpside" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENのエントリータイミング判断</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('investEntry', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('investEntry', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENのエントリータイミング判断">$TOKENのエントリータイミング判断</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="investEntry" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKEN投資前に確認すべき最大リスク抽出</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('investRisk', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('investRisk', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKEN投資前に確認すべき最大リスク抽出">$TOKEN投資前に確認すべき最大リスク抽出</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="investRisk" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -849,81 +861,61 @@
     <div id="trendContent" class="category-content">
       <div class="card">
         <div class="card-title">現在の暗号資産トレンドを俯瞰する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('trendOverview', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('trendOverview', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="trendOverview" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">資金流入から見る暗号資産トレンド発見</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('trendFlow', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('trendFlow', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="trendFlow" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">次に来そうな暗号資産トレンド予測</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('trendNext', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('trendNext', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="trendNext" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">暗号資産トレンドの持続性を見極める</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('trendDuration', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('trendDuration', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="trendDuration" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">暗号資産トレンドの向き合い方を判断する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('trendApproach', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('trendApproach', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="trendApproach" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -931,82 +923,62 @@
     <!-- リスク評価 -->
     <div id="riskContent" class="category-content">
       <div class="card">
-        <div class="card-title">$TOKENの総合リスクを一気に診断する</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('riskTotal', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('riskTotal', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの総合リスクを一気に診断する">$TOKENの総合リスクを一気に診断する</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="riskTotal" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの売り圧・希薄化リスク評価</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('riskSellPressure', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('riskSellPressure', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの売り圧・希薄化リスク評価">$TOKENの売り圧・希薄化リスク評価</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="riskSellPressure" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの流動性・価格変動リスク評価</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('riskLiquidity', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('riskLiquidity', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの流動性・価格変動リスク評価">$TOKENの流動性・価格変動リスク評価</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="riskLiquidity" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの運営・開発リスクを見抜く</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('riskProject', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('riskProject', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの運営・開発リスクを見抜く">$TOKENの運営・開発リスクを見抜く</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="riskProject" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">$TOKENの最悪ケースを想定するリスクシナリオ</div>
-        <div class="prompt-item-dual">
-          <div class="prompt-buttons">
-            <button class="copy-btn short" onclick="copyGeneralPrompt('riskWorstCase', 'short')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              シンプル
-            </button>
-            <button class="copy-btn long" onclick="copyGeneralPrompt('riskWorstCase', 'long')">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-              詳細
-            </button>
-          </div>
+        <div class="card-title token-title" data-template="$TOKENの最悪ケースを想定するリスクシナリオ">$TOKENの最悪ケースを想定するリスクシナリオ</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="riskWorstCase" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
     </div>
@@ -1334,12 +1306,67 @@
     }
 
     function updateAllPrompts() {
+      const token = tokenInput.value || '$TOKEN';
+      // Nansen prompts
       document.querySelectorAll('.prompt-text').forEach(el => {
         const title = el.dataset.title;
         if (title) {
-          const token = tokenInput.value || '$TOKEN';
           el.textContent = title.replace(/\$TOKEN/g, token);
         }
+      });
+      // Card titles with $TOKEN
+      document.querySelectorAll('.token-title').forEach(el => {
+        const template = el.dataset.template;
+        if (template) {
+          el.textContent = template.replace(/\$TOKEN/g, token);
+        }
+      });
+      // Update prompt displays
+      updatePromptDisplays();
+    }
+
+    function switchPromptTab(btn, mode) {
+      const card = btn.closest('.card');
+      const tabs = card.querySelectorAll('.prompt-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const display = card.querySelector('.prompt-display');
+      display.dataset.mode = mode;
+      updateSinglePromptDisplay(display);
+    }
+
+    function updatePromptDisplays() {
+      document.querySelectorAll('.prompt-display').forEach(display => {
+        updateSinglePromptDisplay(display);
+      });
+    }
+
+    function updateSinglePromptDisplay(display) {
+      const key = display.dataset.key;
+      const mode = display.dataset.mode || 'short';
+      const promptData = generalPrompts[key];
+      if (!promptData) return;
+      
+      const token = tokenInput.value || '$TOKEN';
+      const text = (promptData[mode] || promptData.short || '').replace(/\$TOKEN/g, token);
+      const content = display.querySelector('.prompt-content');
+      if (content) {
+        content.textContent = text;
+      }
+    }
+
+    function copyFromDisplay(btn) {
+      const display = btn.closest('.prompt-display');
+      const content = display.querySelector('.prompt-content').textContent;
+      navigator.clipboard.writeText(content).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'コピー完了';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
       });
     }
 
@@ -1347,6 +1374,7 @@
 
     // 初期レンダリング
     renderPrompts();
+    updatePromptDisplays();
   </script>
 </body>
 </html>
