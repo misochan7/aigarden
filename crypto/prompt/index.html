@@ -743,15 +743,7 @@
       <button class="category-tab" onclick="switchCategory('trend')">トレンド</button>
       <button class="category-tab" onclick="switchCategory('market')">マーケット</button>
       <button class="category-tab" onclick="switchCategory('news')">ニュース</button>
-      <button class="category-tab" onclick="switchCategory('risk')">リスク評価</button>
       <button class="category-tab nansen-tab" onclick="switchCategory('nansen')">Nansen専用オンチェーン分析</button>
-    </div>
-
-    <!-- トークン入力（全タブ共通） -->
-    <div class="card">
-      <div class="card-title cyan">🎯 分析したいトークンを入力</div>
-      <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
-      <p class="input-hint">💡 入力したトークンが各プロンプトに自動入力されます</p>
     </div>
 
     <!-- マーケット -->
@@ -783,6 +775,13 @@
 
     <!-- 個別コイン -->
     <div id="coinContent" class="category-content active">
+      <!-- トークン入力（個別コインのみ） -->
+      <div class="card">
+        <div class="card-title cyan">🎯 分析したいトークンを入力</div>
+        <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
+        <p class="input-hint">💡 入力したトークンが各プロンプトに自動入力されます</p>
+      </div>
+
       <div class="card">
         <div class="card-title token-title" data-template="$TOKEN｜現状評価サマリー（市場全体像）">$TOKEN｜現状評価サマリー（市場全体像）</div>
         <div class="prompt-tabs">
@@ -878,6 +877,78 @@
           <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜アンロック予定と売り圧インパクト整理">$TOKEN｜アンロック予定と売り圧インパクト整理</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinUnlock" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜総合リスク診断">$TOKEN｜総合リスク診断</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRiskTotal" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜売り圧・希薄化リスク評価">$TOKEN｜売り圧・希薄化リスク評価</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRiskSellPressure" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜流動性・価格変動リスク評価">$TOKEN｜流動性・価格変動リスク評価</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRiskLiquidity" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜運営・開発リスク評価">$TOKEN｜運営・開発リスク評価</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRiskProject" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title token-title" data-template="$TOKEN｜最悪ケース想定（リスクシナリオ）">$TOKEN｜最悪ケース想定（リスクシナリオ）</div>
+        <div class="prompt-tabs">
+          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
+          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+        </div>
+        <div class="prompt-display" data-key="coinRiskWorstCase" data-mode="short">
+          <div class="prompt-content"></div>
+          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        </div>
+      </div>
     </div>
 
     <!-- リサーチ -->
@@ -913,18 +984,6 @@
           <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
         </div>
         <div class="prompt-display" data-key="funding" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENのアンロック予定と売り圧インパクトを整理">$TOKENのアンロック予定と売り圧インパクトを整理</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="unlockToken" data-mode="short">
           <div class="prompt-content"></div>
           <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
         </div>
@@ -1041,69 +1100,6 @@
       </div>
     </div>
 
-    <!-- リスク評価 -->
-    <div id="riskContent" class="category-content">
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの総合リスクを一気に診断する">$TOKENの総合リスクを一気に診断する</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="riskTotal" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの売り圧・希薄化リスク評価">$TOKENの売り圧・希薄化リスク評価</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="riskSellPressure" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの流動性・価格変動リスク評価">$TOKENの流動性・価格変動リスク評価</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="riskLiquidity" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの運営・開発リスクを見抜く">$TOKENの運営・開発リスクを見抜く</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="riskProject" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title token-title" data-template="$TOKENの最悪ケースを想定するリスクシナリオ">$TOKENの最悪ケースを想定するリスクシナリオ</div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="riskWorstCase" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
     <!-- Nansen専用オンチェーン分析 -->
     <div id="nansenContent" class="category-content">
       <!-- スマートマネー分析 -->
@@ -1117,10 +1113,6 @@
       <!-- エンティティ・セグメント -->
       <h3 class="section-title green">🏢 エンティティ・セグメント</h3>
       <div class="prompt-list" id="entityPrompts"></div>
-
-      <!-- トークンデューデリジェンス -->
-      <h3 class="section-title green">📊 トークンデューデリジェンス</h3>
-      <div class="prompt-list" id="dueDiligencePrompts"></div>
     </div>
 
     <footer>
@@ -1149,7 +1141,6 @@
     const prompts = {
       smartMoney: [
         { title: "セクター別スマートマネー配分の変化", text: "直近30日間で、スマートマネーの資金配分がDeFi・Gaming・AI・RWA・Memeなどの主要セクター間でどのように変化したかを分析してください。各セクターについて、保有額または純流入の増減、変化の要因、現在の配分が示唆する市場心理を整理してください。", hasToken: false },
-        { title: "$TOKENのスマートマネー vs リテール比較", text: "最近の市場調整局面において、$TOKENに対するスマートマネーとリテール投資家の行動を比較してください。保有量の増減、売買タイミング、流入・流出の違いを整理し、どちらが優位なポジションを取っているかを評価してください。", hasToken: true },
         { title: "スマートマネーの資金移動先を特定", text: "直近14日間で、スマートマネーが資金を流出させているトークンと、新たに流入させているトークンを特定してください。それぞれの共通点（セクター、時価総額帯、チェーン）と、資金移動の意図を分析してください。", hasToken: false },
         { title: "スマートマネー保有トップ10", text: "現在スマートマネーが最も多く保有しているトップ10トークンを抽出してください。各トークンについて、保有割合、直近の増減傾向、短期売買か中期保有かの傾向を整理してください。", hasToken: false },
         { title: "優勢セクターの分析", text: "現在のスマートマネーの保有データをもとに、どのセクター（DeFi、AI、Gaming、RWAなど）が相対的に優勢かを分析してください。直近の変化とその背景も含めて整理してください。", hasToken: false },
@@ -1166,18 +1157,8 @@
       ],
       entity: [
         { title: "Wintermuteの関与トークン", text: "Wintermuteが過去7日間でマーケットメイクまたは取引関与しているトークンを特定してください。関与の種類と価格への影響を整理してください。", hasToken: false },
-        { title: "$TOKEN投資ファンドと保有量", text: "$TOKENに投資しているファンドを特定し、各ファンドの現在の保有量と直近の増減を整理してください。", hasToken: true },
         { title: "各ファンドの保有上位5銘柄", text: "主要ファンドごとに、現在の保有銘柄上位5種類を抽出し、セクター分布と投資スタイルの違いを分析してください。", hasToken: false },
         { title: "ファンドのDePIN・AI保有状況", text: "ファンドが現在保有しているDePINおよびAI関連トークンを抽出し、どの分野に重点が置かれているかを分析してください。", hasToken: false },
-      ],
-      dueDiligence: [
-        { title: "$TOKENのpump/dump理由分析", text: "$TOKENが直近でpumpまたはdumpしている理由を、オンチェーンデータを中心に分析してください。なぜそうなっているのかを整理し、短期的に買い・売り・様子見のどれに近いかを示してください。", hasToken: true },
-        { title: "$TOKENのスマートマネー活動", text: "$TOKENのスマートマネー活動を分析してください。現在の保有量、最近の取引履歴、純流入・流出の傾向を整理し、蓄積局面か分配局面かを判断してください。", hasToken: true },
-        { title: "$TOKENの投資論文（強気・弱気）", text: "$TOKENについて、オンチェーンデータと市場環境を根拠にした簡潔な投資論文（強気・弱気の両面）を書いてください。", hasToken: true },
-        { title: "スマートマネーの$TOKEN保有状況", text: "スマートマネーは現在$TOKENを保有しているかを分析し、保有割合の変化と意味合いを整理してください。", hasToken: true },
-        { title: "$TOKEN購入トップウォレット", text: "最近$TOKENを購入しているトップウォレットを特定し、それぞれの過去の取引傾向や成功率を分析してください。", hasToken: true },
-        { title: "$TOKENの主要オンチェーン指標", text: "$TOKENの主要オンチェーン指標（保有分布、アクティブアドレス、流動性、取引量）を整理し、健全性と潜在リスクを評価してください。", hasToken: true },
-        { title: "$TOKENのオンチェーン vs Xセンチメント", text: "$TOKENについて、オンチェーンデータとX（旧Twitter）のセンチメントを比較し、強気または弱気の偏りと乖離を分析してください。", hasToken: true },
       ],
     };
 
@@ -1224,6 +1205,30 @@
         short: "$TOKENについて、事前に把握すべき主要リスクと失敗パターンを整理してください。",
         long: "$TOKENについて、検討前に把握しておくべきリスクを整理してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営・開発リスク\n・市場環境悪化時の影響\n\nその上で、起こりやすい失敗パターンと、それを回避するための視点をまとめてください。\n売買判断や推奨は行わないでください。",
       },
+      coinUnlock: {
+        short: "$TOKENの今後6か月のアンロック予定を、日付・量・流通比率で整理し、過去のアンロック前後の価格傾向も要約してください。",
+        long: "$TOKENの今後6か月の主なトークンアンロック予定を調べ、各イベントについて「日付・解除量・解除先（チーム/投資家/コミュニティ等）・流通供給に対する割合」を整理してください。\n\n可能なら過去のアンロック前後で、価格・出来高・ボラティリティがどう変化したかの傾向も要約してください。\n\n最後に、次のアンロックが市場に与えうる影響（売り圧/織り込み/無風）を簡潔に評価してください。",
+      },
+      coinRiskTotal: {
+        short: "$TOKENについて、信頼性・供給・価格・市場環境の観点から総合リスク水準を評価してください。",
+        long: "$TOKENについて、検討前の総合リスク評価を行ってください。\n\n以下の観点を必ず含めてください。\n・プロジェクト/チームの信頼性\n・トークノミクスと供給面の売り圧\n・価格と流動性の安定性\n・市場環境悪化時の耐性\n\nその上で、\n総合的なリスク水準を\n「低 / 中 / 高」\nで評価し、最も注意すべきポイントを明確にしてください。",
+      },
+      coinRiskSellPressure: {
+        short: "$TOKENのアンロックや発行構造から、売り圧・希薄化リスクを整理してください。",
+        long: "$TOKENのトークノミクスを中心に、将来的な売り圧や希薄化リスクを評価してください。\n\n・アンロック予定と受益者\n・インフレ/発行メカニズム\n・過去のアンロック前後の価格傾向\n\nを整理した上で、\n短期（〜1か月）・中期（〜3か月）で\n売り圧が高まりやすい局面を指摘してください。",
+      },
+      coinRiskLiquidity: {
+        short: "$TOKENの取引量や板の厚みから、流動性と価格変動リスクを評価してください。",
+        long: "$TOKENについて、流動性や市場構造の観点からリスクを評価してください。\n\n・取引量と板の厚み\n・急落・急騰が起きやすい条件\n・大口売買の影響度\n\nを整理した上で、\n短期トレードに向くか、\n価格変動リスクが高いかを判断してください。",
+      },
+      coinRiskProject: {
+        short: "$TOKENのチーム・開発状況から、運営リスクや注意点を整理してください。",
+        long: "$TOKENについて、プロジェクト運営や開発面のリスクを分析してください。\n\n・チームの透明性と実績\n・開発の継続性や停滞リスク\n・過去のトラブルや懸念点\n\nを踏まえ、\n信頼性に影響する要素と、\n注意すべきサインを整理してください。",
+      },
+      coinRiskWorstCase: {
+        short: "$TOKENについて、想定される最悪シナリオと事前に気づける兆候を整理してください。",
+        long: "$TOKENについて、検討前に想定しておくべき最悪シナリオを整理してください。\n\n・市場全体が急落した場合\n・プロジェクトに悪材料が出た場合\n・流動性が急低下した場合\n\nそれぞれで起こりうる影響を示し、\nその兆候や事前に気づけるサインをまとめてください。",
+      },
       // リサーチ
       stableFarm: {
         short: "現在利回りが高いステーブルコイン運用先を複数挙げ、APYと利回り原資、主要リスクを比較して分類してください。",
@@ -1236,10 +1241,6 @@
       funding: {
         short: "直近7日で資金調達したプロジェクトを列挙し、概要・調達額・投資家・注目理由を整理して優先度上位を選んでください。",
         long: "直近7日間で資金調達（シード/シリーズ/戦略/助成金等）を発表した暗号資産関連プロジェクトを5〜10件リストアップしてください。\n各案件について、プロジェクト概要、セクター、調達額とラウンド、主な投資家、資金用途（公表範囲）、なぜ注目か（市場テーマとの一致、実績、差別化）を整理してください。\n最後に「ウォッチ優先度が高い案件」を理由付きで上位3つ選んでください。",
-      },
-      unlockToken: {
-        short: "$TOKENの今後6か月のアンロック予定を、日付・量・流通比率で整理し、過去のアンロック前後の価格傾向も要約してください。",
-        long: "$TOKENの今後6か月の主なトークンアンロック予定を調べ、各イベントについて「日付・解除量・解除先（チーム/投資家/コミュニティ等）・流通供給に対する割合」を整理してください。\n\n可能なら過去のアンロック前後で、価格・出来高・ボラティリティがどう変化したかの傾向も要約してください。\n\n最後に、次のアンロックが市場に与えうる影響（売り圧/織り込み/無風）を簡潔に評価してください。",
       },
       unlockMarket: {
         short: "今後1か月の大型アンロック予定を、日付・解除量・流通比率で一覧化し、影響が大きそうな上位3件を示してください。",
@@ -1278,27 +1279,6 @@
       trendApproach: {
         short: "特定の暗号資産トレンドについて、投資・トレードでの向き合い方と注意点を整理してください。",
         long: "特定の暗号資産トレンドについて、投資・トレードの観点からどう向き合うべきかを整理してください。\n\n・短期回転向きか、中期保有向きか\n・個別銘柄選別が重要か、テーマ全体を見るべきか\n・注意すべきリスクや失敗パターン\n\nを踏まえ、\nこのトレンドへの適切な関わり方をまとめてください。",
-      },
-      // リスク評価
-      riskTotal: {
-        short: "$TOKENについて、信頼性・供給・価格・市場環境の観点から総合リスク水準を評価してください。",
-        long: "$TOKENについて、投資・トレード前の総合リスク評価を行ってください。\n\n以下の観点を必ず含めてください。\n・プロジェクト/チームの信頼性\n・トークノミクスと供給面の売り圧\n・価格と流動性の安定性\n・市場環境悪化時の耐性\n\nその上で、\n総合的なリスク水準を\n「低 / 中 / 高」\nで評価し、最も注意すべきポイントを明確にしてください。",
-      },
-      riskSellPressure: {
-        short: "$TOKENのアンロックや発行構造から、売り圧・希薄化リスクを整理してください。",
-        long: "$TOKENのトークノミクスを中心に、将来的な売り圧や希薄化リスクを評価してください。\n\n・アンロック予定と受益者\n・インフレ/発行メカニズム\n・過去のアンロック前後の価格傾向\n\nを整理した上で、\n短期（〜1か月）・中期（〜3か月）で\n売り圧が高まりやすい局面を指摘してください。",
-      },
-      riskLiquidity: {
-        short: "$TOKENの取引量や板の厚みから、流動性と価格変動リスクを評価してください。",
-        long: "$TOKENについて、流動性や市場構造の観点からリスクを評価してください。\n\n・取引量と板の厚み\n・急落・急騰が起きやすい条件\n・大口売買の影響度\n\nを整理した上で、\n短期トレードに向くか、\n価格変動リスクが高いかを判断してください。",
-      },
-      riskProject: {
-        short: "$TOKENのチーム・開発状況から、運営リスクや注意点を整理してください。",
-        long: "$TOKENについて、プロジェクト運営や開発面のリスクを分析してください。\n\n・チームの透明性と実績\n・開発の継続性や停滞リスク\n・過去のトラブルや懸念点\n\nを踏まえ、\n信頼性に影響する要素と、\n注意すべきサインを整理してください。",
-      },
-      riskWorstCase: {
-        short: "$TOKENについて、想定される最悪シナリオと事前に気づける兆候を整理してください。",
-        long: "$TOKENについて、投資前に想定しておくべき最悪シナリオを整理してください。\n\n・市場全体が急落した場合\n・プロジェクトに悪材料が出た場合\n・流動性が急低下した場合\n\nそれぞれで起こりうる影響を示し、\nその兆候や事前に気づけるサインをまとめてください。",
       },
     };
 
@@ -1350,7 +1330,6 @@
       renderPromptList('smartMoneyPrompts', prompts.smartMoney);
       renderPromptList('tokenDiscoveryPrompts', prompts.tokenDiscovery);
       renderPromptList('entityPrompts', prompts.entity);
-      renderPromptList('dueDiligencePrompts', prompts.dueDiligence);
     }
 
     function renderPromptList(containerId, promptList) {
