@@ -33,11 +33,16 @@
 
     .top-nav {
       display: flex;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
       padding: 16px 20px;
       background: rgba(0, 0, 0, 0.3);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
     }
 
     .nav-link {
@@ -56,6 +61,35 @@
 
     .nav-link.active {
       background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+    }
+
+    .lang-switcher {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .lang-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      color: #ccc;
+    }
+
+    .lang-btn.active {
+      background: rgba(0, 212, 255, 0.2);
       color: #00d4ff;
     }
 
@@ -370,6 +404,11 @@
     }
 
     @media (max-width: 600px) {
+      .top-nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+
       .container {
         padding: 24px 16px;
       }
@@ -401,22 +440,28 @@
 </head>
 <body>
   <nav class="top-nav">
-    <a href="/crypto/" class="nav-link">🏠 Crypto Tools</a>
-    <a href="/crypto/fdv/" class="nav-link active">💰 FDV Calculator</a>
-    <a href="/crypto/prompt/" class="nav-link">📋 AIプロンプト集</a>
+    <div class="nav-links">
+      <a href="/crypto/" class="nav-link">🏠 <span data-i18n="nav.home">Crypto Tools</span></a>
+      <a href="/crypto/fdv/" class="nav-link active">💰 <span data-i18n="nav.fdv">FDV Calculator</span></a>
+      <a href="/crypto/prompt/" class="nav-link">📋 <span data-i18n="nav.prompt">AIプロンプト集</span></a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLanguage('ja')">🇯🇵 日本語</button>
+      <button class="lang-btn" onclick="setLanguage('en')">🇺🇸 English</button>
+    </div>
   </nav>
   <div class="container">
     <header>
-      <h1>FDV Calculator</h1>
+      <h1 data-i18n="header.title">FDV Calculator</h1>
       <div class="twitter-link">
         <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" class="twitter-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
           </svg>
-          作者X@sasami フォローしてね！
+          <span data-i18n="header.twitter">作者X@sasami フォローしてね！</span>
         </a>
       </div>
-      <p class="subtitle">将来のFDVからトークン価格を予測</p>
+      <p class="subtitle" data-i18n="header.subtitle">将来のFDVからトークン価格を予測</p>
     </header>
 
     <div class="card">
@@ -425,63 +470,67 @@
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M12 6v6l4 2"></path>
         </svg>
-        基本情報
+        <span data-i18n="card1.title">基本情報</span>
       </div>
 
       <!-- タブ -->
       <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('normal')">通常モード</button>
-        <button class="tab-btn" onclick="switchTab('point')">ポイントモード</button>
+        <button class="tab-btn active" onclick="switchTab('normal')">
+          <span data-i18n="tabs.normal">通常モード</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('point')">
+          <span data-i18n="tabs.point">ポイントモード</span>
+        </button>
       </div>
 
       <!-- 通常モード -->
       <div id="normalTab" class="tab-content active">
         <div class="input-group">
-          <label for="totalSupply">総供給量（Total Supply）</label>
-          <input type="text" id="totalSupply" placeholder="例: 1000000000" inputmode="numeric">
+          <label for="totalSupply" data-i18n="normal.totalSupply">総供給量（Total Supply）</label>
+          <input type="text" id="totalSupply" data-i18n-placeholder="normal.totalSupplyPlaceholder" placeholder="例: 1000000000" inputmode="numeric">
           <div class="quick-buttons">
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 1000000000)">1B</button>
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 5000000000)">5B</button>
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 10000000000)">10B</button>
           </div>
-          <p class="input-hint">トークンの最大供給量を入力</p>
+          <p class="input-hint" data-i18n="normal.totalSupplyHint">トークンの最大供給量を入力</p>
         </div>
         <div class="input-group">
-          <label for="holdings">あなたの保有量（オプション）</label>
-          <input type="text" id="holdings" placeholder="例: 50000" inputmode="numeric">
-          <p class="input-hint">保有トークン数を入力すると評価額も表示</p>
+          <label for="holdings" data-i18n="normal.holdings">あなたの保有量（オプション）</label>
+          <input type="text" id="holdings" data-i18n-placeholder="normal.holdingsPlaceholder" placeholder="例: 50000" inputmode="numeric">
+          <p class="input-hint" data-i18n="normal.holdingsHint">保有トークン数を入力すると評価額も表示</p>
         </div>
       </div>
 
       <!-- ポイントモード -->
       <div id="pointTab" class="tab-content">
         <div class="info-box">
-          💡 エアドロップのポイントから価値を予測
+          <span data-i18n="point.infoBox">💡 エアドロップのポイントから価値を予測</span>
         </div>
         <div class="input-group">
-          <label for="totalPoints">総配布ポイント</label>
-          <input type="text" id="totalPoints" placeholder="例: 500000000" inputmode="numeric">
-          <p class="input-hint">全ユーザーに配布されたポイントの合計</p>
+          <label for="totalPoints" data-i18n="point.totalPoints">総配布ポイント</label>
+          <input type="text" id="totalPoints" data-i18n-placeholder="point.totalPointsPlaceholder" placeholder="例: 500000000" inputmode="numeric">
+          <p class="input-hint" data-i18n="point.totalPointsHint">全ユーザーに配布されたポイントの合計</p>
         </div>
         <div class="input-group">
-          <label for="allocationPoint">対象 Allocation（%）</label>
-          <input type="text" id="allocationPoint" placeholder="例: 10" inputmode="decimal">
-          <p class="input-hint">エアドロップに割り当てられる割合</p>
+          <label for="allocationPoint" data-i18n="point.allocation">対象 Allocation（%）</label>
+          <input type="text" id="allocationPoint" data-i18n-placeholder="point.allocationPlaceholder" placeholder="例: 10" inputmode="decimal">
+          <p class="input-hint" data-i18n="point.allocationHint">エアドロップに割り当てられる割合</p>
         </div>
         <div class="input-group">
-          <label for="myPoints">あなたのポイント（オプション）</label>
-          <input type="text" id="myPoints" placeholder="例: 100000" inputmode="numeric">
-          <p class="input-hint">あなたが獲得したポイント数</p>
+          <label for="myPoints" data-i18n="point.myPoints">あなたのポイント（オプション）</label>
+          <input type="text" id="myPoints" data-i18n-placeholder="point.myPointsPlaceholder" placeholder="例: 100000" inputmode="numeric">
+          <p class="input-hint" data-i18n="point.myPointsHint">あなたが獲得したポイント数</p>
         </div>
         <div class="input-group">
-          <label for="totalSupplyPoint">総供給量（オプション）</label>
-          <input type="text" id="totalSupplyPoint" placeholder="例: 1000000000" inputmode="numeric">
+          <label for="totalSupplyPoint" data-i18n="point.totalSupply">総供給量（オプション）</label>
+          <input type="text" id="totalSupplyPoint" data-i18n-placeholder="point.totalSupplyPlaceholder" placeholder="例: 1000000000" inputmode="numeric">
           <div class="quick-buttons">
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 1000000000)">1B</button>
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 5000000000)">5B</button>
             <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 10000000000)">10B</button>
           </div>
-          <p class="input-hint">入力すると獲得トークン数も表示</p>
+          <p class="input-hint" data-i18n="point.totalSupplyHint">入力すると獲得トークン数も表示</p>
         </div>
       </div>
     </div>
@@ -491,10 +540,10 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
-        価格予測
+        <span data-i18n="card2.title">価格予測</span>
       </div>
       <div id="resultsContainer">
-        <p class="no-data">情報を入力してください</p>
+        <p class="no-data" data-i18n="results.noData">情報を入力してください</p>
       </div>
     </div>
 
@@ -504,7 +553,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
-          Crypto Tools
+          <span data-i18n="footer.cryptoTools">Crypto Tools</span>
         </a>
         <a href="/" class="footer-link">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -519,6 +568,128 @@
   </div>
 
   <script>
+    // 多言語対応テキスト
+    const translations = {
+      ja: {
+        'nav.home': 'Crypto Tools',
+        'nav.fdv': 'FDV Calculator',
+        'nav.prompt': 'AIプロンプト集',
+        'header.title': 'FDV Calculator',
+        'header.twitter': '作者X@sasami フォローしてね!',
+        'header.subtitle': '将来のFDVからトークン価格を予測',
+        'card1.title': '基本情報',
+        'tabs.normal': '通常モード',
+        'tabs.point': 'ポイントモード',
+        'normal.totalSupply': '総供給量（Total Supply）',
+        'normal.totalSupplyPlaceholder': '例: 1000000000',
+        'normal.totalSupplyHint': 'トークンの最大供給量を入力',
+        'normal.holdings': 'あなたの保有量（オプション）',
+        'normal.holdingsPlaceholder': '例: 50000',
+        'normal.holdingsHint': '保有トークン数を入力すると評価額も表示',
+        'point.infoBox': '💡 エアドロップのポイントから価値を予測',
+        'point.totalPoints': '総配布ポイント',
+        'point.totalPointsPlaceholder': '例: 500000000',
+        'point.totalPointsHint': '全ユーザーに配布されたポイントの合計',
+        'point.allocation': '対象 Allocation（%）',
+        'point.allocationPlaceholder': '例: 10',
+        'point.allocationHint': 'エアドロップに割り当てられる割合',
+        'point.myPoints': 'あなたのポイント（オプション）',
+        'point.myPointsPlaceholder': '例: 100000',
+        'point.myPointsHint': 'あなたが獲得したポイント数',
+        'point.totalSupply': '総供給量（オプション）',
+        'point.totalSupplyPlaceholder': '例: 1000000000',
+        'point.totalSupplyHint': '入力すると獲得トークン数も表示',
+        'card2.title': '価格予測',
+        'results.noData': '情報を入力してください',
+        'results.normalTableHeader1': 'FDV',
+        'results.normalTableHeader2': 'トークン価格',
+        'results.normalTableHeader3': '保有価値',
+        'results.pointTableHeader1': 'FDV',
+        'results.pointTableHeader2': '1ポイント価格',
+        'results.pointTableHeader3': 'あなたの価値',
+        'results.yourTokens': 'あなたの獲得トークン数（予測）',
+        'results.tokens': 'tokens',
+        'results.enterTotalSupply': '総供給量を入力してください',
+        'results.enterPointData': '総配布ポイントとAllocationを入力してください',
+        'footer.cryptoTools': 'Crypto Tools'
+      },
+      en: {
+        'nav.home': 'Crypto Tools',
+        'nav.fdv': 'FDV Calculator',
+        'nav.prompt': 'AI Prompts',
+        'header.title': 'FDV Calculator',
+        'header.twitter': 'Follow @sasami on X!',
+        'header.subtitle': 'Predict token price from future FDV',
+        'card1.title': 'Basic Information',
+        'tabs.normal': 'Normal Mode',
+        'tabs.point': 'Point Mode',
+        'normal.totalSupply': 'Total Supply',
+        'normal.totalSupplyPlaceholder': 'e.g., 1000000000',
+        'normal.totalSupplyHint': 'Enter maximum token supply',
+        'normal.holdings': 'Your Holdings (Optional)',
+        'normal.holdingsPlaceholder': 'e.g., 50000',
+        'normal.holdingsHint': 'Enter your token amount to see valuation',
+        'point.infoBox': '💡 Predict value from airdrop points',
+        'point.totalPoints': 'Total Points Distributed',
+        'point.totalPointsPlaceholder': 'e.g., 500000000',
+        'point.totalPointsHint': 'Total points distributed to all users',
+        'point.allocation': 'Allocation (%)',
+        'point.allocationPlaceholder': 'e.g., 10',
+        'point.allocationHint': 'Percentage allocated to airdrop',
+        'point.myPoints': 'Your Points (Optional)',
+        'point.myPointsPlaceholder': 'e.g., 100000',
+        'point.myPointsHint': 'Points you earned',
+        'point.totalSupply': 'Total Supply (Optional)',
+        'point.totalSupplyPlaceholder': 'e.g., 1000000000',
+        'point.totalSupplyHint': 'Shows token amount if entered',
+        'card2.title': 'Price Prediction',
+        'results.noData': 'Please enter information',
+        'results.normalTableHeader1': 'FDV',
+        'results.normalTableHeader2': 'Token Price',
+        'results.normalTableHeader3': 'Your Value',
+        'results.pointTableHeader1': 'FDV',
+        'results.pointTableHeader2': 'Price per Point',
+        'results.pointTableHeader3': 'Your Value',
+        'results.yourTokens': 'Your Token Amount (Estimated)',
+        'results.tokens': 'tokens',
+        'results.enterTotalSupply': 'Please enter total supply',
+        'results.enterPointData': 'Please enter total points and allocation',
+        'footer.cryptoTools': 'Crypto Tools'
+      }
+    };
+
+    let currentLang = 'ja';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // 言語ボタンの更新
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // テキストの更新
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          elem.textContent = translations[lang][key];
+        }
+      });
+      
+      // プレースホルダーの更新
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+          elem.placeholder = translations[lang][key];
+        }
+      });
+      
+      // 結果を再計算して表示を更新
+      calculate();
+    }
+
     const fdvList = [
       { label: '$50M', value: 50000000 },
       { label: '$100M', value: 100000000 },
@@ -607,7 +778,7 @@
       const holdings = parseNumber(holdingsInput.value);
 
       if (isNaN(totalSupply) || totalSupply <= 0) {
-        resultsContainer.innerHTML = '<p class="no-data">総供給量を入力してください</p>';
+        resultsContainer.innerHTML = `<p class="no-data">${translations[currentLang]['results.enterTotalSupply']}</p>`;
         return;
       }
 
@@ -617,9 +788,9 @@
         <table class="results-table">
           <thead>
             <tr>
-              <th>FDV</th>
-              <th>トークン価格</th>
-              ${hasHoldings ? '<th>保有価値</th>' : ''}
+              <th>${translations[currentLang]['results.normalTableHeader1']}</th>
+              <th>${translations[currentLang]['results.normalTableHeader2']}</th>
+              ${hasHoldings ? `<th>${translations[currentLang]['results.normalTableHeader3']}</th>` : ''}
             </tr>
           </thead>
           <tbody>
@@ -649,7 +820,7 @@
       const myPoints = parseNumber(myPointsInput.value);
 
       if (isNaN(totalPoints) || isNaN(allocation) || totalPoints <= 0 || allocation <= 0) {
-        resultsContainer.innerHTML = '<p class="no-data">総配布ポイントとAllocationを入力してください</p>';
+        resultsContainer.innerHTML = `<p class="no-data">${translations[currentLang]['results.enterPointData']}</p>`;
         return;
       }
 
@@ -665,8 +836,8 @@
       if (hasMyPoints && hasTotalSupply) {
         html += `
           <div style="background: rgba(192, 132, 252, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
-            <div style="font-size: 0.85rem; color: #a78bfa; margin-bottom: 4px;">あなたの獲得トークン数（予測）</div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: #c084fc; font-family: 'SF Mono', monospace;">${myTokens.toLocaleString('en-US', {maximumFractionDigits: 0})} tokens</div>
+            <div style="font-size: 0.85rem; color: #a78bfa; margin-bottom: 4px;">${translations[currentLang]['results.yourTokens']}</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: #c084fc; font-family: 'SF Mono', monospace;">${myTokens.toLocaleString('en-US', {maximumFractionDigits: 0})} ${translations[currentLang]['results.tokens']}</div>
           </div>
         `;
       }
@@ -675,9 +846,9 @@
         <table class="results-table">
           <thead>
             <tr>
-              <th>FDV</th>
-              <th>1ポイント価格</th>
-              ${hasMyPoints ? '<th>あなたの価値</th>' : ''}
+              <th>${translations[currentLang]['results.pointTableHeader1']}</th>
+              <th>${translations[currentLang]['results.pointTableHeader2']}</th>
+              ${hasMyPoints ? `<th>${translations[currentLang]['results.pointTableHeader3']}</th>` : ''}
             </tr>
           </thead>
           <tbody>
