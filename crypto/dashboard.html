@@ -152,6 +152,14 @@ function toggleLang() {
 const GAMMA = 'https://gamma-api.polymarket.com';
 const PM_BASE = 'https://polymarket.com/event/';
 
+// ---- 短期トレーディング系マーケットの除外キーワード ----
+const EXCLUDE_KEYWORDS = [
+  '5min', '15min', '1-Hour', '4-Hour',
+  'Up or Down Daily', 'Up or Down 5', 'Up or Down 15',
+  'BTC Up or Down', 'ETH Up or Down', 'Up or Down 4',
+  'Up or Down 1-', 'Daily Candle',
+];
+
 const CONFIG = {
   'btc-eth': [
     { tag:'bitcoin',   labelKey:'sec_bitcoin',  color:'#f59e0b', volMin:500000 },
@@ -219,7 +227,11 @@ async function buildSection(items) {
   for(const item of items) {
     try {
       const evs = await fetchEvents(item.tag, item.volMin);
-      const uniq = evs.filter(function(e){ if(!e.slug||seen[e.slug])return false; seen[e.slug]=true; return true; });
+      const filtered = evs.filter(function(e) {
+        const title = (e.title || '').toLowerCase();
+        return !EXCLUDE_KEYWORDS.some(function(kw) { return title.includes(kw.toLowerCase()); });
+      });
+      const uniq = filtered.filter(function(e){ if(!e.slug||seen[e.slug])return false; seen[e.slug]=true; return true; });
       const cards = uniq.map(function(e){return buildCard(e);}).filter(Boolean).join('');
       if(cards) sections.push('<div class="section-label" style="color:'+item.color+'">'+esc(t(item.labelKey))+' — '+uniq.length+esc(t('markets_unit'))+'</div><div class="grid">'+cards+'</div><div style="margin-bottom:24px"></div>');
     } catch(err) {
