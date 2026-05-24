@@ -51,8 +51,6 @@
 <header>
   <h1>📊 Polymarket Dashboard</h1>
   <div class="header-right">
-    <span id="last-updated"></span>
-    <span id="countdown" class="countdown"></span>
     <button id="lang-btn" class="btn" onclick="toggleLang()">EN</button>
     <button id="refresh-btn" class="btn" onclick="loadAll()">🔄 <span id="refresh-label"></span></button>
   </div>
@@ -252,7 +250,6 @@ async function loadAll() {
     document.getElementById(tab).innerHTML = html||'<div class="loading">'+esc(t('nodata'))+'</div>';
   }
   // update timestamp as plain text
-  document.getElementById('last-updated').textContent = t('updated') + new Date().toLocaleTimeString(currentLang==='ja'?'ja-JP':'en-US');
   nextRefresh = Date.now() + 3600*1000;
   if(countdownTimer) clearInterval(countdownTimer);
   countdownTimer = setInterval(function() {
@@ -260,7 +257,6 @@ async function loadAll() {
     const m = String(Math.floor(left/60000)).padStart(2,'0');
     const s = String(Math.floor((left%60000)/1000)).padStart(2,'0');
     // plain text — no innerHTML
-    document.getElementById('countdown').textContent = t('next') + m + ':' + s;
     if(left<=0) loadAll();
   }, 1000);
 }
