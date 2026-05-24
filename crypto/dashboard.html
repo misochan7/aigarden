@@ -7,12 +7,7 @@
   content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src https://gamma-api.polymarket.com; style-src 'self' 'unsafe-inline';">
 <title>Polymarket Dashboard</title>
 <style>
-  :root {
-    --bg:#0f1117;--card:#1a1d27;--border:#2a2d3e;
-    --text:#e2e8f0;--muted:#8892a4;
-    --green:#22c55e;--red:#ef4444;--yellow:#f59e0b;
-    --blue:#3b82f6;--purple:#a855f7;
-  }
+  :root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3e;--text:#e2e8f0;--muted:#8892a4;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--blue:#3b82f6;--purple:#a855f7;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;font-size:14px;}
   header{padding:16px 24px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
@@ -54,73 +49,75 @@
 <body>
 
 <header>
-  <h1>&#x1F4CA; Polymarket Dashboard</h1>
+  <h1>📊 Polymarket Dashboard</h1>
   <div class="header-right">
     <span id="last-updated"></span>
     <span id="countdown" class="countdown"></span>
     <button id="lang-btn" class="btn" onclick="toggleLang()">EN</button>
-    <button id="refresh-btn" class="btn" onclick="loadAll()">&#x1F504; <span data-i18n="refresh"></span></button>
+    <button id="refresh-btn" class="btn" onclick="loadAll()">🔄 <span id="refresh-label"></span></button>
   </div>
 </header>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('btc-eth',this)" data-i18n="tab_btc"></button>
-  <button class="tab-btn" onclick="switchTab('tge',this)" data-i18n="tab_tge"></button>
-  <button class="tab-btn" onclick="switchTab('politics',this)" data-i18n="tab_politics"></button>
+  <button id="tab-btn-btc" class="tab-btn active" onclick="switchTab('btc-eth',this)"></button>
+  <button id="tab-btn-tge" class="tab-btn" onclick="switchTab('tge',this)"></button>
+  <button id="tab-btn-pol" class="tab-btn" onclick="switchTab('politics',this)"></button>
 </div>
 
-<div id="btc-eth" class="tab-content active"><div class="loading"><span class="spinner"></span><span data-i18n="loading"></span></div></div>
-<div id="tge" class="tab-content"><div class="loading"><span class="spinner"></span><span data-i18n="loading"></span></div></div>
-<div id="politics" class="tab-content"><div class="loading"><span class="spinner"></span><span data-i18n="loading"></span></div></div>
+<div id="btc-eth" class="tab-content active"><div class="loading"><span class="spinner"></span><span id="loading-btc"></span></div></div>
+<div id="tge" class="tab-content"><div class="loading"><span class="spinner"></span><span id="loading-tge"></span></div></div>
+<div id="politics" class="tab-content"><div class="loading"><span class="spinner"></span><span id="loading-pol"></span></div></div>
 
 <script>
-// ---- i18n ----
+// ---- i18n: plain text only, no HTML entities ----
 const I18N = {
   ja: {
-    tab_btc:     '&#x2460; BTC / ETH &#x4FA1;&#x683C;&#x4E88;&#x60F3;',
-    tab_tge:     '&#x2461; TGE&#x524D;&#x30C8;&#x30FC;&#x30AF;&#x30F3;',
-    tab_politics:'&#x2462; &#x6226;&#x4E89;&#x30FB;&#x653F;&#x6CBB;',
-    refresh:     '&#x66F4;&#x65B0;',
-    loading:     '&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x4E2D;...',
-    nodata:      '&#x30C7;&#x30FC;&#x30BF;&#x306A;&#x3057;',
-    updated:     '&#x6700;&#x7D42;&#x66F4;&#x65B0;: ',
-    next:        '&#x6B21;&#x56DE;&#x66F4;&#x65B0;&#x307E;&#x3067; ',
-    vol:         '&#x7DCF;&#x51FA;&#x6765;&#x9AD8; ',
-    ended:       '&#x7D42;&#x4E86;',
-    today:       '&#x672C;&#x65E5;',
-    days:        '&#x65E5;&#x524D;',
-    markets_unit:'&#x4EF6;',
-    sec_bitcoin: 'Bitcoin',
-    sec_eth:     'Ethereum',
-    sec_pre:     'TGE / Pre-Market &#x30C8;&#x30FC;&#x30AF;&#x30F3;',
-    sec_geo:     '&#x5730;&#x653F;&#x5B66;',
-    sec_iran:    '&#x30A4;&#x30E9;&#x30F3;',
-    sec_ukraine: '&#x30A6;&#x30AF;&#x30E9;&#x30A4;&#x30CA;',
-    sec_economy: '&#x30A8;&#x30B3;&#x30CE;&#x30DF;&#x30FC;',
-    error:       '&#x53D6;&#x5F97;&#x30A8;&#x30E9;&#x30FC;: ',
+    tab_btc:      '① BTC / ETH 価格予想',
+    tab_tge:      '② TGE前トークン',
+    tab_politics: '③ 戦争・政治',
+    refresh:      '更新',
+    loading:      '読み込み中...',
+    nodata:       'データなし',
+    updated:      '最終更新: ',
+    next:         '次回更新まで ',
+    vol:          '総出来高 ',
+    ended:        '終了',
+    today:        '本日',
+    days_suffix:  '日前',
+    days_prefix:  '残',
+    markets_unit: '件',
+    sec_bitcoin:  'Bitcoin',
+    sec_eth:      'Ethereum',
+    sec_pre:      'TGE / Pre-Market トークン',
+    sec_geo:      '地政学',
+    sec_iran:     'イラン',
+    sec_ukraine:  'ウクライナ',
+    sec_economy:  'エコノミー',
+    error:        '取得エラー: ',
   },
   en: {
-    tab_btc:     '&#x2460; BTC / ETH Price',
-    tab_tge:     '&#x2461; Pre-TGE Tokens',
-    tab_politics:'&#x2462; War &amp; Politics',
-    refresh:     'Refresh',
-    loading:     'Loading...',
-    nodata:      'No data',
-    updated:     'Updated: ',
-    next:        'Next update: ',
-    vol:         'Vol ',
-    ended:       'Ended',
-    today:       'Today',
-    days:        'd left',
-    markets_unit:' markets',
-    sec_bitcoin: 'Bitcoin',
-    sec_eth:     'Ethereum',
-    sec_pre:     'TGE / Pre-Market Tokens',
-    sec_geo:     'Geopolitics',
-    sec_iran:    'Iran',
-    sec_ukraine: 'Ukraine',
-    sec_economy: 'Economy',
-    error:       'Error: ',
+    tab_btc:      '① BTC / ETH Price',
+    tab_tge:      '② Pre-TGE Tokens',
+    tab_politics: '③ War & Politics',
+    refresh:      'Refresh',
+    loading:      'Loading...',
+    nodata:       'No data',
+    updated:      'Updated: ',
+    next:         'Next update: ',
+    vol:          'Vol ',
+    ended:        'Ended',
+    today:        'Today',
+    days_suffix:  'd left',
+    days_prefix:  '',
+    markets_unit: ' markets',
+    sec_bitcoin:  'Bitcoin',
+    sec_eth:      'Ethereum',
+    sec_pre:      'TGE / Pre-Market Tokens',
+    sec_geo:      'Geopolitics',
+    sec_iran:     'Iran',
+    sec_ukraine:  'Ukraine',
+    sec_economy:  'Economy',
+    error:        'Error: ',
   }
 };
 
@@ -128,12 +125,22 @@ let currentLang = localStorage.getItem('pm_lang') || 'ja';
 
 function t(key) { return I18N[currentLang][key] || key; }
 
+function setTextContent(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
 function applyLang() {
   document.documentElement.lang = currentLang;
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    el.innerHTML = t(el.getAttribute('data-i18n'));
-  });
+  setTextContent('tab-btn-btc', t('tab_btc'));
+  setTextContent('tab-btn-tge', t('tab_tge'));
+  setTextContent('tab-btn-pol', t('tab_politics'));
+  setTextContent('refresh-label', t('refresh'));
   document.getElementById('lang-btn').textContent = currentLang === 'ja' ? 'EN' : 'JA';
+  // loading placeholders
+  ['loading-btc','loading-tge','loading-pol'].forEach(function(id) {
+    setTextContent(id, t('loading'));
+  });
 }
 
 function toggleLang() {
@@ -149,8 +156,8 @@ const PM_BASE = 'https://polymarket.com/event/';
 
 const CONFIG = {
   'btc-eth': [
-    { tag:'bitcoin',  labelKey:'sec_bitcoin',  color:'#f59e0b', volMin:500000 },
-    { tag:'ethereum', labelKey:'sec_eth',       color:'#a855f7', volMin:500000 },
+    { tag:'bitcoin',   labelKey:'sec_bitcoin',  color:'#f59e0b', volMin:500000 },
+    { tag:'ethereum',  labelKey:'sec_eth',       color:'#a855f7', volMin:500000 },
   ],
   'tge': [
     { tag:'pre-market', labelKey:'sec_pre', color:'#22c55e', volMin:0 },
@@ -187,8 +194,8 @@ function daysLeft(d) {
   const days = Math.ceil(diff/86400000);
   if(days < 0) return t('ended');
   if(days === 0) return t('today');
-  if(currentLang === 'ja') return '&#x6B8B;'+days+t('days');
-  return days+' '+t('days');
+  if(currentLang === 'ja') return t('days_prefix') + days + t('days_suffix');
+  return days + ' ' + t('days_suffix');
 }
 
 function getProb(op) { try{return parseFloat(JSON.parse(op)[0]);}catch(e){return null;} }
@@ -203,22 +210,10 @@ function buildCard(ev) {
   const rows = mkts.map(function(m) {
     const p = getProb(m.outcomePrices);
     if(p===null) return '';
-    const pct = Math.round(p*100), bar = Math.max(2,pct), color = probColor(p);
-    const q = esc(m.question||'');
-    return '<div class="market-row">'
-      +'<div class="market-label" title="'+q+'">'+q+'</div>'
-      +'<div class="bar-wrap"><div class="bar" style="width:'+bar+'%;background:'+color+'"></div></div>'
-      +'<div class="prob" style="color:'+color+'">'+pct+'%</div>'
-      +'</div>';
+    const pct=Math.round(p*100), bar=Math.max(2,pct), color=probColor(p), q=esc(m.question||'');
+    return '<div class="market-row"><div class="market-label" title="'+q+'">'+q+'</div><div class="bar-wrap"><div class="bar" style="width:'+bar+'%;background:'+color+'"></div></div><div class="prob" style="color:'+color+'">'+pct+'%</div></div>';
   }).join('');
-  return '<div class="card">'
-    +'<div class="card-title"><a href="'+PM_BASE+slug+'" target="_blank" rel="noopener">'+title+'</a></div>'
-    +rows
-    +'<div class="card-footer">'
-    +'<span class="vol-badge">'+t('vol')+fmtVol(ev.volume)+'</span>'
-    +'<span>24h '+fmtVol(ev.volume24hr)+'</span>'
-    +'<span class="days-badge">'+daysLeft(ev.endDate)+'</span>'
-    +'</div></div>';
+  return '<div class="card"><div class="card-title"><a href="'+PM_BASE+slug+'" target="_blank" rel="noopener">'+title+'</a></div>'+rows+'<div class="card-footer"><span class="vol-badge">'+esc(t('vol'))+fmtVol(ev.volume)+'</span><span>24h '+fmtVol(ev.volume24hr)+'</span><span class="days-badge">'+esc(daysLeft(ev.endDate))+'</span></div></div>';
 }
 
 async function buildSection(items) {
@@ -226,18 +221,11 @@ async function buildSection(items) {
   for(const item of items) {
     try {
       const evs = await fetchEvents(item.tag, item.volMin);
-      const uniq = evs.filter(function(e) {
-        if(!e.slug||seen[e.slug]) return false;
-        seen[e.slug]=true; return true;
-      });
+      const uniq = evs.filter(function(e){ if(!e.slug||seen[e.slug])return false; seen[e.slug]=true; return true; });
       const cards = uniq.map(function(e){return buildCard(e);}).filter(Boolean).join('');
-      if(cards) sections.push(
-        '<div class="section-label" style="color:'+item.color+'">'+t(item.labelKey)+' &mdash; '+uniq.length+t('markets_unit')+'</div>'
-        +'<div class="grid">'+cards+'</div>'
-        +'<div style="margin-bottom:24px"></div>'
-      );
+      if(cards) sections.push('<div class="section-label" style="color:'+item.color+'">'+esc(t(item.labelKey))+' — '+uniq.length+esc(t('markets_unit'))+'</div><div class="grid">'+cards+'</div><div style="margin-bottom:24px"></div>');
     } catch(err) {
-      sections.push('<div class="loading">'+t('error')+esc(err.message)+'</div>');
+      sections.push('<div class="loading">'+esc(t('error'))+esc(err.message)+'</div>');
     }
   }
   return sections.join('');
@@ -250,17 +238,20 @@ function switchTab(id, btn) {
   if(btn) btn.classList.add('active');
 }
 
-let nextRefresh = null, countdownTimer = null;
+let nextRefresh=null, countdownTimer=null;
 
 async function loadAll() {
   Object.keys(seen).forEach(function(k){delete seen[k];});
-  document.querySelectorAll('.tab-content').forEach(function(el){
-    el.innerHTML='<div class="loading"><span class="spinner"></span>'+t('loading')+'</div>';
+  // show loading
+  ['btc-eth','tge','politics'].forEach(function(tab) {
+    const spinner = '<span class="spinner"></span>';
+    document.getElementById(tab).innerHTML = '<div class="loading">'+spinner+esc(t('loading'))+'</div>';
   });
   for(const tab of Object.keys(CONFIG)) {
     const html = await buildSection(CONFIG[tab]);
-    document.getElementById(tab).innerHTML = html||'<div class="loading">'+t('nodata')+'</div>';
+    document.getElementById(tab).innerHTML = html||'<div class="loading">'+esc(t('nodata'))+'</div>';
   }
+  // update timestamp as plain text
   document.getElementById('last-updated').textContent = t('updated') + new Date().toLocaleTimeString(currentLang==='ja'?'ja-JP':'en-US');
   nextRefresh = Date.now() + 3600*1000;
   if(countdownTimer) clearInterval(countdownTimer);
@@ -268,12 +259,12 @@ async function loadAll() {
     const left = Math.max(0, nextRefresh - Date.now());
     const m = String(Math.floor(left/60000)).padStart(2,'0');
     const s = String(Math.floor((left%60000)/1000)).padStart(2,'0');
-    document.getElementById('countdown').textContent = t('next')+m+':'+s;
+    // plain text — no innerHTML
+    document.getElementById('countdown').textContent = t('next') + m + ':' + s;
     if(left<=0) loadAll();
   }, 1000);
 }
 
-// init
 applyLang();
 loadAll();
 </script>
