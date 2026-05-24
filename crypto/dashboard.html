@@ -4,277 +4,360 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Security-Policy"
-  content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src https://gamma-api.polymarket.com; style-src 'self' 'unsafe-inline';">
+content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src https://gamma-api.polymarket.com; style-src 'self' 'unsafe-inline';">
 <title>Polymarket Dashboard</title>
 <style>
-  :root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3e;--text:#e2e8f0;--muted:#8892a4;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--blue:#3b82f6;--purple:#a855f7;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;font-size:14px;}
-  header{padding:16px 24px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  header h1{font-size:18px;font-weight:700;}
-  .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  #last-updated{font-size:12px;color:var(--muted);}
-  .btn{border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-size:13px;}
-  #refresh-btn{background:var(--blue);color:white;}
-  #refresh-btn:hover{opacity:0.85;}
-  #lang-btn{background:#2a2d3e;color:var(--text);border:1px solid var(--border);font-weight:600;letter-spacing:0.04em;}
-  #lang-btn:hover{background:#3a3d5e;}
-  .tabs{display:flex;gap:4px;padding:16px 24px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
-  .tab-btn{padding:8px 18px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:6px 6px 0 0;font-size:14px;border-bottom:2px solid transparent;transition:all 0.15s;}
-  .tab-btn.active{color:var(--text);border-bottom:2px solid var(--blue);background:rgba(59,130,246,0.08);}
-  .tab-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04);}
-  .tab-content{display:none;padding:20px 24px;}
-  .tab-content.active{display:block;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color 0.15s;}
-  .card:hover{border-color:#3a3d5e;}
-  .card-title{font-size:13px;font-weight:600;margin-bottom:12px;line-height:1.4;}
-  .card-title a{color:var(--text);text-decoration:none;}
-  .card-title a:hover{color:var(--blue);}
-  .market-row{display:flex;align-items:center;margin-bottom:8px;gap:8px;}
-  .market-label{flex:1;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .prob{font-size:13px;font-weight:700;width:42px;text-align:right;flex-shrink:0;}
-  .bar-wrap{flex:1;height:5px;background:#2a2d3e;border-radius:3px;overflow:hidden;}
-  .bar{height:100%;border-radius:3px;transition:width 0.4s;}
-  .card-footer{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);}
-  .vol-badge{background:rgba(59,130,246,0.12);color:var(--blue);border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;}
-  .days-badge{background:rgba(168,85,247,0.12);color:var(--purple);border-radius:4px;padding:2px 6px;font-size:11px;}
-  .loading{text-align:center;padding:60px;color:var(--muted);font-size:15px;}
-  .spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.7s linear infinite;margin-right:8px;vertical-align:middle;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .countdown{font-size:12px;color:var(--muted);}
-  .section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;margin-top:4px;}
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3e;--text:#e2e8f0;--muted:#8892a4;--green:#22c55e;--red:#ef4444;--yellow:#f59e0b;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--teal:#14b8a6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;font-size:14px;}
+header{padding:16px 24px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+header h1{font-size:18px;font-weight:700;}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.btn{border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-size:13px;}
+#refresh-btn{background:var(--blue);color:white;}
+#refresh-btn:hover{opacity:0.85;}
+#lang-btn{background:#2a2d3e;color:var(--text);border:1px solid var(--border);font-weight:600;letter-spacing:0.04em;}
+#lang-btn:hover{background:#3a3d5e;}
+.tabs{display:flex;gap:4px;padding:16px 24px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.tab-btn{padding:8px 16px;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:6px 6px 0 0;font-size:13px;font-weight:500;border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.tab-btn.active{color:var(--text);border-bottom:2px solid var(--blue);background:rgba(59,130,246,0.08);}
+.tab-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04);}
+.tab-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.tab-icon-crypto{background:linear-gradient(135deg,#f7931a,#e8830a);color:white;}
+.tab-icon-tge{background:linear-gradient(135deg,#a855f7,#7c3aed);color:white;}
+.tab-icon-war{background:linear-gradient(135deg,#ef4444,#b91c1c);color:white;}
+.tab-icon-commodity{background:linear-gradient(135deg,#14b8a6,#0d9488);color:white;}
+.tab-content{display:none;padding:20px 24px;}
+.tab-content.active{display:block;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color 0.15s;}
+.card:hover{border-color:#3a3d5e;}
+.card-title{font-size:13px;font-weight:600;margin-bottom:12px;line-height:1.4;}
+.card-title a{color:var(--text);text-decoration:none;}
+.card-title a:hover{color:var(--blue);}
+.market-row{display:flex;align-items:center;margin-bottom:8px;gap:8px;}
+.market-label{flex:1;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prob{font-size:13px;font-weight:700;width:42px;text-align:right;flex-shrink:0;}
+.bar-wrap{flex:1;height:5px;background:#2a2d3e;border-radius:3px;overflow:hidden;}
+.bar{height:100%;border-radius:3px;transition:width 0.4s;}
+.card-footer{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);}
+.vol-badge{background:rgba(59,130,246,0.12);color:var(--blue);border-radius:4px;padding:2px 6px;font-size:11px;font-weight:600;}
+.days-badge{background:rgba(168,85,247,0.12);color:var(--purple);border-radius:4px;padding:2px 6px;font-size:11px;}
+.loading{text-align:center;padding:60px;color:var(--muted);font-size:15px;}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.7s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;margin-top:4px;}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>📊 Polymarket Dashboard</h1>
-  <div class="header-right">
-    <button id="lang-btn" class="btn" onclick="toggleLang()">EN</button>
-    <button id="refresh-btn" class="btn" onclick="loadAll()">🔄 <span id="refresh-label"></span></button>
-  </div>
+<h1>📊 Polymarket Dashboard</h1>
+<div class="header-right">
+<button id="lang-btn" class="btn" onclick="toggleLang()">EN</button>
+<button id="refresh-btn" class="btn" onclick="loadAll()">🔄 <span id="refresh-label"></span></button>
+</div>
 </header>
 
 <div class="tabs">
-  <button id="tab-btn-btc" class="tab-btn active" onclick="switchTab('btc-eth',this)"></button>
-  <button id="tab-btn-tge" class="tab-btn" onclick="switchTab('tge',this)"></button>
-  <button id="tab-btn-pol" class="tab-btn" onclick="switchTab('politics',this)"></button>
+<button id="tab-btn-btc" class="tab-btn active" onclick="switchTab('btc-eth',this)">
+  <span class="tab-icon tab-icon-crypto">₿</span><span class="tab-label-btc"></span>
+</button>
+<button id="tab-btn-tge" class="tab-btn" onclick="switchTab('tge',this)">
+  <span class="tab-icon tab-icon-tge">🚀</span><span class="tab-label-tge"></span>
+</button>
+<button id="tab-btn-pol" class="tab-btn" onclick="switchTab('politics',this)">
+  <span class="tab-icon tab-icon-war">🌏</span><span class="tab-label-pol"></span>
+</button>
+<button id="tab-btn-com" class="tab-btn" onclick="switchTab('commodity',this)">
+  <span class="tab-icon tab-icon-commodity">💹</span><span class="tab-label-com"></span>
+</button>
 </div>
 
 <div id="btc-eth" class="tab-content active"><div class="loading"><span class="spinner"></span><span id="loading-btc"></span></div></div>
 <div id="tge" class="tab-content"><div class="loading"><span class="spinner"></span><span id="loading-tge"></span></div></div>
 <div id="politics" class="tab-content"><div class="loading"><span class="spinner"></span><span id="loading-pol"></span></div></div>
+<div id="commodity" class="tab-content"><div class="loading"><span class="spinner"></span><span id="loading-com"></span></div></div>
 
 <script>
-// ---- i18n: plain text only, no HTML entities ----
 const I18N = {
-  ja: {
-    tab_btc:      '① BTC / ETH 価格予想',
-    tab_tge:      '② TGE前トークン',
-    tab_politics: '③ 戦争・政治',
-    refresh:      '更新',
-    loading:      '読み込み中...',
-    nodata:       'データなし',
-    updated:      '最終更新: ',
-    next:         '次回更新まで ',
-    vol:          '総出来高 ',
-    ended:        '終了',
-    today:        '本日',
-    days_suffix:  '日前',
-    days_prefix:  '残',
-    markets_unit: '件',
-    sec_bitcoin:  'Bitcoin',
-    sec_eth:      'Ethereum',
-    sec_pre:      'TGE / Pre-Market トークン',
-    sec_geo:      '地政学',
-    sec_iran:     'イラン',
-    sec_ukraine:  'ウクライナ',
-    sec_economy:  'エコノミー',
-    error:        '取得エラー: ',
-  },
-  en: {
-    tab_btc:      '① BTC / ETH Price',
-    tab_tge:      '② Pre-TGE Tokens',
-    tab_politics: '③ War & Politics',
-    refresh:      'Refresh',
-    loading:      'Loading...',
-    nodata:       'No data',
-    updated:      'Updated: ',
-    next:         'Next update: ',
-    vol:          'Vol ',
-    ended:        'Ended',
-    today:        'Today',
-    days_suffix:  'd left',
-    days_prefix:  '',
-    markets_unit: ' markets',
-    sec_bitcoin:  'Bitcoin',
-    sec_eth:      'Ethereum',
-    sec_pre:      'TGE / Pre-Market Tokens',
-    sec_geo:      'Geopolitics',
-    sec_iran:     'Iran',
-    sec_ukraine:  'Ukraine',
-    sec_economy:  'Economy',
-    error:        'Error: ',
-  }
+ja: {
+  tab_btc: 'BTC / ETH 価格予想',
+  tab_tge: 'TGE前トークン',
+  tab_politics: '戦争・政治',
+  tab_commodity: 'コモディティ',
+  refresh: '更新',
+  loading: '読み込み中...',
+  nodata: 'データなし',
+  vol: '総出来高 ',
+  ended: '終了',
+  today: '本日',
+  days_suffix: '日前',
+  days_prefix: '残',
+  markets_unit: '件',
+  sec_bitcoin: 'Bitcoin',
+  sec_eth: 'Ethereum',
+  sec_pre: 'TGE / Pre-Market トークン',
+  sec_geo: '地政学',
+  sec_iran: 'イラン',
+  sec_ukraine: 'ウクライナ',
+  sec_economy: 'エコノミー',
+  sec_oil: '原油・コモディティ',
+  sec_fed: 'FED / 金融政策',
+  sec_stocks: '株式・大型株',
+  error: '取得エラー: ',
+},
+en: {
+  tab_btc: 'BTC / ETH Price',
+  tab_tge: 'Pre-TGE Tokens',
+  tab_politics: 'War & Politics',
+  tab_commodity: 'Commodities',
+  refresh: 'Refresh',
+  loading: 'Loading...',
+  nodata: 'No data',
+  vol: 'Vol ',
+  ended: 'Ended',
+  today: 'Today',
+  days_suffix: 'd left',
+  days_prefix: '',
+  markets_unit: ' markets',
+  sec_bitcoin: 'Bitcoin',
+  sec_eth: 'Ethereum',
+  sec_pre: 'TGE / Pre-Market Tokens',
+  sec_geo: 'Geopolitics',
+  sec_iran: 'Iran',
+  sec_ukraine: 'Ukraine',
+  sec_economy: 'Economy',
+  sec_oil: 'Oil & Commodities',
+  sec_fed: 'FED / Monetary Policy',
+  sec_stocks: 'Stocks & Large Cap',
+  error: 'Error: ',
+}
 };
 
-let currentLang = localStorage.getItem('pm_lang') || 'ja';
-
-function t(key) { return I18N[currentLang][key] || key; }
-
-function setTextContent(id, text) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = text;
-}
-
-function applyLang() {
-  document.documentElement.lang = currentLang;
-  setTextContent('tab-btn-btc', t('tab_btc'));
-  setTextContent('tab-btn-tge', t('tab_tge'));
-  setTextContent('tab-btn-pol', t('tab_politics'));
-  setTextContent('refresh-label', t('refresh'));
-  document.getElementById('lang-btn').textContent = currentLang === 'ja' ? 'EN' : 'JA';
-  // loading placeholders
-  ['loading-btc','loading-tge','loading-pol'].forEach(function(id) {
-    setTextContent(id, t('loading'));
-  });
-}
-
-function toggleLang() {
-  currentLang = currentLang === 'ja' ? 'en' : 'ja';
-  localStorage.setItem('pm_lang', currentLang);
-  applyLang();
-  loadAll();
-}
-
-// ---- API ----
-const GAMMA = 'https://gamma-api.polymarket.com';
-const PM_BASE = 'https://polymarket.com/event/';
-
-// ---- 短期トレーディング系マーケットの除外キーワード ----
 const EXCLUDE_KEYWORDS = [
-  '5min', '15min', '1-Hour', '4-Hour',
-  'Up or Down Daily', 'Up or Down 5', 'Up or Down 15',
-  'BTC Up or Down', 'ETH Up or Down', 'Up or Down 4',
-  'Up or Down 1-', 'Daily Candle',
+  '5min','15min','1-Hour','4-Hour',
+  'Up or Down Daily','Up or Down 5','Up or Down 15',
+  'BTC Up or Down','ETH Up or Down','Up or Down 4',
+  'Up or Down 1-','Daily Candle',
 ];
 
 const CONFIG = {
-  'btc-eth': [
-    { tag:'bitcoin',   labelKey:'sec_bitcoin',  color:'#f59e0b', volMin:500000 },
-    { tag:'ethereum',  labelKey:'sec_eth',       color:'#a855f7', volMin:500000 },
-  ],
-  'tge': [
-    { tag:'pre-market', labelKey:'sec_pre', color:'#22c55e', volMin:0 },
-  ],
-  'politics': [
-    { tag:'geopolitics', labelKey:'sec_geo',     color:'#ef4444', volMin:500000 },
-    { tag:'iran',        labelKey:'sec_iran',    color:'#f97316', volMin:500000 },
-    { tag:'ukraine',     labelKey:'sec_ukraine', color:'#3b82f6', volMin:500000 },
-    { tag:'economy',     labelKey:'sec_economy', color:'#22c55e', volMin:500000 },
-  ],
+  'btc-eth': {
+    sections: [
+      {labelKey:'sec_bitcoin', tag:'bitcoin',   minVol:500000},
+      {labelKey:'sec_eth',     tag:'ethereum',  minVol:500000},
+    ]
+  },
+  'tge': {
+    sections: [
+      {labelKey:'sec_pre', tag:'pre-market', minVol:0},
+    ]
+  },
+  'politics': {
+    sections: [
+      {labelKey:'sec_geo',      tag:'geopolitics', minVol:500000},
+      {labelKey:'sec_iran',     tag:'iran',         minVol:500000},
+      {labelKey:'sec_ukraine',  tag:'ukraine',      minVol:500000},
+      {labelKey:'sec_economy',  tag:'economy',      minVol:500000},
+    ]
+  },
+  'commodity': {
+    sections: [
+      {labelKey:'sec_oil',    tag:'oil',         minVol:500000},
+      {labelKey:'sec_oil',    tag:'commodities', minVol:500000},
+      {labelKey:'sec_fed',    tag:'fed',         minVol:0},
+      {labelKey:'sec_stocks', tag:'stocks',      minVol:500000},
+    ]
+  },
 };
 
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+let lang = localStorage.getItem('pm_lang') || 'ja';
+let refreshTimer = null;
+const REFRESH_MS = 60 * 60 * 1000;
+
+function t(key){ return I18N[lang][key] || key; }
+
+function esc(s){
+  const el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
 }
 
-async function fetchEvents(tag, volMin) {
-  const p = new URLSearchParams({tag_slug:tag,active:'true',closed:'false',volume_min:volMin,order:'volume',ascending:'false',limit:30});
-  const r = await fetch(GAMMA+'/events?'+p);
-  return r.json();
+function toggleLang(){
+  lang = lang === 'ja' ? 'en' : 'ja';
+  localStorage.setItem('pm_lang', lang);
+  applyLang();
 }
 
-function fmtVol(n) {
-  n = Number(n)||0;
-  if(n>=1e9) return '$'+(n/1e9).toFixed(1)+'B';
-  if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M';
-  if(n>=1e3) return '$'+(n/1e3).toFixed(0)+'K';
-  return '$'+n;
-}
-
-function daysLeft(d) {
-  if(!d) return '--';
-  const diff = new Date(d) - new Date();
-  const days = Math.ceil(diff/86400000);
-  if(days < 0) return t('ended');
-  if(days === 0) return t('today');
-  if(currentLang === 'ja') return t('days_prefix') + days + t('days_suffix');
-  return days + ' ' + t('days_suffix');
-}
-
-function getProb(op) { try{return parseFloat(JSON.parse(op)[0]);}catch(e){return null;} }
-function probColor(p) { if(p>=0.7)return'#22c55e'; if(p>=0.4)return'#f59e0b'; return'#ef4444'; }
-
-const seen = {};
-
-function buildCard(ev) {
-  const slug = esc(ev.slug||''), title = esc(ev.title||'');
-  const mkts = (ev.markets||[]).slice(0,6);
-  if(!mkts.length) return '';
-  const rows = mkts.map(function(m) {
-    const p = getProb(m.outcomePrices);
-    if(p===null) return '';
-    const pct=Math.round(p*100), bar=Math.max(2,pct), color=probColor(p), q=esc(m.question||'');
-    return '<div class="market-row"><div class="market-label" title="'+q+'">'+q+'</div><div class="bar-wrap"><div class="bar" style="width:'+bar+'%;background:'+color+'"></div></div><div class="prob" style="color:'+color+'">'+pct+'%</div></div>';
-  }).join('');
-  return '<div class="card"><div class="card-title"><a href="'+PM_BASE+slug+'" target="_blank" rel="noopener">'+title+'</a></div>'+rows+'<div class="card-footer"><span class="vol-badge">'+esc(t('vol'))+fmtVol(ev.volume)+'</span><span>24h '+fmtVol(ev.volume24hr)+'</span><span class="days-badge">'+esc(daysLeft(ev.endDate))+'</span></div></div>';
-}
-
-async function buildSection(items) {
-  const sections = [];
-  for(const item of items) {
-    try {
-      const evs = await fetchEvents(item.tag, item.volMin);
-      const filtered = evs.filter(function(e) {
-        const title = (e.title || '').toLowerCase();
-        return !EXCLUDE_KEYWORDS.some(function(kw) { return title.includes(kw.toLowerCase()); });
-      });
-      const uniq = filtered.filter(function(e){ if(!e.slug||seen[e.slug])return false; seen[e.slug]=true; return true; });
-      const cards = uniq.map(function(e){return buildCard(e);}).filter(Boolean).join('');
-      if(cards) sections.push('<div class="section-label" style="color:'+item.color+'">'+esc(t(item.labelKey))+' — '+uniq.length+esc(t('markets_unit'))+'</div><div class="grid">'+cards+'</div><div style="margin-bottom:24px"></div>');
-    } catch(err) {
-      sections.push('<div class="loading">'+esc(t('error'))+esc(err.message)+'</div>');
-    }
-  }
-  return sections.join('');
-}
-
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
-  document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
-  document.getElementById(id).classList.add('active');
-  if(btn) btn.classList.add('active');
-}
-
-let nextRefresh=null, countdownTimer=null;
-
-async function loadAll() {
-  Object.keys(seen).forEach(function(k){delete seen[k];});
-  // show loading
-  ['btc-eth','tge','politics'].forEach(function(tab) {
-    const spinner = '<span class="spinner"></span>';
-    document.getElementById(tab).innerHTML = '<div class="loading">'+spinner+esc(t('loading'))+'</div>';
+function applyLang(){
+  const btn = document.getElementById('lang-btn');
+  btn.textContent = lang === 'ja' ? 'EN' : 'JA';
+  document.getElementById('refresh-label').textContent = t('refresh');
+  document.querySelectorAll('.tab-label-btc').forEach(el => el.textContent = t('tab_btc'));
+  document.querySelectorAll('.tab-label-tge').forEach(el => el.textContent = t('tab_tge'));
+  document.querySelectorAll('.tab-label-pol').forEach(el => el.textContent = t('tab_politics'));
+  document.querySelectorAll('.tab-label-com').forEach(el => el.textContent = t('tab_commodity'));
+  document.querySelectorAll('[data-loading-id]').forEach(el => {
+    if(el.dataset.loadingState === 'loading') el.textContent = t('loading');
   });
-  for(const tab of Object.keys(CONFIG)) {
-    const html = await buildSection(CONFIG[tab]);
-    document.getElementById(tab).innerHTML = html||'<div class="loading">'+esc(t('nodata'))+'</div>';
-  }
-  // update timestamp as plain text
-  nextRefresh = Date.now() + 3600*1000;
-  if(countdownTimer) clearInterval(countdownTimer);
-  countdownTimer = setInterval(function() {
-    const left = Math.max(0, nextRefresh - Date.now());
-    const m = String(Math.floor(left/60000)).padStart(2,'0');
-    const s = String(Math.floor((left%60000)/1000)).padStart(2,'0');
-    // plain text — no innerHTML
-    if(left<=0) loadAll();
-  }, 1000);
 }
 
-applyLang();
-loadAll();
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function barColor(p){
+  if(p >= 70) return 'var(--green)';
+  if(p >= 40) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function fmtVol(v){
+  if(v >= 1e9) return '$' + (v/1e9).toFixed(1) + 'B';
+  if(v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
+  if(v >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K';
+  return '$' + v.toFixed(0);
+}
+
+function fmtDays(end){
+  if(!end) return '';
+  const d = Math.round((new Date(end) - Date.now()) / 86400000);
+  if(d < 0) return t('ended');
+  if(d === 0) return t('today');
+  const pre = t('days_prefix');
+  const suf = t('days_suffix');
+  return pre + d + suf;
+}
+
+function shouldExclude(title){
+  const tl = title.toLowerCase();
+  return EXCLUDE_KEYWORDS.some(kw => tl.includes(kw.toLowerCase()));
+}
+
+async function fetchEvents(tag, minVol){
+  const params = new URLSearchParams({
+    tag: tag,
+    limit: '100',
+    order: 'volume',
+    ascending: 'false',
+    active: 'true',
+  });
+  if(minVol > 0) params.set('volume_num_min', String(minVol));
+  const res = await fetch('https://gamma-api.polymarket.com/events?' + params.toString());
+  if(!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
+function buildCard(ev){
+  const title = ev.title || ev.slug || 'Untitled';
+  if(shouldExclude(title)) return null;
+  const url = 'https://polymarket.com/event/' + (ev.slug || ev.id);
+  const markets = ev.markets || [];
+  const vol = parseFloat(ev.volume || 0);
+  const endDate = ev.endDate;
+
+  let rowsHtml = '';
+  const sorted = [...markets].sort((a,b) => {
+    const pa = parseFloat(a.outcomePrices?.[0] || 0) * 100;
+    const pb = parseFloat(b.outcomePrices?.[0] || 0) * 100;
+    return pb - pa;
+  }).slice(0, 4);
+
+  sorted.forEach(m => {
+    const raw = parseFloat(m.outcomePrices?.[0] || 0);
+    const prob = Math.round(raw * 100);
+    const color = barColor(prob);
+    const labelText = m.groupItemTitle || m.question || '';
+    rowsHtml += `<div class="market-row">
+      <span class="market-label" title="${esc(labelText)}">${esc(labelText)}</span>
+      <div class="bar-wrap"><div class="bar" style="width:${prob}%;background:${color}"></div></div>
+      <span class="prob" style="color:${color}">${prob}%</span>
+    </div>`;
+  });
+
+  if(!rowsHtml){
+    const prob = 50;
+    rowsHtml = `<div class="market-row">
+      <span class="market-label">${esc(title)}</span>
+      <div class="bar-wrap"><div class="bar" style="width:${prob}%;background:var(--blue)"></div></div>
+      <span class="prob" style="color:var(--blue)">${prob}%</span>
+    </div>`;
+  }
+
+  const mCount = markets.length;
+  const mUnit = t('markets_unit');
+
+  return `<div class="card">
+    <div class="card-title"><a href="${esc(url)}" target="_blank" rel="noopener">${esc(title)}</a></div>
+    ${rowsHtml}
+    <div class="card-footer">
+      <span class="vol-badge">${t('vol')}${fmtVol(vol)}</span>
+      <span>${mCount}${mUnit}</span>
+      <span class="days-badge">${fmtDays(endDate)}</span>
+    </div>
+  </div>`;
+}
+
+async function loadTab(tabId){
+  const cfg = CONFIG[tabId];
+  const container = document.getElementById(tabId);
+  if(!cfg || !container) return;
+
+  const loadingIdMap = {'btc-eth':'loading-btc','tge':'loading-tge','politics':'loading-pol','commodity':'loading-com'};
+  const loadingId = loadingIdMap[tabId] || ('loading-' + tabId);
+  container.innerHTML = '<div class="loading"><span class="spinner"></span><span id="' + loadingId + '" data-loading-id="1" data-loading-state="loading">' + esc(t('loading')) + '</span></div>';
+
+  try {
+    const sectionEls = [];
+    const seenSlugs = new Set();
+
+    for(const sec of cfg.sections){
+      const events = await fetchEvents(sec.tag, sec.minVol);
+      const cards = events
+        .filter(ev => {
+          if(seenSlugs.has(ev.slug || ev.id)) return false;
+          seenSlugs.add(ev.slug || ev.id);
+          return true;
+        })
+        .map(buildCard)
+        .filter(Boolean);
+
+      if(cards.length === 0) continue;
+      const labelEl = document.createElement('div');
+      labelEl.className = 'section-label';
+      labelEl.style.color = 'var(--muted)';
+      labelEl.textContent = t(sec.labelKey);
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      grid.innerHTML = cards.join('');
+      sectionEls.push(labelEl, grid);
+    }
+
+    if(sectionEls.length === 0){
+      container.innerHTML = '<div class="loading">' + esc(t('nodata')) + '</div>';
+    } else {
+      container.innerHTML = '';
+      sectionEls.forEach(el => container.appendChild(el));
+    }
+  } catch(e){
+    container.innerHTML = '<div class="loading">' + esc(t('error') + e.message) + '</div>';
+  }
+}
+
+function loadAll(){
+  Object.keys(CONFIG).forEach(id => loadTab(id));
+  if(refreshTimer) clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(loadAll, REFRESH_MS);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang();
+  loadAll();
+});
 </script>
 </body>
 </html>
