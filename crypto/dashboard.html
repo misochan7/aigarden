@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src https://gamma-api.polymarket.com; style-src 'self' 'unsafe-inline';">
+<title>Polymarket Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3e;
+    --text: #e2e8f0; --muted: #8892a4;
+    --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+    --blue: #3b82f6; --purple: #a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; font-size: 14px; }
+  header { padding: 16px 24px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 18px; font-weight: 700; }
+  #last-updated { font-size: 12px; color: var(--muted); }
+  #refresh-btn { background: var(--blue); color: white; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 13px; }
+  #refresh-btn:hover { opacity: 0.85; }
+  .tabs { display: flex; gap: 4px; padding: 16px 24px 0; border-bottom: 1px solid var(--border); }
+  .tab-btn { padding: 8px 18px; border: none; background: transparent; color: var(--muted); cursor: pointer; border-radius: 6px 6px 0 0; font-size: 14px; border-bottom: 2px solid transparent; transition: all 0.15s; }
+  .tab-btn.active { color: var(--text); border-bottom: 2px solid var(--blue); background: rgba(59,130,246,0.08); }
+  .tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.04); }
+  .tab-content { display: none; padding: 20px 24px; }
+  .tab-content.active { display: block; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: border-color 0.15s; }
+  .card:hover { border-color: #3a3d5e; }
+  .card-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; line-height: 1.4; }
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--blue); }
+  .market-row { display: flex; align-items: center; margin-bottom: 8px; gap: 8px; }
+  .market-label { flex: 1; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prob { font-size: 13px; font-weight: 700; width: 42px; text-align: right; flex-shrink: 0; }
+  .bar-wrap { flex: 1; height: 5px; background: #2a2d3e; border-radius: 3px; overflow: hidden; }
+  .bar { height: 100%; border-radius: 3px; transition: width 0.4s; }
+  .card-footer { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); }
+  .vol-badge { background: rgba(59,130,246,0.12); color: var(--blue); border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 600; }
+  .days-badge { background: rgba(168,85,247,0.12); color: var(--purple); border-radius: 4px; padding: 2px 6px; font-size: 11px; }
+  .loading { text-align: center; padding: 60px; color: var(--muted); font-size: 15px; }
+  .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .countdown { font-size: 12px; color: var(--muted); }
+  .section-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>&#x1F4CA; Polymarket Dashboard</h1>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span id="last-updated">&#x2015;</span>
+    <span id="countdown" class="countdown"></span>
+    <button id="refresh-btn" onclick="loadAll()">&#x1F504; &#x66F4;&#x65B0;</button>
+  </div>
+</header>
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('btc-eth',this)">&#x2460; BTC / ETH &#x4FA1;&#x683C;&#x4E88;&#x60F3;</button>
+  <button class="tab-btn" onclick="switchTab('tge',this)">&#x2461; TGE&#x524D;&#x30C8;&#x30FC;&#x30AF;&#x30F3;</button>
+  <button class="tab-btn" onclick="switchTab('politics',this)">&#x2462; &#x6226;&#x4E89;&#x30FB;&#x653F;&#x6CBB;</button>
+</div>
+<div id="btc-eth" class="tab-content active"><div class="loading"><span class="spinner"></span>&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x4E2D;...</div></div>
+<div id="tge" class="tab-content"><div class="loading"><span class="spinner"></span>&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x4E2D;...</div></div>
+<div id="politics" class="tab-content"><div class="loading"><span class="spinner"></span>&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x4E2D;...</div></div>
+<script>
+const GAMMA='https://gamma-api.polymarket.com';
+const PM_BASE='https://polymarket.com/event/';
+const CONFIG={
+  'btc-eth':[{tag:'bitcoin',label:'Bitcoin',color:'#f59e0b',volMin:500000},{tag:'ethereum',label:'Ethereum',color:'#a855f7',volMin:500000}],
+  'tge':[{tag:'pre-market',label:'TGE / Pre-Market',color:'#22c55e',volMin:0}],
+  'politics':[{tag:'geopolitics',label:'Geopolitics',color:'#ef4444',volMin:500000},{tag:'iran',label:'Iran',color:'#f97316',volMin:500000},{tag:'ukraine',label:'Ukraine',color:'#3b82f6',volMin:500000},{tag:'economy',label:'Economy',color:'#22c55e',volMin:500000}]
+};
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+async function fetchEvents(tag,volMin){const p=new URLSearchParams({tag_slug:tag,active:'true',closed:'false',volume_min:volMin,order:'volume',ascending:'false',limit:30});const r=await fetch(GAMMA+'/events?'+p);return r.json();}
+function fmtVol(n){n=Number(n)||0;if(n>=1e9)return'$'+(n/1e9).toFixed(1)+'B';if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(0)+'K';return'$'+n;}
+function daysLeft(d){if(!d)return'--';const diff=new Date(d)-new Date();const days=Math.ceil(diff/86400000);if(days<0)return'Ended';if(days===0)return'Today';return days+'d left';}
+function getProb(op){try{return parseFloat(JSON.parse(op)[0]);}catch(e){return null;}}
+function probColor(p){if(p>=0.7)return'#22c55e';if(p>=0.4)return'#f59e0b';return'#ef4444';}
+const seen={};
+function buildCard(ev){
+  const slug=esc(ev.slug||''),title=esc(ev.title||'');
+  const mkts=(ev.markets||[]).slice(0,6);
+  if(!mkts.length)return'';
+  const rows=mkts.map(function(m){const p=getProb(m.outcomePrices);if(p===null)return'';const pct=Math.round(p*100),bar=Math.max(2,pct),color=probColor(p),q=esc(m.question||'');return'<div class="market-row"><div class="market-label" title="'+q+'">'+q+'</div><div class="bar-wrap"><div class="bar" style="width:'+bar+'%;background:'+color+'"></div></div><div class="prob" style="color:'+color+'">'+pct+'%</div></div>';}).join('');
+  return'<div class="card"><div class="card-title"><a href="'+PM_BASE+slug+'" target="_blank" rel="noopener">'+title+'</a></div>'+rows+'<div class="card-footer"><span class="vol-badge">Vol '+fmtVol(ev.volume)+'</span><span>24h '+fmtVol(ev.volume24hr)+'</span><span class="days-badge">'+daysLeft(ev.endDate)+'</span></div></div>';
+}
+async function buildSection(items){
+  const sections=[];
+  for(const item of items){
+    try{
+      const evs=await fetchEvents(item.tag,item.volMin);
+      const uniq=evs.filter(function(e){if(!e.slug||seen[e.slug])return false;seen[e.slug]=true;return true;});
+      const cards=uniq.map(function(e){return buildCard(e);}).filter(Boolean).join('');
+      if(cards)sections.push('<div class="section-label" style="color:'+item.color+'">'+esc(item.label)+' - '+uniq.length+' markets</div><div class="grid">'+cards+'</div><div style="margin-bottom:24px"></div>');
+    }catch(err){sections.push('<div class="loading">Error: '+esc(err.message)+'</div>');}
+  }
+  return sections.join('');
+}
+function switchTab(id,btn){document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});document.getElementById(id).classList.add('active');if(btn)btn.classList.add('active');}
+let nextRefresh=null,timer=null;
+async function loadAll(){
+  Object.keys(seen).forEach(function(k){delete seen[k];});
+  document.querySelectorAll('.tab-content').forEach(function(el){el.innerHTML='<div class="loading"><span class="spinner"></span>Loading...</div>';});
+  for(const tab of Object.keys(CONFIG)){const html=await buildSection(CONFIG[tab]);document.getElementById(tab).innerHTML=html||'<div class="loading">No data</div>';}
+  document.getElementById('last-updated').textContent='Updated: '+new Date().toLocaleTimeString('ja-JP');
+  nextRefresh=Date.now()+3600*1000;
+  if(timer)clearInterval(timer);
+  timer=setInterval(function(){const left=Math.max(0,nextRefresh-Date.now());const m=String(Math.floor(left/60000)).padStart(2,'0');const s=String(Math.floor((left%60000)/1000)).padStart(2,'0');document.getElementById('countdown').textContent='Next update: '+m+':'+s;if(left<=0)loadAll();},1000);
+}
+loadAll();
+</script>
+</body>
+</html>
