@@ -136,16 +136,20 @@
   padding: 28px 0;
   border-bottom: 1px solid var(--line);
   transition:
-    opacity 0.25s ease,
     background-color 0.25s ease,
-    padding-left 0.25s ease;
+    padding-left 0.25s ease,
+    transform 0.25s ease;
   border-radius: 12px;
 }
 
 .tool-card:hover {
-  background: rgba(13, 95, 102, 0.08);
-  opacity: 1;
+  background: rgba(13, 95, 102, 0.18);
   padding-left: 12px;
+  transform: translateX(4px);
+}
+
+.tool-card:hover .tool-title {
+  color: var(--accent);
 }
 
     .tool-number {
