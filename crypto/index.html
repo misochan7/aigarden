@@ -173,13 +173,17 @@
     .profile-icon {
       width: 150px;
       height: 150px;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 72px;
-      font-family: 'Noto Serif JP', serif;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .profile h2 {
@@ -295,7 +299,7 @@
 
     <section id="tools" class="tools container">
 
-      <a href="/crypto/prediction/" class="tool-card">s="tool-card">tool-card">
+      <a href="/crypto/fdv/" class="tool-card">
         <div>
           <div class="tool-number">01 / FDV</div>
           <h2 class="tool-title">FDV計算ツール</h2>
@@ -307,7 +311,7 @@
         </div>
       </a>
 
-      <a href="#" class="tool-card">
+      <a href="/crypto/prompt/" class="tool-card">
         <div>
           <div class="tool-number">02 / PROMPTS</div>
           <h2 class="tool-title">Crypto AIプロンプト集</h2>
@@ -319,7 +323,7 @@
         </div>
       </a>
 
-      <a href="#" class="tool-card">
+      <a href="/crypto/prediction/" class="tool-card">
         <div>
           <div class="tool-number">03 / POLY</div>
           <h2 class="tool-title">Polymarketダッシュボード</h2>
@@ -333,7 +337,9 @@
     </section>
 
     <section id="author" class="container profile">
-      <div class="profile-icon">S</div>
+      <div class="profile-icon">
+        <img src="images/pfp.png" alt="sasami profile" />
+      </div>
 
       <div>
         <h2>sasami</h2>
