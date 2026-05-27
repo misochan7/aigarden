@@ -129,18 +129,24 @@
       padding: 12px 0 80px;
     }
 
-    .tool-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--line);
-      transition: opacity 0.2s ease;
-    }
+.tool-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  transition:
+    opacity 0.25s ease,
+    background-color 0.25s ease,
+    padding-left 0.25s ease;
+  border-radius: 12px;
+}
 
-    .tool-card:hover {
-      opacity: 0.72;
-    }
+.tool-card:hover {
+  background: rgba(13, 95, 102, 0.08);
+  opacity: 1;
+  padding-left: 12px;
+}
 
     .tool-number {
       font-size: 11px;
