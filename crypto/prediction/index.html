@@ -176,6 +176,36 @@
     .tab-icon-com    { background: var(--accent); color:#fff; }
 
     /* ═══════════════════════════════════════
+       SUB-TABS (BTC/ETH/HYPE内)
+    ═══════════════════════════════════════ */
+    .sub-tabs {
+      display: flex;
+      border: 1px solid var(--line);
+      width: fit-content;
+      margin-bottom: 24px;
+    }
+    .sub-tab-btn {
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .sub-tab-btn:last-child { border-right: none; }
+    .sub-tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .sub-tab-btn.active { background: var(--text); color: var(--bg); }
+
+    .sub-content { display: none; }
+    .sub-content.active { display: block; }
+
+    /* ═══════════════════════════════════════
        TAB CONTENT
     ═══════════════════════════════════════ */
     .tab-content { display: none; padding: 28px 0; }
@@ -200,8 +230,8 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1px;
-      background: rgba(30,30,30,0.12);
-      border: 1px solid rgba(30,30,30,0.12);
+      background: rgba(30,30,30,0.28);
+      border: 1px solid rgba(30,30,30,0.28);
       margin-bottom: 2px;
     }
 
@@ -406,7 +436,17 @@
       </div>
 
       <!-- TAB CONTENTS -->
-      <div id="tab-btc" class="tab-content active"></div>
+      <div id="tab-btc" class="tab-content active">
+        <!-- サブタブ -->
+        <div class="sub-tabs">
+          <button class="sub-tab-btn active" onclick="switchSubTab('tab-btc', 'sub-bitcoin', this)">Bitcoin</button>
+          <button class="sub-tab-btn" onclick="switchSubTab('tab-btc', 'sub-ethereum', this)">Ethereum</button>
+          <button class="sub-tab-btn" onclick="switchSubTab('tab-btc', 'sub-hype', this)">HYPE</button>
+        </div>
+        <div id="sub-bitcoin" class="sub-content active"></div>
+        <div id="sub-ethereum" class="sub-content"></div>
+        <div id="sub-hype" class="sub-content"></div>
+      </div>
       <div id="tab-tge" class="tab-content"></div>
       <div id="tab-pol" class="tab-content"></div>
       <div id="tab-com" class="tab-content"></div>
@@ -437,7 +477,7 @@
     /* ─── i18n ─── */
     const I18N = {
       ja: {
-        tab_btc:      'BTC / ETH 価格予想',
+        tab_btc:      'BTC / ETH / HYPE',
         tab_tge:      'TGE前トークン',
         tab_pol:      '戦争・政治',
         tab_com:      'コモディティ',
@@ -452,8 +492,8 @@
         error:        'エラー: ',
         sec_bitcoin:  'Bitcoin',
         sec_ethereum: 'Ethereum',
+        sec_hype:     'Hyperliquid (HYPE)',
         sec_pre:      'TGE / Pre-Market',
-        sec_geo:      '地政学',
         sec_iran:     'イラン',
         sec_ukraine:  'ウクライナ',
         sec_economy:  'エコノミー',
@@ -462,7 +502,7 @@
         sec_stocks:   '株式',
       },
       en: {
-        tab_btc:      'BTC / ETH Price',
+        tab_btc:      'BTC / ETH / HYPE',
         tab_tge:      'Pre-TGE Tokens',
         tab_pol:      'War & Politics',
         tab_com:      'Commodities',
@@ -477,8 +517,8 @@
         error:        'Error: ',
         sec_bitcoin:  'Bitcoin',
         sec_ethereum: 'Ethereum',
+        sec_hype:     'Hyperliquid (HYPE)',
         sec_pre:      'TGE / Pre-Market',
-        sec_geo:      'Geopolitics',
         sec_iran:     'Iran',
         sec_ukraine:  'Ukraine',
         sec_economy:  'Economy',
@@ -498,8 +538,9 @@
     /* ─── タブ設定 ─── */
     const TABS = {
       'tab-btc': [
-        { secKey:'sec_bitcoin',   tagSlug:'bitcoin',     minVol:500000 },
-        { secKey:'sec_ethereum',  tagSlug:'ethereum',    minVol:500000 },
+        { secKey:'sec_bitcoin',   tagSlug:'bitcoin',      minVol:500000, subTab:'sub-bitcoin' },
+        { secKey:'sec_ethereum',  tagSlug:'ethereum',     minVol:500000, subTab:'sub-ethereum' },
+        { secKey:'sec_hype',      tagSlug:'hyperliquid',  minVol:0,      subTab:'sub-hype' },
       ],
       'tab-tge': [
         { secKey:'sec_pre',       tagSlug:'pre-market',  minVol:0 },
@@ -574,21 +615,36 @@
       return EXCLUDE_KW.some(kw => tl.includes(kw));
     }
 
-    /* ─── API fetch — closed:false & archived:false で終了済みを除外 ─── */
+    /* ─── API fetch ─── */
     async function fetchSection(tagSlug, minVol) {
       const p = new URLSearchParams({
-        tag_slug: tagSlug,
-        limit: '50',
-        order: 'volume',
+        tag_slug:  tagSlug,
+        limit:     '50',
+        order:     'volume',
         ascending: 'false',
-        active: 'true',
-        closed: 'false',      // 終了済みマーケットを除外
-        archived: 'false',    // アーカイブ済みを除外
+        active:    'true',
+        closed:    'false',
+        archived:  'false',
       });
-      if (minVol > 0) p.set('volume_num_min', String(minVol));
+      // APIレベルの出来高フィルター（minVol指定時 or 一律$50K以上）
+      const vol_min = Math.max(minVol, 50000);
+      p.set('volume_num_min', String(vol_min));
       const res = await fetch('https://gamma-api.polymarket.com/events?' + p);
       if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
       return res.json();
+    }
+
+    /* クライアント側でも終了済み・低出来高をダブルチェック */
+    function isActiveEvent(ev) {
+      if (ev.closed   === true)  return false;
+      if (ev.archived === true)  return false;
+      if (ev.active   === false) return false;
+      if (ev.ended    === true)  return false;
+      // 終了日が過去のものを除外
+      if (ev.endDate && new Date(ev.endDate) < new Date()) return false;
+      // 出来高 $50K 未満を除外
+      if ((parseFloat(ev.volume) || 0) < 50000) return false;
+      return true;
     }
 
     function buildCard(ev) {
@@ -648,16 +704,34 @@
       </div>`;
     }
 
+    function switchSubTab(tabId, subId, btn) {
+      const tabEl = document.getElementById(tabId);
+      tabEl.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+      tabEl.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(subId).classList.add('active');
+    }
+
     async function loadTab(tabId) {
       const sections = TABS[tabId];
       const container = document.getElementById(tabId);
       if (!sections || !container) return;
 
-      container.innerHTML = `<div class="loading"><span class="spinner"></span>${t('loading')}</div>`;
+      // サブタブあり（tab-btc）
+      const hasSubTabs = sections.some(s => s.subTab);
+
+      if (!hasSubTabs) {
+        container.innerHTML = `<div class="loading"><span class="spinner"></span>${t('loading')}</div>`;
+      } else {
+        // サブコンテナにローディング表示
+        sections.forEach(sec => {
+          const sub = document.getElementById(sec.subTab);
+          if (sub) sub.innerHTML = `<div class="loading"><span class="spinner"></span>${t('loading')}</div>`;
+        });
+      }
 
       try {
         const seen = new Set();
-        const frag = document.createDocumentFragment();
 
         for (const sec of sections) {
           let events;
@@ -669,31 +743,42 @@
               const k = ev.slug || ev.id;
               if (seen.has(k)) return false;
               seen.add(k);
-              return true;
+              return isActiveEvent(ev); // 終了済み・低出来高を除外
             })
             .map(buildCard)
             .filter(Boolean);
 
-          if (!cards.length) continue;
-
-          const secLabel = document.createElement('div');
-          secLabel.className = 'section-label';
-          secLabel.dataset.secKey = sec.secKey;
-          secLabel.textContent = t(sec.secKey);
-
-          const grid = document.createElement('div');
-          grid.className = 'grid';
-          grid.innerHTML = cards.join('');
-
-          frag.appendChild(secLabel);
-          frag.appendChild(grid);
+          if (hasSubTabs) {
+            // サブタブモード：各セクションを専用コンテナへ
+            const sub = document.getElementById(sec.subTab);
+            if (!sub) continue;
+            if (!cards.length) {
+              sub.innerHTML = `<div class="loading">${t('nodata')}</div>`;
+              continue;
+            }
+            const grid = document.createElement('div');
+            grid.className = 'grid';
+            grid.innerHTML = cards.join('');
+            sub.innerHTML = '';
+            sub.appendChild(grid);
+          } else {
+            // 通常モード：初回セクションでローディングをクリア
+            if (container.querySelector('.loading')) container.innerHTML = '';
+            if (!cards.length) continue;
+            const secLabel = document.createElement('div');
+            secLabel.className = 'section-label';
+            secLabel.dataset.secKey = sec.secKey;
+            secLabel.textContent = t(sec.secKey);
+            const grid = document.createElement('div');
+            grid.className = 'grid';
+            grid.innerHTML = cards.join('');
+            container.appendChild(secLabel);
+            container.appendChild(grid);
+          }
         }
 
-        container.innerHTML = '';
-        if (frag.childNodes.length === 0) {
+        if (!hasSubTabs && container.querySelectorAll('.grid').length === 0) {
           container.innerHTML = `<div class="loading">${t('nodata')}</div>`;
-        } else {
-          container.appendChild(frag);
         }
       } catch(e) {
         container.innerHTML = `<div class="loading">${t('error')}${e.message}</div>`;
