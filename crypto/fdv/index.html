@@ -1,509 +1,1035 @@
-/* =========================
-   AIGARDEN THEME
-========================= */
-
-:root {
-  --bg: #f4f2ec;
-  --text: #111111;
-  --muted: #666666;
-  --line: #1e1e1e;
-  --accent: #0d5f66;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
-  min-height: 100vh;
-  color: var(--text);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* =========================
-   TOP NAV
-========================= */
-
-.top-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 20px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-  gap: 16px;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* =========================
-   MENU
-========================= */
-
-.menu-accordion {
-  position: relative;
-}
-
-.menu-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(0,0,0,0.08);
-  color: var(--muted);
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.menu-toggle:hover {
-  background: rgba(13,95,102,0.08);
-  color: var(--accent);
-}
-
-.menu-toggle svg {
-  transition: transform 0.2s;
-}
-
-.menu-toggle.open svg {
-  transform: rotate(180deg);
-}
-
-.menu-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 220px;
-  background: var(--bg);
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 8px;
-  display: none;
-  z-index: 1000;
-}
-
-.menu-dropdown.show {
-  display: block;
-}
-
-.menu-item {
-  display: block;
-  padding: 12px 14px;
-  font-size: 13px;
-  text-decoration: none;
-  color: var(--muted);
-  transition: all 0.2s;
-}
-
-.menu-item:hover {
-  background: rgba(13,95,102,0.08);
-  color: var(--accent);
-}
-
-.menu-item.active {
-  background: rgba(13,95,102,0.12);
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* =========================
-   HOME BUTTON
-========================= */
-
-.home-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(0,0,0,0.08);
-  font-size: 13px;
-  text-decoration: none;
-  color: var(--muted);
-  transition: all 0.2s;
-}
-
-.home-link:hover {
-  background: rgba(13,95,102,0.08);
-  color: var(--accent);
-}
-
-/* =========================
-   LANG SWITCH
-========================= */
-
-.lang-switcher {
-  display: flex;
-  gap: 4px;
-  border: 1px solid var(--line);
-}
-
-.lang-btn {
-  padding: 8px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.lang-btn:hover {
-  background: rgba(13,95,102,0.08);
-}
-
-.lang-btn.active {
-  background: var(--text);
-  color: white;
-}
-
-/* =========================
-   LAYOUT
-========================= */
-
-.container {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 48px 20px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-  text-align: center;
-  margin-bottom: 42px;
-}
-
-h1 {
-  font-family: 'Noto Serif JP', serif;
-  font-size: clamp(42px, 6vw, 72px);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* =========================
-   TWITTER BUTTON
-========================= */
-
-.twitter-link {
-  margin: 18px 0;
-}
-
-.twitter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  background: var(--accent);
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.twitter-btn:hover {
-  opacity: 0.85;
-}
-
-/* =========================
-   CARD
-========================= */
-
-.card {
-  background: rgba(255,255,255,0.45);
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 28px;
-  margin-bottom: 24px;
-}
-
-.card-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* =========================
-   TABS
-========================= */
-
-.tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding-bottom: 8px;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 12px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.tab-btn:hover {
-  background: rgba(13,95,102,0.06);
-}
-
-.tab-btn.active {
-  background: rgba(13,95,102,0.12);
-  color: var(--accent);
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* =========================
-   INPUT
-========================= */
-
-.input-group {
-  margin-bottom: 22px;
-}
-
-.input-group:last-child {
-  margin-bottom: 0;
-}
-
-label {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-input {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 1rem;
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(0,0,0,0.12);
-  color: var(--text);
-  transition: all 0.2s;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: none;
-}
-
-input::placeholder {
-  color: #999;
-}
-
-.input-hint {
-  font-size: 0.75rem;
-  color: #888;
-  margin-top: 6px;
-}
-
-/* =========================
-   QUICK BUTTONS
-========================= */
-
-.quick-buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.quick-btn {
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: rgba(13,95,102,0.08);
-  border: 1px solid rgba(13,95,102,0.16);
-  color: var(--accent);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.quick-btn:hover {
-  background: rgba(13,95,102,0.14);
-}
-
-/* =========================
-   TABLE
-========================= */
-
-.results-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.results-table th,
-.results-table td {
-  padding: 14px 16px;
-  text-align: center;
-}
-
-.results-table th {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--muted);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.results-table td {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.results-table tr:last-child td {
-  border-bottom: none;
-}
-
-.results-table tr:hover td {
-  background: rgba(13,95,102,0.08);
-}
-
-.fdv-label {
-  font-weight: 600;
-  color: var(--accent);
-}
-
-.price-value {
-  color: #15803d;
-  font-weight: 600;
-}
-
-.holding-value {
-  color: #a16207;
-  font-weight: 600;
-}
-
-.token-amount {
-  color: #7c3aed;
-  font-weight: 600;
-}
-
-/* =========================
-   INFO
-========================= */
-
-.info-box {
-  background: rgba(13,95,102,0.08);
-  border: 1px solid rgba(13,95,102,0.12);
-  padding: 14px 16px;
-  margin-bottom: 20px;
-  font-size: 0.85rem;
-  color: var(--accent);
-}
-
-.no-data {
-  text-align: center;
-  color: var(--muted);
-  padding: 40px 20px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.footer-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(0,0,0,0.08);
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-}
-
-.footer-link:hover {
-  background: rgba(13,95,102,0.08);
-  color: var(--accent);
-}
-
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  color: #777;
-  font-size: 0.8rem;
-}
-
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-  .top-nav {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .container {
-    padding: 28px 16px;
-  }
-
-  h1 {
-    font-size: 2.4rem;
-  }
-
-  .card {
-    padding: 22px 16px;
-  }
-
-  .results-table th,
-  .results-table td {
-    padding: 12px 8px;
-    font-size: 0.82rem;
-  }
-
-  .tab-btn {
-    padding: 10px 12px;
-    font-size: 0.8rem;
-  }
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDV Calculator - トークン価格予測ツール</title>
+  <meta name="description" content="仮想通貨のFDV（完全希釈後時価総額）から将来のトークン価格を予測。総供給量とAllocationを入力して、各FDVでの価格をシミュレーション。">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FDV Calculator - トークン価格予測ツール">
+  <meta property="og:description" content="FDVから将来のトークン価格を予測。エアドロップのポイントから獲得トークン数と価値も計算。">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/fdv/">
+  <meta property="og:image" content="https://ai-garden-lab.com/images/cryptotools.png">
+  <meta property="og:site_name" content="AIGARDEN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FDV Calculator - トークン価格予測ツール">
+  <meta name="twitter:description" content="FDVから将来のトークン価格を予測。エアドロップのポイントから価値も計算。">
+  <meta name="twitter:image" content="https://ai-garden-lab.com/images/cryptotools.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* アコーディオンメニュー */
+    .menu-accordion {
+      position: relative;
+    }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #aaa;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .menu-toggle svg {
+      transition: transform 0.2s;
+    }
+
+    .menu-toggle.open svg {
+      transform: rotate(180deg);
+    }
+
+    .menu-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 200px;
+      background: rgba(20, 20, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 8px;
+      display: none;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-dropdown.show {
+      display: block;
+    }
+
+    .menu-item {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #aaa;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .menu-item:hover {
+      background: rgba(0, 212, 255, 0.1);
+      color: #00d4ff;
+    }
+
+    .menu-item.active {
+      background: rgba(0, 212, 255, 0.15);
+      color: #00d4ff;
+      font-weight: 600;
+    }
+
+    /* Homeボタン */
+    .home-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 13px;
+      text-decoration: none;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .home-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* 言語切り替え */
+    .lang-switcher {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .lang-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      color: #ccc;
+    }
+
+    .lang-btn.active {
+      background: rgba(0, 212, 255, 0.2);
+      color: #00d4ff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .twitter-link {
+      margin: 12px 0;
+    }
+
+    .twitter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #0ea5e9;
+      color: white;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .twitter-btn:hover {
+      background: #0284c7;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #00d4ff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* タブスタイル */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #ccc;
+    }
+
+    .tab-btn.active {
+      background: rgba(0, 212, 255, 0.2);
+      color: #00d4ff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #fff;
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+
+    input::placeholder {
+      color: #555;
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .quick-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quick-btn {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(0, 212, 255, 0.15);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 8px;
+      color: #00d4ff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-btn:hover {
+      background: rgba(0, 212, 255, 0.25);
+      border-color: #00d4ff;
+    }
+
+    .quick-btn:active {
+      transform: scale(0.95);
+    }
+
+    .results-table {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .results-table th {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .results-table td {
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .results-table tr:hover td {
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    .fdv-label {
+      font-weight: 600;
+      color: #00d4ff;
+    }
+
+    .price-value {
+      color: #4ade80;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .holding-value {
+      color: #fbbf24;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .token-amount {
+      color: #c084fc;
+      font-weight: 500;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #666;
+      padding: 40px 20px;
+    }
+
+    .formula {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .formula code {
+      color: #00d4ff;
+      font-family: 'SF Mono', 'Monaco', monospace;
+    }
+
+    .info-box {
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: #88d4f0;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .footer-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #555;
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .top-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .nav-left {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .menu-dropdown {
+        right: 0;
+        left: auto;
+      }
+
+      .container {
+        padding: 24px 16px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 20px 16px;
+      }
+
+      .results-table th,
+      .results-table td {
+        padding: 12px 8px;
+        font-size: 0.85rem;
+      }
+
+      .results-table th {
+        font-size: 0.7rem;
+      }
+
+      .tab-btn {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-left">
+      <!-- アコーディオンメニュー -->
+      <div class="menu-accordion">
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span>☰ <span data-i18n="nav.menu">メニュー</span></span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="menu-dropdown" id="menuDropdown">
+          <a href="/crypto/fdv/" class="menu-item active">💰 <span data-i18n="nav.fdv">FDV Calculator</span></a>
+          <a href="/crypto/prompt/" class="menu-item">📋 <span data-i18n="nav.prompt">AIプロンプト集</span></a>
+        </div>
+      </div>
+      
+      <!-- Homeボタン -->
+      <a href="/crypto/" class="home-link">
+        🏠 <span data-i18n="nav.home">Home</span>
+      </a>
+    </div>
+    
+    <!-- 言語切り替え -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLanguage('ja')">🇯🇵 日本語</button>
+      <button class="lang-btn" onclick="setLanguage('en')">🇺🇸 EN</button>
+    </div>
+  </nav>
+  <div class="container">
+    <header>
+      <h1 data-i18n="header.title">FDV Calculator</h1>
+      <div class="twitter-link">
+        <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" class="twitter-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+          </svg>
+          <span data-i18n="header.twitter">作者X@sasami フォローしてね！</span>
+        </a>
+      </div>
+      <p class="subtitle" data-i18n="header.subtitle">将来のFDVからトークン価格を予測</p>
+    </header>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+        <span data-i18n="card1.title">基本情報</span>
+      </div>
+
+      <!-- タブ -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('normal')">
+          <span data-i18n="tabs.normal">通常モード</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('point')">
+          <span data-i18n="tabs.point">ポイントモード</span>
+        </button>
+      </div>
+
+      <!-- 通常モード -->
+      <div id="normalTab" class="tab-content active">
+        <div class="input-group">
+          <label for="totalSupply" data-i18n="normal.totalSupply">総供給量（Total Supply）</label>
+          <input type="text" id="totalSupply" data-i18n-placeholder="normal.totalSupplyPlaceholder" placeholder="例: 1000000000" inputmode="numeric">
+          <div class="quick-buttons">
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 1000000000)">1B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 5000000000)">5B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupply', 10000000000)">10B</button>
+          </div>
+          <p class="input-hint" data-i18n="normal.totalSupplyHint">トークンの最大供給量を入力</p>
+        </div>
+        <div class="input-group">
+          <label for="holdings" data-i18n="normal.holdings">あなたの保有量（オプション）</label>
+          <input type="text" id="holdings" data-i18n-placeholder="normal.holdingsPlaceholder" placeholder="例: 50000" inputmode="numeric">
+          <p class="input-hint" data-i18n="normal.holdingsHint">保有トークン数を入力すると評価額も表示</p>
+        </div>
+      </div>
+
+      <!-- ポイントモード -->
+      <div id="pointTab" class="tab-content">
+        <div class="info-box">
+          <span data-i18n="point.infoBox">💡 エアドロップのポイントから価値を予測</span>
+        </div>
+        <div class="input-group">
+          <label for="totalPoints" data-i18n="point.totalPoints">総配布ポイント</label>
+          <input type="text" id="totalPoints" data-i18n-placeholder="point.totalPointsPlaceholder" placeholder="例: 500000000" inputmode="numeric">
+          <p class="input-hint" data-i18n="point.totalPointsHint">全ユーザーに配布されたポイントの合計</p>
+        </div>
+        <div class="input-group">
+          <label for="allocationPoint" data-i18n="point.allocation">対象 Allocation（%）</label>
+          <input type="text" id="allocationPoint" data-i18n-placeholder="point.allocationPlaceholder" placeholder="例: 10" inputmode="decimal">
+          <p class="input-hint" data-i18n="point.allocationHint">エアドロップに割り当てられる割合</p>
+        </div>
+        <div class="input-group">
+          <label for="myPoints" data-i18n="point.myPoints">あなたのポイント（オプション）</label>
+          <input type="text" id="myPoints" data-i18n-placeholder="point.myPointsPlaceholder" placeholder="例: 100000" inputmode="numeric">
+          <p class="input-hint" data-i18n="point.myPointsHint">あなたが獲得したポイント数</p>
+        </div>
+        <div class="input-group">
+          <label for="totalSupplyPoint" data-i18n="point.totalSupply">総供給量（オプション）</label>
+          <input type="text" id="totalSupplyPoint" data-i18n-placeholder="point.totalSupplyPlaceholder" placeholder="例: 1000000000" inputmode="numeric">
+          <div class="quick-buttons">
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 1000000000)">1B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 5000000000)">5B</button>
+            <button type="button" class="quick-btn" onclick="setTotalSupply('totalSupplyPoint', 10000000000)">10B</button>
+          </div>
+          <p class="input-hint" data-i18n="point.totalSupplyHint">入力すると獲得トークン数も表示</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        <span data-i18n="card2.title">価格予測</span>
+      </div>
+      <div id="resultsContainer">
+        <p class="no-data" data-i18n="results.noData">情報を入力してください</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/crypto/" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span data-i18n="footer.cryptoTools">Crypto Tools</span>
+        </a>
+        <a href="/" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          AIGARDEN
+        </a>
+      </div>
+      <p>© 2025 <a href="/">AIGARDEN</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // 多言語対応テキスト
+    const translations = {
+      ja: {
+        'nav.menu': 'メニュー',
+        'nav.home': 'Home',
+        'nav.fdv': 'FDV Calculator',
+        'nav.prompt': 'AIプロンプト集',
+        'header.title': 'FDV Calculator',
+        'header.twitter': '作者X@sasami フォローしてね!',
+        'header.subtitle': '将来のFDVからトークン価格を予測',
+        'card1.title': '基本情報',
+        'tabs.normal': '通常モード',
+        'tabs.point': 'ポイントモード',
+        'normal.totalSupply': '総供給量（Total Supply）',
+        'normal.totalSupplyPlaceholder': '例: 1000000000',
+        'normal.totalSupplyHint': 'トークンの最大供給量を入力',
+        'normal.holdings': 'あなたの保有量（オプション）',
+        'normal.holdingsPlaceholder': '例: 50000',
+        'normal.holdingsHint': '保有トークン数を入力すると評価額も表示',
+        'point.infoBox': '💡 エアドロップのポイントから価値を予測',
+        'point.totalPoints': '総配布ポイント',
+        'point.totalPointsPlaceholder': '例: 500000000',
+        'point.totalPointsHint': '全ユーザーに配布されたポイントの合計',
+        'point.allocation': '対象 Allocation（%）',
+        'point.allocationPlaceholder': '例: 10',
+        'point.allocationHint': 'エアドロップに割り当てられる割合',
+        'point.myPoints': 'あなたのポイント（オプション）',
+        'point.myPointsPlaceholder': '例: 100000',
+        'point.myPointsHint': 'あなたが獲得したポイント数',
+        'point.totalSupply': '総供給量（オプション）',
+        'point.totalSupplyPlaceholder': '例: 1000000000',
+        'point.totalSupplyHint': '入力すると獲得トークン数も表示',
+        'card2.title': '価格予測',
+        'results.noData': '情報を入力してください',
+        'results.normalTableHeader1': 'FDV',
+        'results.normalTableHeader2': 'トークン価格',
+        'results.normalTableHeader3': '保有価値',
+        'results.pointTableHeader1': 'FDV',
+        'results.pointTableHeader2': '1ポイント価格',
+        'results.pointTableHeader3': 'あなたの価値',
+        'results.yourTokens': 'あなたの獲得トークン数（予測）',
+        'results.tokens': 'tokens',
+        'results.enterTotalSupply': '総供給量を入力してください',
+        'results.enterPointData': '総配布ポイントとAllocationを入力してください',
+        'footer.cryptoTools': 'Crypto Tools'
+      },
+      en: {
+        'nav.menu': 'Menu',
+        'nav.home': 'Home',
+        'nav.fdv': 'FDV Calculator',
+        'nav.prompt': 'AI Prompts',
+        'header.title': 'FDV Calculator',
+        'header.twitter': 'Follow @sasami on X!',
+        'header.subtitle': 'Predict token price from future FDV',
+        'card1.title': 'Basic Information',
+        'tabs.normal': 'Normal Mode',
+        'tabs.point': 'Point Mode',
+        'normal.totalSupply': 'Total Supply',
+        'normal.totalSupplyPlaceholder': 'e.g., 1000000000',
+        'normal.totalSupplyHint': 'Enter maximum token supply',
+        'normal.holdings': 'Your Holdings (Optional)',
+        'normal.holdingsPlaceholder': 'e.g., 50000',
+        'normal.holdingsHint': 'Enter your token amount to see valuation',
+        'point.infoBox': '💡 Predict value from airdrop points',
+        'point.totalPoints': 'Total Points Distributed',
+        'point.totalPointsPlaceholder': 'e.g., 500000000',
+        'point.totalPointsHint': 'Total points distributed to all users',
+        'point.allocation': 'Allocation (%)',
+        'point.allocationPlaceholder': 'e.g., 10',
+        'point.allocationHint': 'Percentage allocated to airdrop',
+        'point.myPoints': 'Your Points (Optional)',
+        'point.myPointsPlaceholder': 'e.g., 100000',
+        'point.myPointsHint': 'Points you earned',
+        'point.totalSupply': 'Total Supply (Optional)',
+        'point.totalSupplyPlaceholder': 'e.g., 1000000000',
+        'point.totalSupplyHint': 'Shows token amount if entered',
+        'card2.title': 'Price Prediction',
+        'results.noData': 'Please enter information',
+        'results.normalTableHeader1': 'FDV',
+        'results.normalTableHeader2': 'Token Price',
+        'results.normalTableHeader3': 'Your Value',
+        'results.pointTableHeader1': 'FDV',
+        'results.pointTableHeader2': 'Price per Point',
+        'results.pointTableHeader3': 'Your Value',
+        'results.yourTokens': 'Your Token Amount (Estimated)',
+        'results.tokens': 'tokens',
+        'results.enterTotalSupply': 'Please enter total supply',
+        'results.enterPointData': 'Please enter total points and allocation',
+        'footer.cryptoTools': 'Crypto Tools'
+      }
+    };
+
+    let currentLang = 'ja';
+
+    // アコーディオンメニューの開閉
+    function toggleMenu() {
+      const dropdown = document.getElementById('menuDropdown');
+      const toggle = document.querySelector('.menu-toggle');
+      dropdown.classList.toggle('show');
+      toggle.classList.toggle('open');
+    }
+
+    // メニュー外をクリックしたら閉じる
+    document.addEventListener('click', function(event) {
+      const menu = document.querySelector('.menu-accordion');
+      const dropdown = document.getElementById('menuDropdown');
+      const toggle = document.querySelector('.menu-toggle');
+      
+      if (!menu.contains(event.target) && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+        toggle.classList.remove('open');
+      }
+    });
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // 言語ボタンの更新
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // テキストの更新
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          elem.textContent = translations[lang][key];
+        }
+      });
+      
+      // プレースホルダーの更新
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+          elem.placeholder = translations[lang][key];
+        }
+      });
+      
+      // 結果を再計算して表示を更新
+      calculate();
+    }
+
+    const fdvList = [
+      { label: '$20M', value: 20000000 },
+      { label: '$50M', value: 50000000 },
+      { label: '$100M', value: 100000000 },
+      { label: '$200M', value: 200000000 },
+      { label: '$300M', value: 300000000 },
+      { label: '$400M', value: 400000000 },
+      { label: '$500M', value: 500000000 },
+      { label: '$700M', value: 700000000 },
+      { label: '$1B', value: 1000000000 },
+      { label: '$2B', value: 2000000000 },
+      { label: '$3B', value: 3000000000 },
+      { label: '$4B', value: 4000000000 },
+      { label: '$5B', value: 5000000000 },
+    ];
+
+    let currentMode = 'normal';
+
+    // 通常モード用
+    const totalSupplyInput = document.getElementById('totalSupply');
+    const holdingsInput = document.getElementById('holdings');
+
+    // ポイントモード用
+    const totalSupplyPointInput = document.getElementById('totalSupplyPoint');
+    const totalPointsInput = document.getElementById('totalPoints');
+    const allocationPointInput = document.getElementById('allocationPoint');
+    const myPointsInput = document.getElementById('myPoints');
+
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    function switchTab(mode) {
+      currentMode = mode;
+      
+      // タブボタンの更新
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[mode === 'normal' ? 0 : 1].classList.add('active');
+      
+      // タブコンテンツの更新
+      document.getElementById('normalTab').classList.toggle('active', mode === 'normal');
+      document.getElementById('pointTab').classList.toggle('active', mode === 'point');
+      
+      calculate();
+    }
+
+    function parseNumber(str) {
+      if (!str) return NaN;
+      return parseFloat(str.replace(/,/g, ''));
+    }
+
+    function setTotalSupply(inputId, value) {
+      document.getElementById(inputId).value = value.toLocaleString('en-US');
+      calculate();
+    }
+
+    function formatNumber(num, decimals = 2) {
+      if (num >= 0.01) {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else if (num >= 0.0001) {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      } else if (num >= 0.00000001) {
+        return num.toFixed(8);
+      } else {
+        return num.toFixed(10);
+      }
+    }
+
+    function formatTokenAmount(num) {
+      if (num >= 1000000) {
+        return (num / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'M';
+      } else if (num >= 1000) {
+        return (num / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'K';
+      } else {
+        return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }
+
+    function formatCurrency(num) {
+      if (num >= 1000000) {
+        return '$' + (num / 1000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'M';
+      } else if (num >= 1000) {
+        return '$' + (num / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'K';
+      } else {
+        return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }
+
+    function calculateNormal() {
+      const totalSupply = parseNumber(totalSupplyInput.value);
+      const holdings = parseNumber(holdingsInput.value);
+
+      if (isNaN(totalSupply) || totalSupply <= 0) {
+        resultsContainer.innerHTML = `<p class="no-data">${translations[currentLang]['results.enterTotalSupply']}</p>`;
+        return;
+      }
+
+      const hasHoldings = !isNaN(holdings) && holdings > 0;
+
+      let html = `
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>${translations[currentLang]['results.normalTableHeader1']}</th>
+              <th>${translations[currentLang]['results.normalTableHeader2']}</th>
+              ${hasHoldings ? `<th>${translations[currentLang]['results.normalTableHeader3']}</th>` : ''}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      fdvList.forEach(fdv => {
+        const price = fdv.value / totalSupply;
+        const holdingValue = hasHoldings ? price * holdings : 0;
+
+        html += `
+          <tr>
+            <td class="fdv-label">${fdv.label}</td>
+            <td class="price-value">$${formatNumber(price)}</td>
+            ${hasHoldings ? `<td class="holding-value">${formatCurrency(holdingValue)}</td>` : ''}
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      resultsContainer.innerHTML = html;
+    }
+
+    function calculatePoint() {
+      const totalSupply = parseNumber(totalSupplyPointInput.value);
+      const totalPoints = parseNumber(totalPointsInput.value);
+      const allocation = parseNumber(allocationPointInput.value);
+      const myPoints = parseNumber(myPointsInput.value);
+
+      if (isNaN(totalPoints) || isNaN(allocation) || totalPoints <= 0 || allocation <= 0) {
+        resultsContainer.innerHTML = `<p class="no-data">${translations[currentLang]['results.enterPointData']}</p>`;
+        return;
+      }
+
+      const hasMyPoints = !isNaN(myPoints) && myPoints > 0;
+      const hasTotalSupply = !isNaN(totalSupply) && totalSupply > 0;
+      
+      // 自分の獲得トークン数を計算（総供給量がある場合のみ）
+      const myTokens = (hasMyPoints && hasTotalSupply) ? totalSupply * (allocation / 100) * (myPoints / totalPoints) : 0;
+
+      let html = '';
+      
+      // 獲得トークン数の表示（総供給量と自分のポイントがある場合のみ）
+      if (hasMyPoints && hasTotalSupply) {
+        html += `
+          <div style="background: rgba(192, 132, 252, 0.1); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+            <div style="font-size: 0.85rem; color: #a78bfa; margin-bottom: 4px;">${translations[currentLang]['results.yourTokens']}</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: #c084fc; font-family: 'SF Mono', monospace;">${myTokens.toLocaleString('en-US', {maximumFractionDigits: 0})} ${translations[currentLang]['results.tokens']}</div>
+          </div>
+        `;
+      }
+
+      html += `
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>${translations[currentLang]['results.pointTableHeader1']}</th>
+              <th>${translations[currentLang]['results.pointTableHeader2']}</th>
+              ${hasMyPoints ? `<th>${translations[currentLang]['results.pointTableHeader3']}</th>` : ''}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      fdvList.forEach(fdv => {
+        // 1ポイントあたりの価格 = FDV × Allocation% ÷ 総配布ポイント
+        const pricePerPoint = (fdv.value * (allocation / 100)) / totalPoints;
+        const myValue = hasMyPoints ? pricePerPoint * myPoints : 0;
+
+        html += `
+          <tr>
+            <td class="fdv-label">${fdv.label}</td>
+            <td class="price-value">$${formatNumber(pricePerPoint)}</td>
+            ${hasMyPoints ? `<td class="holding-value">${formatCurrency(myValue)}</td>` : ''}
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      resultsContainer.innerHTML = html;
+    }
+
+    function calculate() {
+      if (currentMode === 'normal') {
+        calculateNormal();
+      } else {
+        calculatePoint();
+      }
+    }
+
+    function formatInputWithCommas(input) {
+      let value = input.value.replace(/,/g, '');
+      if (value && !isNaN(value)) {
+        const num = parseFloat(value);
+        if (Number.isInteger(num)) {
+          input.value = num.toLocaleString('en-US');
+        } else {
+          input.value = num.toLocaleString('en-US', { maximumFractionDigits: 10 });
+        }
+      }
+    }
+
+    // イベントリスナー
+    totalSupplyInput.addEventListener('input', calculate);
+    totalSupplyInput.addEventListener('blur', function() { formatInputWithCommas(this); });
+    holdingsInput.addEventListener('input', calculate);
+    holdingsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
+
+    totalSupplyPointInput.addEventListener('input', calculate);
+    totalSupplyPointInput.addEventListener('blur', function() { formatInputWithCommas(this); });
+    totalPointsInput.addEventListener('input', calculate);
+    totalPointsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
+    allocationPointInput.addEventListener('input', calculate);
+    myPointsInput.addEventListener('input', calculate);
+    myPointsInput.addEventListener('blur', function() { formatInputWithCommas(this); });
+  </script>
+</body>
+</html>
