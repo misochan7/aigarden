@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto AIプロンプト集 - トークン分析用プロンプト</title>
+  <title>Crypto AIプロンプト集 | Crypto Tools</title>
   <meta name="description" content="仮想通貨・クリプト特化AIに使えるプロンプト集。スマートマネー分析、トークン発見など。">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <meta property="og:type" content="website">
@@ -16,1791 +16,1018 @@
   <meta name="twitter:title" content="Crypto AIプロンプト集">
   <meta name="twitter:description" content="仮想通貨・クリプト特化AIに使えるプロンプト集">
   <meta name="twitter:image" content="https://ai-garden-lab.com/images/cryptotools.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ═══════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════ */
+    :root {
+      --bg: #f4f2ec;
+      --text: #111111;
+      --muted: #666666;
+      --line: #1e1e1e;
+      --accent: #0d5f66;
+      --accent-light: rgba(13,95,102,0.08);
+      --accent-mid:   rgba(13,95,102,0.18);
+      --green: #1a7a4a;
+      --green-light: rgba(26,122,74,0.08);
+      --green-line: rgba(26,122,74,0.25);
+      --amber: #92600a;
+      --amber-light: rgba(146,96,10,0.08);
+      --dusty-blue: #6b8fa8;
+      --dusty-blue-light: rgba(107,143,168,0.12);
     }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
-      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
-      min-height: 100vh;
-      color: #e0e0e0;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color:inherit; text-decoration:none; }
+
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
     }
 
-    .top-nav {
+    /* ═══════════════════════════════════════
+       HEADER — FDVページと同一
+    ═══════════════════════════════════════ */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .nav {
       display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 16px 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      gap: 16px;
+      justify-content: space-between;
+      gap: 20px;
     }
-
-    .nav-left {
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-
-    /* アコーディオンメニュー */
-    .menu-accordion {
-      position: relative;
-    }
-
-    .menu-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #aaa;
       font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .menu-toggle:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    .menu-toggle svg {
-      transition: transform 0.2s;
-    }
-
-    .menu-toggle.open svg {
-      transform: rotate(180deg);
-    }
-
-    .menu-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      min-width: 200px;
-      background: rgba(20, 20, 30, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 8px;
-      display: none;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .menu-dropdown.show {
-      display: block;
-    }
-
-    .menu-item {
-      display: block;
-      padding: 10px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      text-decoration: none;
-      color: #aaa;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .menu-item:hover {
-      background: rgba(0, 212, 255, 0.1);
-      color: #00d4ff;
-    }
-
-    .menu-item.active {
-      background: rgba(0, 212, 255, 0.15);
-      color: #00d4ff;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       font-weight: 600;
+      color: var(--text);
+      transition: opacity 0.2s;
     }
-
-    /* Homeボタン */
-    .home-link {
+    .brand:hover { opacity: 0.65; }
+    .diamond {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      gap: 28px;
       font-size: 13px;
-      text-decoration: none;
-      color: #aaa;
-      transition: all 0.2s;
-    }
-
-    .home-link:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    /* 言語切り替え */
-    .lang-switcher {
-      display: flex;
-      gap: 4px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 4px;
-      border-radius: 8px;
-    }
-
-    .lang-btn {
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      background: transparent;
-      border: none;
-      border-radius: 6px;
-      color: #888;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .lang-btn:hover {
-      color: #ccc;
-    }
-
-    .lang-btn.active {
-      background: rgba(0, 212, 255, 0.2);
-      color: #00d4ff;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #00d4ff, #7b2cbf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    .twitter-link {
-      margin: 12px 0;
-    }
-
-    .twitter-btn {
-      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      background: #0ea5e9;
-      color: white;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background 0.2s;
     }
-
-    .twitter-btn:hover {
-      background: #0284c7;
-    }
-
-    /* カテゴリタブ */
-    .category-tabs {
+    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing:0.02em; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .lang-switch {
       display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
     }
-
-    .category-tab {
-      padding: 10px 16px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #888;
-      cursor: pointer;
+    .lang-switch button {
+      background: transparent; border: none;
+      padding: 6px 10px; cursor: pointer;
+      font-size: 11px; font-family:'Inter',sans-serif;
+      font-weight: 600; color: var(--muted);
       transition: all 0.2s;
     }
+    .lang-switch button:hover { color: var(--text); }
+    .lang-switch button.active { background: var(--text); color: white; }
 
-    .category-tab:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ccc;
+    /* ═══════════════════════════════════════
+       PAGE HERO
+    ═══════════════════════════════════════ */
+    .page-hero {
+      padding: 48px 0 36px;
+      border-bottom: 1px solid var(--line);
     }
-
-    .category-tab.active {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-      color: white;
-    }
-
-    .category-tab.nansen-tab {
-      border-color: rgba(16, 185, 129, 0.5);
-      color: #10b981;
-    }
-
-    .category-tab.nansen-tab:hover {
-      background: rgba(16, 185, 129, 0.15);
-    }
-
-    .category-tab.nansen-tab.active {
-      background: #10b981;
-      border-color: #10b981;
-      color: white;
-    }
-
-    .category-content {
-      display: none;
-    }
-
-    .category-content.active {
-      display: block;
-    }
-
-    .coming-soon-card {
-      text-align: center;
-      padding: 40px 20px;
-      color: #666;
-    }
-
-    .coming-soon-message {
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
-    }
-
-    .coming-soon-message h2 {
-      font-size: 1.5rem;
+    .page-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(36px, 5.5vw, 64px);
+      line-height: 0.95;
+      font-weight: 400;
+      letter-spacing: -0.03em;
       margin-bottom: 12px;
-      color: #888;
     }
+    .page-hero .subtitle { color: var(--muted); font-size: 0.9rem; }
 
+    /* ═══════════════════════════════════════
+       CARDS
+    ═══════════════════════════════════════ */
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 24px;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      border-bottom: 1px solid var(--line);
+      padding: 28px 0;
     }
-
-    .card:has(.prompt-tabs) {
-      border-left: 3px solid #6366f1;
-    }
-
-    .card:has(.prompt-tabs):hover {
-      border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
-    }
-
     .card-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #fff;
     }
+    .card-title.accent { color: var(--accent); }
 
-    .card-title.cyan { color: #00d4ff; }
-    .card-title.purple { color: #a78bfa; }
-    .card-title.green { color: #4ade80; }
-    .card-title.orange { color: #fbbf24; }
-    .card-title.pink { color: #f472b6; }
-
-    .section-title {
+    /* 使い方カード */
+    .info-card {
+      padding: 32px 0;
+    }
+    .info-title {
+      font-family: 'Noto Serif JP', serif;
       font-size: 1.1rem;
-      font-weight: 700;
-      margin: 32px 0 16px 0;
-      padding-left: 12px;
-      border-left: 3px solid;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .info-text { font-size: 0.9rem; color: var(--text); line-height:1.7; }
+    .usage-steps p { margin: 5px 0; font-size:0.9rem; }
+    .warning-box {
+      border: 1px solid var(--amber);
+      background: var(--amber-light);
+      padding: 10px 14px;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--amber);
     }
 
-    .section-title:first-child {
-      margin-top: 0;
-    }
-
-    .section-title.green {
-      color: #4ade80;
-      border-left-color: #4ade80;
-    }
-
-    /* Nansen green theme */
-    .nansen-card {
-      border-left: 3px solid #4ade80 !important;
-    }
-
-    .nansen-card:hover {
-      border-color: rgba(74, 222, 128, 0.3) !important;
-      box-shadow: 0 4px 20px rgba(74, 222, 128, 0.1) !important;
-    }
-
-    .nansen-display {
-      background: linear-gradient(180deg, rgba(74, 222, 128, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%) !important;
-      border: 1px solid rgba(74, 222, 128, 0.2) !important;
-    }
-
-    .nansen-content {
-      color: #bbb !important;
-      border-left: 2px solid rgba(74, 222, 128, 0.5) !important;
-    }
-
-    .nansen-btn {
-      background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(34, 197, 94, 0.15)) !important;
-      color: #86efac !important;
-      border: 1px solid rgba(74, 222, 128, 0.3) !important;
-    }
-
-    .nansen-btn::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386efac' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E") !important;
-    }
-
-    .nansen-btn:hover {
-      background: linear-gradient(135deg, rgba(74, 222, 128, 0.35), rgba(34, 197, 94, 0.3)) !important;
-      color: #fff !important;
-      border-color: rgba(74, 222, 128, 0.5) !important;
-    }
-
-    .info-box {
-      margin-bottom: 20px;
-    }
-
-    .info-text {
-      color: #ffffff;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-
-    .usage-steps p {
-      margin: 6px 0;
-      color: #ccc;
-    }
-
+    /* リファラルリンク */
     .ref-links {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin-top: 20px;
     }
-
     .ref-card {
       flex: 1;
       min-width: 200px;
-      padding: 12px 16px;
-      border-radius: 10px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
       text-decoration: none;
-      transition: all 0.3s ease;
+      color: var(--text);
+      transition: all 0.2s;
     }
-
+    .ref-card:hover { background: var(--accent-light); border-color: var(--accent); }
     .ref-card-header {
-      font-size: 18px;
+      font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      color: var(--accent);
     }
+    .ref-card.nansen .ref-card-header { color: var(--green); }
+    .ref-card.nansen:hover { background: var(--green-light); border-color: var(--green); }
+    .ref-card.surf .ref-card-header { color: #8b2252; }
+    .ref-card.surf:hover { background: rgba(139,34,82,0.06); border-color: #8b2252; }
+    .ref-card-desc { font-size: 12px; color: var(--muted); line-height:1.5; }
 
-    .ref-card-desc {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #fff;
-    }
-
-    .ref-card.nansen {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-
-    .ref-card.nansen .ref-card-header {
-      color: #10b981;
-    }
-
-    .ref-card.nansen:hover {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .ref-card.surf {
-      background: rgba(236, 72, 153, 0.1);
-      border: 1px solid rgba(236, 72, 153, 0.2);
-    }
-
-    .ref-card.surf .ref-card-header {
-      color: #ec4899;
-    }
-
-    .ref-card.surf:hover {
-      background: rgba(236, 72, 153, 0.15);
-      border-color: rgba(236, 72, 153, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .prompt-item-dual {
-      padding: 10px 0;
-    }
-
-    .prompt-tabs {
+    /* ═══════════════════════════════════════
+       CATEGORY TABS
+    ═══════════════════════════════════════ */
+    .category-tabs {
       display: flex;
       gap: 0;
-      margin-bottom: 0;
-    }
-
-    .prompt-tab {
-      padding: 10px 20px;
-      font-size: 12px;
-      font-weight: 500;
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      background: rgba(99, 102, 241, 0.05);
-      color: #a5b4fc;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .prompt-tab:first-child {
-      border-radius: 8px 0 0 0;
-      border-right: none;
-    }
-
-    .prompt-tab:last-child {
-      border-radius: 0 8px 0 0;
-    }
-
-    .prompt-tab:hover {
-      background: rgba(99, 102, 241, 0.15);
-      color: #c7d2fe;
-    }
-
-    .prompt-tab.active {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.2));
-      color: #fff;
-      border-color: rgba(99, 102, 241, 0.4);
-      border-bottom-color: transparent;
-    }
-
-    .prompt-display {
-      background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-top: none;
-      border-radius: 0 8px 8px 8px;
-      padding: 16px;
-    }
-
-    .prompt-content {
-      font-size: 13px;
-      color: #bbb;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      word-break: break-word;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      border-left: 2px solid rgba(139, 92, 246, 0.5);
-    }
-
-    .prompt-display .copy-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
-      color: #a5b4fc;
-      border: 1px solid rgba(99, 102, 241, 0.3);
-    }
-
-    .prompt-display .copy-btn::before {
-      content: '';
-      width: 14px;
-      height: 14px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a5b4fc' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-    .prompt-display .copy-btn:hover {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(139, 92, 246, 0.3));
-      color: #fff;
-      border-color: rgba(99, 102, 241, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .prompt-display .copy-btn:hover::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
-    }
-
-    .prompt-display .copy-btn.copied {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
-      border-color: rgba(16, 185, 129, 0.3);
-    }
-
-    .prompt-display .copy-btn.copied::before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-    }
-
-    .token-input {
-      width: 100%;
-      padding: 14px 16px;
-      font-size: 1rem;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      color: #fff;
-      transition: all 0.2s;
-    }
-
-    .token-input:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-    }
-
-    .token-input::placeholder {
-      color: #555;
-    }
-
-    .input-hint {
-      font-size: 0.8rem;
-      color: #fff;
-      margin-top: 8px;
-    }
-
-    .token-highlight {
-      color: #ff69b4;
-      font-weight: 600;
-    }
-
-    .prompt-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 16px;
+      margin: 0;
       flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      border-left: 1px solid var(--line);
     }
-
-    .footer-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      color: #aaa;
-      text-decoration: none;
-      font-size: 0.85rem;
+    .category-tab {
+      padding: 11px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       transition: all 0.2s;
+      white-space: nowrap;
     }
+    .category-tab:hover { background: var(--accent-light); color: var(--accent); }
+    .category-tab.active { background: var(--text); color: var(--bg); }
+    .category-tab:last-child { border-right: 1px solid var(--line); }
+    .category-tab.nansen-tab { color: var(--green); }
+    .category-tab.nansen-tab:hover { background: var(--green-light); color: var(--green); }
+    .category-tab.nansen-tab.active { background: var(--green); color: white; }
 
-    .footer-link:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+    .category-content { display: none; }
+    .category-content.active { display: block; }
+
+    /* ═══════════════════════════════════════
+       PROMPT CARDS
+    ═══════════════════════════════════════ */
+    .prompt-card {
+      border-bottom: 1px solid rgba(30,30,30,0.1);
+      padding: 24px 0;
     }
+    .prompt-card:last-child { border-bottom: none; }
 
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: #555;
-      font-size: 0.8rem;
-    }
-
-    footer a {
-      color: #00d4ff;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .top-nav {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .nav-left {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .menu-dropdown {
-        right: 0;
-        left: auto;
-      }
-
-      .container {
-        padding: 24px 16px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .card {
-        padding: 20px 16px;
-      }
-    }
-
-    /* ヘルプボタンとツールチップ */
+    .card-header { position: relative; }
     .card-title-wrapper {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 14px;
+    }
+    .prompt-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
     }
 
+    /* ヘルプボタン */
     .help-btn {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #888;
-      font-size: 12px;
+      width: 22px; height: 22px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
       flex-shrink: 0;
+      transition: all 0.2s;
     }
-
-    .help-btn:hover {
-      background: rgba(0, 212, 255, 0.2);
-      border-color: #00d4ff;
-      color: #00d4ff;
-    }
-
+    .help-btn:hover { background: var(--accent); border-color: var(--accent); color: white; }
     .help-tooltip {
       display: none;
       position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      right: 0;
-      background: linear-gradient(135deg, #1a2a3a 0%, #0d1820 100%);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      border-radius: 8px;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: white;
+      border: 1px solid var(--line);
       padding: 12px 14px;
       font-size: 13px;
       line-height: 1.6;
-      color: #ccc;
+      color: var(--muted);
       z-index: 100;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      animation: tooltipPop 0.2s ease-out;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
-
-    .help-tooltip.show {
-      display: block;
-    }
-
-    @keyframes tooltipPop {
-      0% {
-        opacity: 0;
-        transform: translateY(-5px) scale(0.95);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .help-tooltip::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: 20px;
-      width: 10px;
-      height: 10px;
-      background: #1a2a3a;
-      border-left: 1px solid rgba(0, 212, 255, 0.3);
-      border-top: 1px solid rgba(0, 212, 255, 0.3);
-      transform: rotate(45deg);
-    }
-
+    .help-tooltip.show { display: block; }
     .help-tooltip-title {
       font-weight: 600;
-      color: #00d4ff;
-      margin-bottom: 6px;
-      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .card-header {
-      position: relative;
+    /* プロンプトタブ */
+    .prompt-tabs {
+      display: flex;
+      border: 1px solid var(--line);
+      width: fit-content;
+      margin-bottom: 0;
+    }
+    .prompt-tab {
+      padding: 7px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .prompt-tab:last-child { border-right: none; }
+    .prompt-tab:hover { background: var(--accent-light); color: var(--accent); }
+    .prompt-tab.active { background: rgba(13,95,102,0.15); color: var(--accent); border-color: rgba(13,95,102,0.4); }
+
+    /* プロンプト表示エリア */
+    .prompt-display {
+      background: white;
+      border: 1px solid rgba(30,30,30,0.15);
+      border-top: none;
+      padding: 16px;
+    }
+    .prompt-display.no-tab {
+      border-top: 1px solid rgba(30,30,30,0.15);
+      margin-top: 0;
+    }
+    .prompt-content {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border-left: 2px solid var(--accent);
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: var(--text); color: var(--bg); }
+    .copy-btn.copied {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Nansen専用スタイル */
+    .nansen-section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--green);
+      padding: 24px 0 16px;
+      border-bottom: 1px solid var(--green-line);
+      margin-bottom: 0;
+    }
+    .nansen-prompt-card { border-bottom: 1px solid rgba(30,30,30,0.1); padding: 24px 0; }
+    .nansen-prompt-card:last-child { border-bottom: none; }
+    .nansen-prompt-display {
+      background: white;
+      border: 1px solid var(--green-line);
+      border-top: none;
+      padding: 16px;
+    }
+    .nansen-prompt-content {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 2px solid var(--green);
+    }
+    .nansen-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .nansen-copy-btn:hover { background: var(--green); color: white; }
+    .nansen-copy-btn.copied { background: var(--green-light); color: var(--green); }
+    .nansen-tabs {
+      display: flex;
+      border: 1px solid var(--green-line);
+      width: fit-content;
+      margin-bottom: 0;
+    }
+    .nansen-tab {
+      padding: 7px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--green-line);
+      color: var(--green);
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .nansen-tab:last-child { border-right: none; }
+    .nansen-tab:hover { background: var(--green-light); }
+    .nansen-tab.active { background: var(--green); color: white; }
+
+    /* トークン入力 */
+    .token-input-card {
+      border-bottom: 1px solid var(--line);
+      padding: 28px 0;
+    }
+    .token-input-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .token-input {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 1.05rem;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .token-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(13,95,102,0.12);
+    }
+    .token-input::placeholder { color: #b0aba0; }
+    .input-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .token-highlight { color: var(--accent); font-weight: 600; }
+
+    /* セクションラッパー */
+    .section-wrapper { padding-top: 8px; }
+
+    /* ═══════════════════════════════════════
+       FOOTER PROFILE — トップページと同一
+    ═══════════════════════════════════════ */
+    .profile-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 48px 0 64px;
+    }
+    .profile-icon {
+      width: 140px; height: 140px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .profile-icon img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .profile-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px; margin-bottom: 8px;
+    }
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+    }
+    .profile-links a {
+      border: 1px solid var(--line);
+      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
+    }
+    .profile-links a:hover { background: var(--text); color: white; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
+      .page-hero h1 { font-size: 2.2rem; }
+      .category-tab { padding: 9px 12px; font-size: 11px; }
+      .ref-links { flex-direction: column; }
+      .profile-section { flex-direction: column; }
+      .profile-icon { width: 96px; height: 96px; }
+      .profile-section h2 { font-size: 38px; }
     }
   </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <div class="nav-left">
-      <!-- アコーディオンメニュー -->
-      <div class="menu-accordion">
-        <button class="menu-toggle" onclick="toggleMenu()">
-          <span>☰ メニュー</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="menu-dropdown" id="menuDropdown">
-          <a href="/crypto/fdv/" class="menu-item">💰 FDV Calculator</a>
-          <a href="/crypto/prompt/" class="menu-item active">📋 AIプロンプト集</a>
-        </div>
-      </div>
-      
-      <!-- Homeボタン -->
-      <a href="/crypto/" class="home-link">
-        🏠 Home
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header>
+    <div class="container nav">
+      <a href="/crypto/" class="brand">
+        <div class="diamond"></div>
+        <span>CRYPTO TOOLS</span>
+        <span style="font-weight:400; opacity:.7;">BY AIGARDEN</span>
       </a>
-    </div>
-  </nav>
-  
-  <div class="container">
-    <header>
-      <h1>📋 Crypto AIプロンプト集</h1>
-      <div class="twitter-link">
-        <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" class="twitter-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-          </svg>
-          作者X@sasami フォローしてね！
-        </a>
-      </div>
-      <p class="subtitle">クリプト特化AIに使えるプロンプト集</p>
-    </header>
-
-    <!-- 使い方・リファラル -->
-    <div class="card info-box">
-      <div class="card-title cyan">📖 使い方</div>
-      <div class="info-text">
-        <div class="usage-steps">
-          <p>1. 調べたいカテゴリを選択</p>
-          <p>2. 指定のトークンについて調べたい場合はトークン名を入力<br><span style="color: #888; font-size: 12px;">（プロンプト内容に自動的に組み込まれます）</span></p>
-          <p>3. シンプル版と詳細版好きな方をコピー</p>
-          <p>4. お好きなチャットAIで使えます</p>
-        </div>
-        <p style="margin-top: 12px;"><span style="color: #f59e0b;">⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任でお願いします。</span></p>
-      </div>
-      <div class="ref-links">
-        <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-card nansen">
-          <div class="ref-card-header">🟢 Nansen</div>
-          <div class="ref-card-desc">オンチェーン超特化で資金移動、Smart Money、<br>セクター/トークンのフロー把握</div>
-        </a>
-        <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-card surf">
-          <div class="ref-card-header">🩷 Surf</div>
-          <div class="ref-card-desc">オンチェーン＋ソーシャルセンチメント＋<br>テクニカル＋ニュース監視</div>
-        </a>
+      <nav class="nav-links">
+        <a href="/crypto/fdv/">FDV Calculator</a>
+        <a href="/crypto/prompt/" class="active">AI Prompts</a>
+        <a href="/crypto/prediction/">Prediction</a>
+      </nav>
+      <div class="lang-switch">
+        <button class="active">JP</button>
+        <button>EN</button>
       </div>
     </div>
+  </header>
 
-    <!-- カテゴリタブ -->
-    <div class="category-tabs">
-      <button class="category-tab active" onclick="switchCategory('coin')">個別コイン</button>
-      <button class="category-tab" onclick="switchCategory('research')">リサーチ</button>
-      <button class="category-tab" onclick="switchCategory('trend')">トレンド</button>
-      <button class="category-tab" onclick="switchCategory('market')">マーケット</button>
-      <button class="category-tab" onclick="switchCategory('news')">ニュース</button>
-      <button class="category-tab nansen-tab" onclick="switchCategory('nansen')">Nansen専用オンチェーン分析</button>
-    </div>
+  <main>
+    <div class="container">
 
-    <!-- マーケット -->
-    <div id="marketContent" class="category-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">📊 今週の市場、強い？弱い？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <h1>Crypto AI Prompts.</h1>
+        <p class="subtitle">クリプト特化AIに使えるプロンプト集</p>
+      </div>
+
+      <!-- 使い方 -->
+      <div class="info-card">
+        <div class="info-title">使い方</div>
+        <div class="info-text">
+          <div class="usage-steps">
+            <p>1. 調べたいカテゴリを選択</p>
+            <p>2. 指定のトークンについて調べたい場合はトークン名を入力<br>
+              <span style="color:var(--muted); font-size:12px;">（プロンプト内容に自動的に組み込まれます）</span></p>
+            <p>3. シンプル版と詳細版好きな方をコピー</p>
+            <p>4. お好きなチャットAIで使えます</p>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            時価総額・BTCドミナンス・出来高の3指標から市場の地合いを診断。「リスクオン？オフ？」「今後どう動きそう？」が分かります。
+          <div class="warning-box">
+            ⚠️ AIの回答は必ずしも正確とは限らないので、投資判断は自己責任でお願いします。
           </div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="market" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+        <div class="ref-links">
+          <a href="https://nsn.ai/sasami" target="_blank" rel="noopener noreferrer" class="ref-card nansen">
+            <div class="ref-card-header">🟢 Nansen</div>
+            <div class="ref-card-desc">オンチェーン超特化で資金移動、Smart Money、<br>セクター/トークンのフロー把握</div>
+          </a>
+          <a href="https://asksurf.ai/?r=sasami" target="_blank" rel="noopener noreferrer" class="ref-card surf">
+            <div class="ref-card-header">🩷 Surf</div>
+            <div class="ref-card-desc">オンチェーン＋ソーシャルセンチメント＋<br>テクニカル＋ニュース監視</div>
+          </a>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">📰 今週、市場を動かしたのは何？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            直近7日間で市場に影響を与えた重要トピックを整理。マクロ要因と暗号資産固有の要因、両方が分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="topics" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 個別コイン -->
-    <div id="coinContent" class="category-content active">
-      <!-- トークン入力（個別コインのみ） -->
-      <div class="card">
-        <div class="card-title cyan">🎯 分析したいトークンを入力</div>
-        <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
-        <p class="input-hint">💡 入力したトークンが各プロンプトに自動入力されます</p>
+      <!-- カテゴリタブ -->
+      <div class="category-tabs">
+        <button class="category-tab active" onclick="switchCategory('coin', this)">個別コイン</button>
+        <button class="category-tab" onclick="switchCategory('research', this)">リサーチ</button>
+        <button class="category-tab" onclick="switchCategory('trend', this)">トレンド</button>
+        <button class="category-tab" onclick="switchCategory('market', this)">マーケット</button>
+        <button class="category-tab" onclick="switchCategory('news', this)">ニュース</button>
+        <button class="category-tab nansen-tab" onclick="switchCategory('nansen', this)">Nansen専用オンチェーン分析</button>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜今どうなってる？">$TOKEN｜今どうなってる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            市場の雰囲気、プロジェクトの状況、価格の動き、リスクをまとめて把握できます。「今買い時？」「様子見？」の判断材料が一通り揃います。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinSummary" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
+      <!-- ═══ 個別コイン ═══ -->
+      <div id="coinContent" class="category-content active section-wrapper">
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜どんなプロジェクト？">$TOKEN｜どんなプロジェクト？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            プロジェクトの目的、トークンの仕組み、成長の条件を整理。「何が崩れたらヤバい？」というリスクの急所も分かります。
-          </div>
+        <div class="token-input-card">
+          <div class="token-input-label">分析したいトークンを入力</div>
+          <input type="text" id="tokenInput" class="token-input" placeholder="$PENGU" value="$TOKEN名">
+          <p class="input-hint">💡 入力したトークンが各プロンプトに自動入力されます</p>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinStructure" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜強みと弱みは？">$TOKEN｜強みと弱みは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <!-- プロンプトカード群 -->
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜今どうなってる？">$TOKEN｜今どうなってる？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>市場の雰囲気、プロジェクトの状況、価格の動き、リスクをまとめて把握できます。「今買い時？」「様子見？」の判断材料が一通り揃います。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            技術、話題性、需給、競合の4つの視点から強み・弱みを整理。「ここを見ておけば大丈夫」というチェックポイントが分かります。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinSummary" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinStrength" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜みんなの注目度は？">$TOKEN｜みんなの注目度は？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜どんなプロジェクト？">$TOKEN｜どんなプロジェクト？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>プロジェクトの目的、トークンの仕組み、成長の条件を整理。「何が崩れたらヤバい？」というリスクの急所も分かります。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            SNSの盛り上がり、オンチェーンの資金の動き、投資家の行動パターンを分析。「今、資金が集まってる？離れてる？」が分かります。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinStructure" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinSentiment" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜チャートは今どんな形？">$TOKEN｜チャートは今どんな形？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜強みと弱みは？">$TOKEN｜強みと弱みは？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>技術、話題性、需給、競合の4つの視点から強み・弱みを整理。「ここを見ておけば大丈夫」というチェックポイントが分かります。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            短期（〜1か月）のチャート状況を分析。「買われすぎ？」「サポートライン近い？」など、今の価格位置の意味が分かります。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinStrength" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinTechnical" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜3か月後に影響しそうなこと">$TOKEN｜3か月後に影響しそうなこと</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜みんなの注目度は？">$TOKEN｜みんなの注目度は？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>SNSの盛り上がり、オンチェーンの資金の動き、投資家の行動パターンを分析。「今、資金が集まってる？離れてる？」が分かります。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            今後3か月で価格に影響しそうなイベントを整理。アップデート予定、アンロック、市場環境など、先回りして知っておきたい情報が分かります。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinSentiment" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinMidterm" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜どこまで伸びる可能性がある？">$TOKEN｜どこまで伸びる可能性がある？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜チャートは今どんな形？">$TOKEN｜チャートは今どんな形？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>短期（〜1か月）のチャート状況を分析。「買われすぎ？」「サポートライン近い？」など、今の価格位置の意味が分かります。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            同じジャンルの他プロジェクトと比較して、成長余地を分析。「時価総額的にまだ伸びしろある？」という疑問に答えます。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinTechnical" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinGrowth" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜よくある失敗パターンは？">$TOKEN｜よくある失敗パターンは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜3か月後に影響しそうなこと">$TOKEN｜3か月後に影響しそうなこと</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>今後3か月で価格に影響しそうなイベントを整理。アップデート予定、アンロック、市場環境など、先回りして知っておきたい情報が分かります。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            このトークンで起こりやすい失敗パターンと、それを避けるためのポイントを整理。「こうなったら逃げろ」のサインが分かります。
-          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinMidterm" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRisk" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜アンロックで売られる？">$TOKEN｜アンロックで売られる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜どこまで伸びる可能性がある？">$TOKEN｜どこまで伸びる可能性がある？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>同じジャンルの他プロジェクトと比較して、成長余地を分析。「時価総額的にまだ伸びしろある？」という疑問に答えます。</div>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            今後6か月のトークン解放スケジュールを確認。「いつ、どれくらい売り圧が来そうか」が分かり、タイミングを考える材料になります。
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinGrowth" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜よくある失敗パターンは？">$TOKEN｜よくある失敗パターンは？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>このトークンで起こりやすい失敗パターンと、それを避けるためのポイントを整理。「こうなったら逃げろ」のサインが分かります。</div>
           </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRisk" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜アンロックで売られる？">$TOKEN｜アンロックで売られる？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>今後6か月のトークン解放スケジュールを確認。「いつ、どれくらい売り圧が来そうか」が分かり、タイミングを考える材料になります。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinUnlock" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
-        <div class="prompt-display" data-key="coinUnlock" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜リスクは高い？低い？">$TOKEN｜リスクは高い？低い？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>信頼性・供給・価格・市場環境の4つの観点から総合リスクを「低/中/高」で診断。一番注意すべきポイントも教えてくれます。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRiskTotal" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜今後トークンは増える？">$TOKEN｜今後トークンは増える？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>アンロックやインフレで今後どれくらいトークンが増えるかを分析。「持ってるだけで価値が薄まる？」リスクが分かります。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRiskSellPressure" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜売買しやすい？">$TOKEN｜売買しやすい？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>取引量や板の厚みから流動性を評価。「大きく買ったら価格が動きすぎる？」「売りたい時に売れる？」が分かります。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRiskLiquidity" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜チームは信頼できる？">$TOKEN｜チームは信頼できる？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>チームの透明性、開発の継続性、過去のトラブルを調査。「ラグプル（持ち逃げ）リスクは？」という不安に答えます。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRiskProject" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title token-title" data-template="$TOKEN｜最悪どうなる？">$TOKEN｜最悪どうなる？</div>
+              <button class="help-btn" onclick="toggleHelp(this)">？</button>
+            </div>
+            <div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>市場暴落、悪材料、流動性枯渇など最悪シナリオを想定。「どんな兆候が出たらヤバい？」という事前警戒ポイントが分かります。</div>
+          </div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="coinRiskWorstCase" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+      </div><!-- /coinContent -->
+
+      <!-- ═══ リサーチ ═══ -->
+      <div id="researchContent" class="category-content section-wrapper">
+        <div class="prompt-card">
+          <div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">ステーブルで稼げる場所は？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>ステーブルコインで利回りが取れる運用先を比較。APY、リスク、難易度をまとめて「どれが安全でお得か」が分かります。</div></div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="stableFarm" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+        <div class="prompt-card">
+          <div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">Baseで伸びてるプロジェクトは？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>Baseチェーンで急成長中のプロジェクトを発掘。伸びた理由と「一時的か継続的か」を分析し、追う価値があるか判断できます。</div></div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="baseGrowth" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+        <div class="prompt-card">
+          <div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">最近資金調達したプロジェクトは？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>直近1週間で資金調達したプロジェクトを一覧化。投資家、調達額、注目理由を整理し「次に来そうな案件」を見つけられます。</div></div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="funding" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
+        </div>
+        <div class="prompt-card">
+          <div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">今月の大型アンロックは？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>今後1か月で予定されている大型アンロックを一覧化。「どのトークンがいつ売り圧を受けそうか」を事前に把握できます。</div></div>
+          <div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div>
+          <div class="prompt-display" data-key="unlockMarket" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜リスクは高い？低い？">$TOKEN｜リスクは高い？低い？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            信頼性・供給・価格・市場環境の4つの観点から総合リスクを「低/中/高」で診断。一番注意すべきポイントも教えてくれます。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRiskTotal" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
+      <!-- ═══ トレンド ═══ -->
+      <div id="trendContent" class="category-content section-wrapper">
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">今、何が流行ってる？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>現在注目されているトレンドを一覧化。代表銘柄と「なぜ今熱いのか」が分かります。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="trendOverview" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">お金はどこに流れてる？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>資金流入やTVLの変化から、今お金が集まっているセクターを特定できます。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="trendFlow" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">次に来そうなのは？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>まだ主流じゃないけど今後トレンド化しそうなテーマを予測します。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="trendNext" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">このトレンド、まだ続く？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>注目トレンドの持続性を資金流入・実需・過熱感から判断します。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="trendDuration" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">このトレンドにどう乗る？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>特定トレンドへの向き合い方を整理。「短期回転向き？長期保有向き？」が分かります。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="trendApproach" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜今後トークンは増える？">$TOKEN｜今後トークンは増える？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            アンロックやインフレで今後どれくらいトークンが増えるかを分析。「持ってるだけで価値が薄まる？」リスクが分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRiskSellPressure" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
+      <!-- ═══ マーケット ═══ -->
+      <div id="marketContent" class="category-content section-wrapper">
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">今週の市場、強い？弱い？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>時価総額・BTCドミナンス・出来高の3指標から市場の地合いを診断。「リスクオン？オフ？」「今後どう動きそう？」が分かります。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="market" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">今週、市場を動かしたのは何？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>直近7日間で市場に影響を与えた重要トピックを整理。マクロ要因と暗号資産固有の要因、両方が分かります。</div></div><div class="prompt-tabs"><button class="prompt-tab active" onclick="switchPromptTab(this,'short')">シンプル</button><button class="prompt-tab" onclick="switchPromptTab(this,'long')">詳細</button></div><div class="prompt-display" data-key="topics" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜売買しやすい？">$TOKEN｜売買しやすい？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            取引量や板の厚みから流動性を評価。「大きく買ったら価格が動きすぎる？」「売りたい時に売れる？」が分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRiskLiquidity" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
+      <!-- ═══ ニュース ═══ -->
+      <div id="newsContent" class="category-content section-wrapper">
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">今週の重要ニュースまとめ</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>直近1週間で市場に影響を与えた重要ニュースを整理します。</div></div><div class="prompt-display no-tab" data-key="weeklyNews" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">FOMCや金利は暗号市場にどう影響した？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>FOMC、金利、株式市場などマクロ要因が暗号市場に与えた影響を分析します。</div></div><div class="prompt-display no-tab" data-key="macroImpact" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">このニュース、どう影響する？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>気になるニュースのURLを貼ると、そのニュースが市場に与える影響を分析します。</div></div><div class="prompt-display no-tab" data-key="newsImpact" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
+        <div class="prompt-card"><div class="card-header"><div class="card-title-wrapper"><div class="prompt-card-title">このニュースを受けてどう動く？</div><button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡</div>ニュースを受けて「短期トレーダー」と「中期ホルダー」それぞれの行動を整理します。</div></div><div class="prompt-display no-tab" data-key="newsAction" data-mode="short"><div class="prompt-content"></div><button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button></div></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜チームは信頼できる？">$TOKEN｜チームは信頼できる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            チームの透明性、開発の継続性、過去のトラブルを調査。「ラグプル（持ち逃げ）リスクは？」という不安に答えます。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRiskProject" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
+      <!-- ═══ Nansen ═══ -->
+      <div id="nansenContent" class="category-content section-wrapper">
+        <div class="nansen-section-title">🔮 スマートマネー分析</div>
+        <div class="prompt-list" id="smartMoneyPrompts"></div>
+        <div class="nansen-section-title">🔍 トークン発見</div>
+        <div class="prompt-list" id="tokenDiscoveryPrompts"></div>
+        <div class="nansen-section-title">🏢 エンティティ・セグメント</div>
+        <div class="prompt-list" id="entityPrompts"></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title token-title" data-template="$TOKEN｜最悪どうなる？">$TOKEN｜最悪どうなる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
+      <!-- FOOTER PROFILE -->
+      <section class="profile-section">
+        <div class="profile-icon">
+          <img src="../images/pfp.png" alt="sasami profile" />
+        </div>
+        <div>
+          <h2>sasami</h2>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank">X / Twitter →</a>
+            <a href="https://note.com/" target="_blank">note →</a>
+            <a href="https://ai-garden-lab.com/" target="_blank">AIGARDEN →</a>
           </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            市場暴落、悪材料、流動性枯渇など最悪シナリオを想定。「どんな兆候が出たらヤバい？」という事前警戒ポイントが分かります。
-          </div>
         </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="coinRiskWorstCase" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- リサーチ -->
-    <div id="researchContent" class="category-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">ステーブルで稼げる場所は？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            ステーブルコインで利回りが取れる運用先を比較。APY、リスク、難易度をまとめて「どれが安全でお得か」が分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="stableFarm" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
+    </div><!-- /container -->
+  </main>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">Baseで伸びてるプロジェクトは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            Baseチェーンで急成長中のプロジェクトを発掘。伸びた理由と「一時的か継続的か」を分析し、追う価値があるか判断できます。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="baseGrowth" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">最近資金調達したプロジェクトは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            直近1週間で資金調達したプロジェクトを一覧化。投資家、調達額、注目理由を整理し「次に来そうな案件」を見つけられます。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="funding" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">今月の大型アンロックは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            今後1か月で予定されている大型アンロックを一覧化。「どのトークンがいつ売り圧を受けそうか」を事前に把握できます。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="unlockMarket" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ニュース -->
-    <div id="newsContent" class="category-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">今週の重要ニュースまとめ</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            直近1週間で市場に影響を与えた重要ニュースを整理。「何が起きて、どう影響したか」がまとめて分かります。
-          </div>
-        </div>
-        <div class="prompt-display" data-key="weeklyNews" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">FOMCや金利は暗号市場にどう影響した？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            FOMC、金利、株式市場などマクロ要因が暗号市場に与えた影響を分析。「一時的な影響？長期的な影響？」が分かります。
-          </div>
-        </div>
-        <div class="prompt-display" data-key="macroImpact" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">このニュース、どう影響する？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            気になるニュースのURLを貼ると、そのニュースが暗号市場に与える影響を分析。BTCへの影響？アルトへの影響？が分かります。
-          </div>
-        </div>
-        <div class="prompt-display" data-key="newsImpact" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">このニュースを受けてどう動く？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            ニュースを受けて「短期トレーダー」と「中期ホルダー」それぞれが取りやすい行動を整理。自分のスタイルに合った動きが分かります。
-          </div>
-        </div>
-        <div class="prompt-display" data-key="newsAction" data-mode="short" style="border-radius: 6px; border-top: 1px solid rgba(255,255,255,0.15);">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- トレンド -->
-    <div id="trendContent" class="category-content">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">今、何が流行ってる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            現在注目されているトレンド（AI、RWA、ミームなど）を一覧化。代表銘柄と「なぜ今熱いのか」が分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="trendOverview" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">お金はどこに流れてる？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            資金流入やTVLの変化から、今お金が集まっているセクターを特定。「一時的な回転か、継続的な流入か」も分析します。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="trendFlow" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">次に来そうなのは？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            まだ主流じゃないけど、今後トレンド化しそうなテーマを予測。VC投資や開発動向から「なぜ次に来そうか」を分析します。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="trendNext" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">このトレンド、まだ続く？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            注目トレンドの持続性を評価。「もう終わり？」「まだ続く？」を資金流入・実需・過熱感から判断します。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="trendDuration" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title-wrapper">
-            <div class="card-title">このトレンドにどう乗る？</div>
-            <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            特定トレンドへの向き合い方を整理。「短期回転向き？長期保有向き？」「どう失敗しやすい？」が分かります。
-          </div>
-        </div>
-        <div class="prompt-tabs">
-          <button class="prompt-tab active" onclick="switchPromptTab(this, 'short')">シンプル</button>
-          <button class="prompt-tab" onclick="switchPromptTab(this, 'long')">詳細</button>
-        </div>
-        <div class="prompt-display" data-key="trendApproach" data-mode="short">
-          <div class="prompt-content"></div>
-          <button class="copy-btn" onclick="copyFromDisplay(this)">コピー</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Nansen専用オンチェーン分析 -->
-    <div id="nansenContent" class="category-content">
-      <!-- スマートマネー分析 -->
-      <h3 class="section-title green">🔮 スマートマネー分析</h3>
-      <div class="prompt-list" id="smartMoneyPrompts"></div>
-
-      <!-- トークン発見 -->
-      <h3 class="section-title green">🔍 トークン発見</h3>
-      <div class="prompt-list" id="tokenDiscoveryPrompts"></div>
-
-      <!-- エンティティ・セグメント -->
-      <h3 class="section-title green">🏢 エンティティ・セグメント</h3>
-      <div class="prompt-list" id="entityPrompts"></div>
-    </div>
-
-    <footer>
-      <div class="footer-links">
-        <a href="/crypto/" class="footer-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Crypto Tools
-        </a>
-        <a href="/" class="footer-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          AIGARDEN
-        </a>
-      </div>
-      <p>© 2025 <a href="/">AIGARDEN</a></p>
-    </footer>
-  </div>
+  <footer>
+    <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
+  </footer>
 
   <script>
     const tokenInput = document.getElementById('tokenInput');
 
-    const prompts = {
+    /* ─── Nansenプロンプトデータ ─── */
+    const nansenPrompts = {
       smartMoney: [
-        { title: "プロはどのセクターに注目してる？", text: "直近30日間で、スマートマネーの資金配分がDeFi・Gaming・AI・RWA・Memeなどの主要セクター間でどのように変化したかを分析してください。各セクターについて、保有額または純流入の増減、変化の要因、現在の配分が示唆する市場心理を整理してください。", hasToken: false, help: "スマートマネー（利益を出しているプロ投資家）がどのセクターに資金を移しているかを分析。「今、プロは何を買ってる？」が分かります。" },
-        { title: "プロのお金はどこに動いてる？", text: "直近14日間で、スマートマネーが資金を流出させているトークンと、新たに流入させているトークンを特定してください。それぞれの共通点（セクター、時価総額帯、チェーン）と、資金移動の意図を分析してください。", hasToken: false, help: "スマートマネーが売っているトークンと買っているトークンを特定。「プロが何から何に乗り換えてるか」が分かります。" },
-        { title: "プロが一番持ってるトークンは？", text: "現在スマートマネーが最も多く保有しているトップ10トークンを抽出してください。各トークンについて、保有割合、直近の増減傾向、短期売買か中期保有かの傾向を整理してください。", hasToken: false, help: "スマートマネーの保有上位10トークンを表示。「プロのポートフォリオの中心は何か」が分かります。" },
-        { title: "プロが強気なセクターは？", text: "現在のスマートマネーの保有データをもとに、どのセクター（DeFi、AI、Gaming、RWAなど）が相対的に優勢かを分析してください。直近の変化とその背景も含めて整理してください。", hasToken: false, help: "スマートマネーの保有配分から、どのセクターが優勢かを判断。「次に来そうなテーマ」のヒントになります。" },
-        { title: "プロはリスクオン？オフ？", text: "スマートマネーのポートフォリオ全体において、ステーブルコインに配分されている割合を算出してください。過去数週間との比較から、リスクオン・リスクオフ傾向も評価してください。", hasToken: false, help: "スマートマネーのステーブルコイン比率から、プロが攻め姿勢か守り姿勢かを判断。市場の先行指標になります。" },
+        { title:"プロはどのセクターに注目してる？", text:"直近30日間で、スマートマネーの資金配分がDeFi・Gaming・AI・RWA・Memeなどの主要セクター間でどのように変化したかを分析してください。各セクターについて、保有額または純流入の増減、変化の要因、現在の配分が示唆する市場心理を整理してください。", help:"スマートマネー（利益を出しているプロ投資家）がどのセクターに資金を移しているかを分析。「今、プロは何を買ってる？」が分かります。" },
+        { title:"プロのお金はどこに動いてる？", text:"直近14日間で、スマートマネーが資金を流出させているトークンと、新たに流入させているトークンを特定してください。それぞれの共通点（セクター、時価総額帯、チェーン）と、資金移動の意図を分析してください。", help:"スマートマネーが売っているトークンと買っているトークンを特定。「プロが何から何に乗り換えてるか」が分かります。" },
+        { title:"プロが一番持ってるトークンは？", text:"現在スマートマネーが最も多く保有しているトップ10トークンを抽出してください。各トークンについて、保有割合、直近の増減傾向、短期売買か中期保有かの傾向を整理してください。", help:"スマートマネーの保有上位10トークンを表示。「プロのポートフォリオの中心は何か」が分かります。" },
+        { title:"プロが強気なセクターは？", text:"現在のスマートマネーの保有データをもとに、どのセクター（DeFi、AI、Gaming、RWAなど）が相対的に優勢かを分析してください。直近の変化とその背景も含めて整理してください。", help:"スマートマネーの保有配分から、どのセクターが優勢かを判断。「次に来そうなテーマ」のヒントになります。" },
+        { title:"プロはリスクオン？オフ？", text:"スマートマネーのポートフォリオ全体において、ステーブルコインに配分されている割合を算出してください。過去数週間との比較から、リスクオン・リスクオフ傾向も評価してください。", help:"スマートマネーのステーブルコイン比率から、プロが攻め姿勢か守り姿勢かを判断。市場の先行指標になります。" },
       ],
       tokenDiscovery: [
-        { title: "まだ上がってない注目トークンは？", text: "クジラまたはスマートマネーによる保有量が増加している一方で、まだ大きな価格上昇が起きていないトークンを特定してください。各トークンについて、想定される狙いと注意点を整理してください。", hasToken: false, help: "プロが買い集めているのに価格がまだ動いてないトークンを発掘。「次に来るかも」な銘柄が見つかります。" },
-        { title: "話題だけど価格は動いてない？", text: "スマートマネーの流入が増加しており、ソーシャルメディア上でも話題になり始めているが、まだ顕著な価格変動が出ていないトークンを特定してください。オンチェーンとソーシャルの乖離を評価してください。", hasToken: false, help: "SNSで話題になり始め、かつプロも買っているのにまだ価格が反応してないトークンを発見できます。" },
-        { title: "今pump中のトークンは？", text: "現在Base・Solana・Ethereum各チェーンで短期的に強い上昇（pump）が起きているトークンを抽出してください。スマートマネーの関与度と、一時的か継続性があるかを分析してください。", hasToken: false, help: "各チェーンで急上昇中のトークンを抽出。「プロも乗ってる本物か、一時的な投機か」も分析します。" },
-        { title: "まともなミームコインは？", text: "以下の条件を満たすミームコインを抽出してください。・流動性：100万ドル以上・時価総額：1000万ドル以上。各トークンについて、スマートマネー関与の有無と主なリスクを整理してください。", hasToken: false, help: "流動性と時価総額の条件をクリアしたミームコインを抽出。「詐欺コインを避けて選ぶ」ための材料になります。" },
-        { title: "取引高トップは何？", text: "直近24時間で取引高が最も高いトークンを抽出し、その背景（ニュース、スマートマネー取引、投機的要因）を分析してください。", hasToken: false, help: "24時間取引高トップのトークンと、その急増理由を分析。「なぜ今注目されてるか」が分かります。" },
-        { title: "今日注目のAIトークンは？", text: "本日、最も注目されているAI関連トークンを特定し、スマートマネーの動きと価格反応を整理してください。", hasToken: false, help: "AI関連トークンの中で今日最も動きがあるものを特定。AIセクターに興味がある人向けです。" },
-        { title: "ミームに資金が流れてる？", text: "現在のオンチェーンデータとスマートマネーの動きを踏まえて、市場資金をミームコインへローテーションすべき局面かを評価してください。根拠と注意点も示してください。", hasToken: false, help: "今がミームコインに資金が流れやすい局面かを判断。「ミームを触るタイミングか」の参考になります。" },
+        { title:"まだ上がってない注目トークンは？", text:"クジラまたはスマートマネーによる保有量が増加している一方で、まだ大きな価格上昇が起きていないトークンを特定してください。各トークンについて、想定される狙いと注意点を整理してください。", help:"プロが買い集めているのに価格がまだ動いてないトークンを発掘。「次に来るかも」な銘柄が見つかります。" },
+        { title:"話題だけど価格は動いてない？", text:"スマートマネーの流入が増加しており、ソーシャルメディア上でも話題になり始めているが、まだ顕著な価格変動が出ていないトークンを特定してください。オンチェーンとソーシャルの乖離を評価してください。", help:"SNSで話題になり始め、かつプロも買っているのにまだ価格が反応してないトークンを発見できます。" },
+        { title:"今pump中のトークンは？", text:"現在Base・Solana・Ethereum各チェーンで短期的に強い上昇（pump）が起きているトークンを抽出してください。スマートマネーの関与度と、一時的か継続性があるかを分析してください。", help:"各チェーンで急上昇中のトークンを抽出。「プロも乗ってる本物か、一時的な投機か」も分析します。" },
+        { title:"まともなミームコインは？", text:"以下の条件を満たすミームコインを抽出してください。・流動性：100万ドル以上・時価総額：1000万ドル以上。各トークンについて、スマートマネー関与の有無と主なリスクを整理してください。", help:"流動性と時価総額の条件をクリアしたミームコインを抽出。「詐欺コインを避けて選ぶ」ための材料になります。" },
+        { title:"取引高トップは何？", text:"直近24時間で取引高が最も高いトークンを抽出し、その背景（ニュース、スマートマネー取引、投機的要因）を分析してください。", help:"24時間取引高トップのトークンと、その急増理由を分析。「なぜ今注目されてるか」が分かります。" },
+        { title:"今日注目のAIトークンは？", text:"本日、最も注目されているAI関連トークンを特定し、スマートマネーの動きと価格反応を整理してください。", help:"AI関連トークンの中で今日最も動きがあるものを特定。AIセクターに興味がある人向けです。" },
+        { title:"ミームに資金が流れてる？", text:"現在のオンチェーンデータとスマートマネーの動きを踏まえて、市場資金をミームコインへローテーションすべき局面かを評価してください。根拠と注意点も示してください。", help:"今がミームコインに資金が流れやすい局面かを判断。「ミームを触るタイミングか」の参考になります。" },
       ],
       entity: [
-        { title: "Wintermuteが触ってるのは？", text: "Wintermuteが過去7日間でマーケットメイクまたは取引関与しているトークンを特定してください。関与の種類と価格への影響を整理してください。", hasToken: false, help: "大手マーケットメーカーWintermuteが関与しているトークンを特定。流動性供給や取引の動きが分かります。" },
-        { title: "主要ファンドは何を持ってる？", text: "主要ファンドごとに、現在の保有銘柄上位5種類を抽出し、セクター分布と投資スタイルの違いを分析してください。", hasToken: false, help: "有名ファンドのポートフォリオ上位銘柄を比較。「どのファンドがどんなスタイルか」が分かります。" },
-        { title: "ファンドのAI・DePIN保有は？", text: "ファンドが現在保有しているDePINおよびAI関連トークンを抽出し、どの分野に重点が置かれているかを分析してください。", hasToken: false, help: "ファンドがAI・DePINセクターでどの銘柄を持っているかを分析。機関投資家の注目先が分かります。" },
+        { title:"Wintermuteが触ってるのは？", text:"Wintermuteが過去7日間でマーケットメイクまたは取引関与しているトークンを特定してください。関与の種類と価格への影響を整理してください。", help:"大手マーケットメーカーWintermuteが関与しているトークンを特定。流動性供給や取引の動きが分かります。" },
+        { title:"主要ファンドは何を持ってる？", text:"主要ファンドごとに、現在の保有銘柄上位5種類を抽出し、セクター分布と投資スタイルの違いを分析してください。", help:"有名ファンドのポートフォリオ上位銘柄を比較。「どのファンドがどんなスタイルか」が分かります。" },
+        { title:"ファンドのAI・DePIN保有は？", text:"ファンドが現在保有しているDePINおよびAI関連トークンを抽出し、どの分野に重点が置かれているかを分析してください。", help:"ファンドがAI・DePINセクターでどの銘柄を持っているかを分析。機関投資家の注目先が分かります。" },
       ],
     };
 
-    // 汎用プロンプト
+    /* ─── 汎用プロンプト ─── */
     const generalPrompts = {
-      market: {
-        short: "今週の暗号資産市場を、時価総額・BTCドミナンス・出来高の3指標を数値ベースで評価し、市場レジーム（リスクオン/オフ/中立）、リスクオフの種類、現在の下落フェーズを判断。最後に短期的な値動きの見通しを述べてください。",
-        long: "今週の暗号資産市場について、以下の3指標を必ず数値ベースで評価して。各指標について、「7日前比の変化 → 何が起きているか（事実） → なぜそうなったか（背景） → 市場参加者の心理」の順で整理して。\n\n・暗号資産全体の時価総額（7日前比）\n・BTCドミナンス（7日前比）\n・市場全体の出来高（7日前比）\n\nその上で、以下を明確にして。\n\n1. 今週の市場レジームは「リスクオン / リスクオフ / 中立」のどれか\n\n2. リスクオフの場合は、その性質を「健全な調整 / パニック寄り / 高値圏警戒」のいずれかで分類して\n\n3. 出来高と価格の関係から見た現在のフェーズ（投げ売り初動 / 投げ売り終盤 / 売り枯れ / 戻り売り局面 など）\n\n最後に、\n・なぜその判断になるのか（1文）\n・短期的に起こりやすい値動き（1〜2行）\nを必ず付けて。",
-      },
-      topics: {
-        short: "直近7日間の暗号資産市場について、価格やセンチメントに影響した重要トピックを3〜5個抽出し、事実・背景・市場への影響・影響の持続性（短期/構造的）を整理してください。マクロ要因と暗号資産固有要因の両方を必ず含めてください。",
-        long: "直近7日間の暗号資産市場について、価格やセンチメントに影響を与えた重要トピックを3〜5個抽出してください。\n\n各トピックについて、以下の形式で整理してください。\n・何が起きたか（事実）\n・背景となるマクロ要因 または ニュース\n・市場への影響（BTC / アルト / 特定セクター）\n・その影響は短期的か、構造的か（持続性の評価）\n\nなお、以下の条件を必ず満たしてください。\n・マクロ要因（FOMC、金利、株式市場など）を最低1つ含める\n・暗号資産固有要因（ETFフロー、規制、オンチェーン動向など）を最低1つ含める\n\n最後に、これらのトピックから読み取れる「今の市場の大きな流れ」を2〜3行で要約してください。",
-      },
-      // 個別コイン
-      coinSummary: {
-        short: "$TOKENについて、市場環境・ファンダメンタル・価格動向・主なリスクを整理し、短期・中期で市場参加者がどのような姿勢を取りやすいかをまとめてください。",
-        long: "$TOKENについて、現在の市場状況を把握するための総合的な整理を行ってください。\n\n以下の観点を必ず含めてください。\n・市場環境（リスクオン/オフ、セクター資金フロー）\n・ファンダメンタル（採用状況、開発進捗、ナラティブ）\n・価格と需給（直近トレンド、出来高、売り圧要因）\n・想定される主なリスク\n\nその上で、短期（〜1か月）・中期（〜3か月）について、市場参加者の姿勢が「強気・中立・慎重」のどれに傾きやすいかを理由付きで整理してください。\n売買の推奨や最終的な投資判断は行わないでください。",
-      },
-      coinStructure: {
-        short: "$TOKENのプロジェクト構造、トークノミクス、前提条件を整理し、どの要素が崩れると評価が変わるかを明確にしてください。",
-        long: "$TOKENについて、プロジェクトの構造的理解を目的として以下を整理してください。\n\n・プロジェクト概要と役割\n・トークノミクス（供給構造、インセンティブ）\n・成長が成立する前提条件\n・構造的な強みと弱み\n\nその上で、どの前提が崩れた場合に評価が大きく変化するか、また長期的に注意すべき構造リスクを明確にしてください。\n価格予測や売買判断は行わず、構造理解に徹してください。",
-      },
-      coinStrength: {
-        short: "$TOKENの強みと弱みを、技術・ナラティブ・需給・競合の観点から整理し、注視すべきポイントをまとめてください。",
-        long: "$TOKENについて、検討時に重要となる強みと弱みを以下の観点で整理してください。\n\n・技術やプロダクトの特徴\n・ナラティブや市場での立ち位置\n・トークノミクスや需給構造\n・競合プロジェクトや外部環境\n\nその上で、評価が大きく変わり得るポイントや、今後注視すべき変数を明確にしてください。\n結論や投資判断は示さず、比較・整理に徹してください。",
-      },
-      coinSentiment: {
-        short: "$TOKENについて、センチメントとオンチェーンデータから資金の向きと市場心理を整理してください。",
-        long: "$TOKENについて、直近の市場心理を把握するために以下を整理してください。\n\n・SNSやニュースから読み取れるセンチメント\n・オンチェーンデータに基づく資金フロー\n・短期投資家と中期参加者の行動傾向\n\nその上で、現在の市場参加者がどのような心理状態にあるか、注意点とともにまとめてください。\n売買行動の指示や推奨は行わないでください。",
-      },
-      coinTechnical: {
-        short: "$TOKENの短期テクニカル状況と価格位置を整理し、注意すべきポイントをまとめてください。",
-        long: "$TOKENについて、短期（〜1か月）の価格状況を整理してください。\n\n・現在の価格位置と過熱感\n・出来高やトレンドの特徴\n・一般的に意識されやすい価格帯や形\n\nその上で、市場参加者が警戒しやすいポイントや注意点を整理してください。\n具体的な売買タイミングや行動指示は行わないでください。",
-      },
-      coinMidterm: {
-        short: "$TOKENについて、今後3か月以内に価格へ影響し得る主要要因を整理してください。",
-        long: "$TOKENについて、今後3か月程度を想定し、価格へ影響を与え得る要因を整理してください。\n\n・プロダクトや開発面のイベント\n・需給やアンロック要因\n・セクター動向や市場環境\n\nその上で、ポジティブ・ネガティブ両面の可能性と注意点を整理してください。\n予測や推奨は行わず、要因整理に徹してください。",
-      },
-      coinGrowth: {
-        short: "$TOKENのセクター内での立ち位置と、成長余地を考える材料を整理してください。",
-        long: "$TOKENについて、セクター内での相対的なポジションを整理してください。\n\n・現在の時価総額と想定レンジ感\n・同セクター内プロジェクトとの比較\n・過去の類似事例やナラティブ拡大の経緯\n\nその上で、考えられるシナリオと注意点を整理してください。\n価格目標や投資判断は示さないでください。",
-      },
-      coinRisk: {
-        short: "$TOKENについて、事前に把握すべき主要リスクと失敗パターンを整理してください。",
-        long: "$TOKENについて、検討前に把握しておくべきリスクを整理してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営・開発リスク\n・市場環境悪化時の影響\n\nその上で、起こりやすい失敗パターンと、それを回避するための視点をまとめてください。\n売買判断や推奨は行わないでください。",
-      },
-      coinUnlock: {
-        short: "$TOKENの今後6か月のアンロック予定を、日付・量・流通比率で整理し、過去のアンロック前後の価格傾向も要約してください。",
-        long: "$TOKENの今後6か月の主なトークンアンロック予定を調べ、各イベントについて「日付・解除量・解除先（チーム/投資家/コミュニティ等）・流通供給に対する割合」を整理してください。\n\n可能なら過去のアンロック前後で、価格・出来高・ボラティリティがどう変化したかの傾向も要約してください。\n\n最後に、次のアンロックが市場に与えうる影響（売り圧/織り込み/無風）を簡潔に評価してください。",
-      },
-      coinRiskTotal: {
-        short: "$TOKENについて、信頼性・供給・価格・市場環境の観点から総合リスク水準を評価してください。",
-        long: "$TOKENについて、検討前の総合リスク評価を行ってください。\n\n以下の観点を必ず含めてください。\n・プロジェクト/チームの信頼性\n・トークノミクスと供給面の売り圧\n・価格と流動性の安定性\n・市場環境悪化時の耐性\n\nその上で、\n総合的なリスク水準を\n「低 / 中 / 高」\nで評価し、最も注意すべきポイントを明確にしてください。",
-      },
-      coinRiskSellPressure: {
-        short: "$TOKENのアンロックや発行構造から、売り圧・希薄化リスクを整理してください。",
-        long: "$TOKENのトークノミクスを中心に、将来的な売り圧や希薄化リスクを評価してください。\n\n・アンロック予定と受益者\n・インフレ/発行メカニズム\n・過去のアンロック前後の価格傾向\n\nを整理した上で、\n短期（〜1か月）・中期（〜3か月）で\n売り圧が高まりやすい局面を指摘してください。",
-      },
-      coinRiskLiquidity: {
-        short: "$TOKENの取引量や板の厚みから、流動性と価格変動リスクを評価してください。",
-        long: "$TOKENについて、流動性や市場構造の観点からリスクを評価してください。\n\n・取引量と板の厚み\n・急落・急騰が起きやすい条件\n・大口売買の影響度\n\nを整理した上で、\n短期トレードに向くか、\n価格変動リスクが高いかを判断してください。",
-      },
-      coinRiskProject: {
-        short: "$TOKENのチーム・開発状況から、運営リスクや注意点を整理してください。",
-        long: "$TOKENについて、プロジェクト運営や開発面のリスクを分析してください。\n\n・チームの透明性と実績\n・開発の継続性や停滞リスク\n・過去のトラブルや懸念点\n\nを踏まえ、\n信頼性に影響する要素と、\n注意すべきサインを整理してください。",
-      },
-      coinRiskWorstCase: {
-        short: "$TOKENについて、想定される最悪シナリオと事前に気づける兆候を整理してください。",
-        long: "$TOKENについて、検討前に想定しておくべき最悪シナリオを整理してください。\n\n・市場全体が急落した場合\n・プロジェクトに悪材料が出た場合\n・流動性が急低下した場合\n\nそれぞれで起こりうる影響を示し、\nその兆候や事前に気づけるサインをまとめてください。",
-      },
-      // リサーチ
-      stableFarm: {
-        short: "現在利回りが高いステーブルコイン運用先を複数挙げ、APYと利回り原資、主要リスクを比較して分類してください。",
-        long: "現在利回りが高いステーブルコイン運用先を、チェーン横断で3〜7件挙げてください。\n各候補について、APY/利回り内訳（手数料/インセンティブ）/必要手順（LP、レンディング等）/主要リスク（デペグ、スマコン、流動性、IL、運営）を整理してください。\n最後に「利回りは高いが危険」「中程度だが堅め」などリスク別に分類し、初心者向けの無難な選択肢も1つ示してください。",
-      },
-      baseGrowth: {
-        short: "Baseで直近伸びているプロジェクトを挙げ、伸びた理由と持続性（短期/構造）を整理して注目候補を選んでください。",
-        long: "Baseチェーンで直近伸びているプロジェクトを3〜7個挙げてください。\n各プロジェクトについて、セクター（DeFi/NFT/ゲーム等）、成長指標（TVL/出来高/ユーザー/手数料など可能な範囲）、伸びた理由（インセンティブ、提携、トレンド、機能改善等）、短期要因か構造要因かを整理してください。\n最後に「今後も追う価値が高い候補」を理由付きで1〜2個選んでください。",
-      },
-      funding: {
-        short: "直近7日で資金調達したプロジェクトを列挙し、概要・調達額・投資家・注目理由を整理して優先度上位を選んでください。",
-        long: "直近7日間で資金調達（シード/シリーズ/戦略/助成金等）を発表した暗号資産関連プロジェクトを5〜10件リストアップしてください。\n各案件について、プロジェクト概要、セクター、調達額とラウンド、主な投資家、資金用途（公表範囲）、なぜ注目か（市場テーマとの一致、実績、差別化）を整理してください。\n最後に「ウォッチ優先度が高い案件」を理由付きで上位3つ選んでください。",
-      },
-      unlockMarket: {
-        short: "今後1か月の大型アンロック予定を、日付・解除量・流通比率で一覧化し、影響が大きそうな上位3件を示してください。",
-        long: "今後1か月で予定されている主要トークンの「大きなアンロック」を一覧化してください。\n各銘柄について「日付・解除量（USD換算が可能なら併記）・流通供給に対する割合・解除先（チーム/投資家等）」を整理してください。\n\nその上で、規模と市場影響の大きさ（売り圧懸念/中立/軽微）で優先度を付け、特に注目すべきイベントを3つ挙げてください。",
-      },
-      // ニュース
-      weeklyNews: {
-        short: "直近1週間の暗号資産関連ニュースから、市場に影響が大きかったものを重要度順に10件以内で要約してください。各ニュースについて、影響対象（BTC/アルト/特定セクター）も示してください。",
-      },
-      macroImpact: {
-        short: "直近の主要マクロイベント（FOMC、金利、株式市場など）が、暗号資産市場に与えた影響を整理し、短期的か構造的かを評価してください。",
-      },
-      newsImpact: {
-        short: "以下のニュースが暗号資産市場に与える影響を評価してください。影響範囲（BTC/アルト/特定セクター）と、短期的か中期的かを分けて整理してください。\n[ニュースリンク]",
-      },
-      newsAction: {
-        short: "以下の暗号資産ニュースを踏まえて、短期トレーダーと中期ホルダーそれぞれにとって考えられる行動（警戒/様子見/注目など）を整理してください。\n[ニュースリンク]",
-      },
-      // トレンド
-      trendOverview: {
-        short: "現在の暗号資産市場で注目されているトレンドを抽出し、代表銘柄と注目理由、持続性を整理してください。",
-        long: "現在の暗号資産市場で注目されているトレンドやテーマを3〜5個抽出してください。\n\n各トレンドについて、\n・テーマ名（例：AI、RWA、L2、ミームなど）\n・代表的なプロジェクトやトークン\n・なぜ今注目されているのか（背景）\n・短期的な流行か、構造的なトレンドか\n\nを整理してください。\n\n最後に、\n今後も追う価値がありそうなトレンドを理由付きで1〜2個選んでください。",
-      },
-      trendFlow: {
-        short: "資金流入や出来高の変化から、現在注目されている暗号資産トレンドを整理してください。",
-        long: "暗号資産市場において、直近で資金流入が目立つトレンドやセクターを分析してください。\n\n・出来高やTVLの変化\n・どのチェーンや分野に資金が集まっているか\n・一時的な回転か、継続的な流入か\n\nを整理した上で、\n現在資金が向かいやすいトレンドを特定してください。",
-      },
-      trendNext: {
-        short: "今後トレンド化する可能性がある暗号資産テーマを、根拠付きでいくつか挙げてください。",
-        long: "現時点ではまだ主流ではないが、今後トレンド化する可能性がある暗号資産テーマを挙げてください。\n\n・最近増えているプロジェクトや話題\n・VC投資や開発動向\n・既存トレンドとの連続性\n\nを踏まえ、\n「なぜ次に来そうか」を根拠付きで説明してください。",
-      },
-      trendDuration: {
-        short: "注目トレンドについて、資金・実需・過熱感から持続性を評価してください。",
-        long: "注目されている暗号資産トレンドについて、その勢いが今後も続くかを評価してください。\n\n・資金流入の継続性\n・実需や利用状況の有無\n・ナラティブ疲れや過熱感\n\nを踏まえ、\n短期的な流行か、中期的に残るテーマかを判断してください。",
-      },
-      trendApproach: {
-        short: "特定の暗号資産トレンドについて、投資・トレードでの向き合い方と注意点を整理してください。",
-        long: "特定の暗号資産トレンドについて、投資・トレードの観点からどう向き合うべきかを整理してください。\n\n・短期回転向きか、中期保有向きか\n・個別銘柄選別が重要か、テーマ全体を見るべきか\n・注意すべきリスクや失敗パターン\n\nを踏まえ、\nこのトレンドへの適切な関わり方をまとめてください。",
-      },
+      market:{ short:"今週の暗号資産市場を、時価総額・BTCドミナンス・出来高の3指標を数値ベースで評価し、市場レジーム（リスクオン/オフ/中立）、リスクオフの種類、現在の下落フェーズを判断。最後に短期的な値動きの見通しを述べてください。", long:"今週の暗号資産市場について、以下の3指標を必ず数値ベースで評価して。各指標について、「7日前比の変化 → 何が起きているか（事実） → なぜそうなったか（背景） → 市場参加者の心理」の順で整理して。\n\n・暗号資産全体の時価総額（7日前比）\n・BTCドミナンス（7日前比）\n・市場全体の出来高（7日前比）\n\nその上で、以下を明確にして。\n\n1. 今週の市場レジームは「リスクオン / リスクオフ / 中立」のどれか\n\n2. リスクオフの場合は、その性質を「健全な調整 / パニック寄り / 高値圏警戒」のいずれかで分類して\n\n3. 出来高と価格の関係から見た現在のフェーズ（投げ売り初動 / 投げ売り終盤 / 売り枯れ / 戻り売り局面 など）\n\n最後に、\n・なぜその判断になるのか（1文）\n・短期的に起こりやすい値動き（1〜2行）\nを必ず付けて。" },
+      topics:{ short:"直近7日間の暗号資産市場について、価格やセンチメントに影響した重要トピックを3〜5個抽出し、事実・背景・市場への影響・影響の持続性（短期/構造的）を整理してください。マクロ要因と暗号資産固有要因の両方を必ず含めてください。", long:"直近7日間の暗号資産市場について、価格やセンチメントに影響を与えた重要トピックを3〜5個抽出してください。\n\n各トピックについて、以下の形式で整理してください。\n・何が起きたか（事実）\n・背景となるマクロ要因 または ニュース\n・市場への影響（BTC / アルト / 特定セクター）\n・その影響は短期的か、構造的か（持続性の評価）\n\nなお、以下の条件を必ず満たしてください。\n・マクロ要因（FOMC、金利、株式市場など）を最低1つ含める\n・暗号資産固有要因（ETFフロー、規制、オンチェーン動向など）を最低1つ含める\n\n最後に、これらのトピックから読み取れる「今の市場の大きな流れ」を2〜3行で要約してください。" },
+      coinSummary:{ short:"$TOKENについて、市場環境・ファンダメンタル・価格動向・主なリスクを整理し、短期・中期で市場参加者がどのような姿勢を取りやすいかをまとめてください。", long:"$TOKENについて、現在の市場状況を把握するための総合的な整理を行ってください。\n\n以下の観点を必ず含めてください。\n・市場環境（リスクオン/オフ、セクター資金フロー）\n・ファンダメンタル（採用状況、開発進捗、ナラティブ）\n・価格と需給（直近トレンド、出来高、売り圧要因）\n・想定される主なリスク\n\nその上で、短期（〜1か月）・中期（〜3か月）について、市場参加者の姿勢が「強気・中立・慎重」のどれに傾きやすいかを理由付きで整理してください。\n売買の推奨や最終的な投資判断は行わないでください。" },
+      coinStructure:{ short:"$TOKENのプロジェクト構造、トークノミクス、前提条件を整理し、どの要素が崩れると評価が変わるかを明確にしてください。", long:"$TOKENについて、プロジェクトの構造的理解を目的として以下を整理してください。\n\n・プロジェクト概要と役割\n・トークノミクス（供給構造、インセンティブ）\n・成長が成立する前提条件\n・構造的な強みと弱み\n\nその上で、どの前提が崩れた場合に評価が大きく変化するか、また長期的に注意すべき構造リスクを明確にしてください。\n価格予測や売買判断は行わず、構造理解に徹してください。" },
+      coinStrength:{ short:"$TOKENの強みと弱みを、技術・ナラティブ・需給・競合の観点から整理し、注視すべきポイントをまとめてください。", long:"$TOKENについて、検討時に重要となる強みと弱みを以下の観点で整理してください。\n\n・技術やプロダクトの特徴\n・ナラティブや市場での立ち位置\n・トークノミクスや需給構造\n・競合プロジェクトや外部環境\n\nその上で、評価が大きく変わり得るポイントや、今後注視すべき変数を明確にしてください。\n結論や投資判断は示さず、比較・整理に徹してください。" },
+      coinSentiment:{ short:"$TOKENについて、センチメントとオンチェーンデータから資金の向きと市場心理を整理してください。", long:"$TOKENについて、直近の市場心理を把握するために以下を整理してください。\n\n・SNSやニュースから読み取れるセンチメント\n・オンチェーンデータに基づく資金フロー\n・短期投資家と中期参加者の行動傾向\n\nその上で、現在の市場参加者がどのような心理状態にあるか、注意点とともにまとめてください。\n売買行動の指示や推奨は行わないでください。" },
+      coinTechnical:{ short:"$TOKENの短期テクニカル状況と価格位置を整理し、注意すべきポイントをまとめてください。", long:"$TOKENについて、短期（〜1か月）の価格状況を整理してください。\n\n・現在の価格位置と過熱感\n・出来高やトレンドの特徴\n・一般的に意識されやすい価格帯や形\n\nその上で、市場参加者が警戒しやすいポイントや注意点を整理してください。\n具体的な売買タイミングや行動指示は行わないでください。" },
+      coinMidterm:{ short:"$TOKENについて、今後3か月以内に価格へ影響し得る主要要因を整理してください。", long:"$TOKENについて、今後3か月程度を想定し、価格へ影響を与え得る要因を整理してください。\n\n・プロダクトや開発面のイベント\n・需給やアンロック要因\n・セクター動向や市場環境\n\nその上で、ポジティブ・ネガティブ両面の可能性と注意点を整理してください。\n予測や推奨は行わず、要因整理に徹してください。" },
+      coinGrowth:{ short:"$TOKENのセクター内での立ち位置と、成長余地を考える材料を整理してください。", long:"$TOKENについて、セクター内での相対的なポジションを整理してください。\n\n・現在の時価総額と想定レンジ感\n・同セクター内プロジェクトとの比較\n・過去の類似事例やナラティブ拡大の経緯\n\nその上で、考えられるシナリオと注意点を整理してください。\n価格目標や投資判断は示さないでください。" },
+      coinRisk:{ short:"$TOKENについて、事前に把握すべき主要リスクと失敗パターンを整理してください。", long:"$TOKENについて、検討前に把握しておくべきリスクを整理してください。\n\n・需給やアンロックによる売り圧\n・プロジェクト運営・開発リスク\n・市場環境悪化時の影響\n\nその上で、起こりやすい失敗パターンと、それを回避するための視点をまとめてください。\n売買判断や推奨は行わないでください。" },
+      coinUnlock:{ short:"$TOKENの今後6か月のアンロック予定を、日付・量・流通比率で整理し、過去のアンロック前後の価格傾向も要約してください。", long:"$TOKENの今後6か月の主なトークンアンロック予定を調べ、各イベントについて「日付・解除量・解除先（チーム/投資家/コミュニティ等）・流通供給に対する割合」を整理してください。\n\n可能なら過去のアンロック前後で、価格・出来高・ボラティリティがどう変化したかの傾向も要約してください。\n\n最後に、次のアンロックが市場に与えうる影響（売り圧/織り込み/無風）を簡潔に評価してください。" },
+      coinRiskTotal:{ short:"$TOKENについて、信頼性・供給・価格・市場環境の観点から総合リスク水準を評価してください。", long:"$TOKENについて、検討前の総合リスク評価を行ってください。\n\n以下の観点を必ず含めてください。\n・プロジェクト/チームの信頼性\n・トークノミクスと供給面の売り圧\n・価格と流動性の安定性\n・市場環境悪化時の耐性\n\nその上で、\n総合的なリスク水準を\n「低 / 中 / 高」\nで評価し、最も注意すべきポイントを明確にしてください。" },
+      coinRiskSellPressure:{ short:"$TOKENのアンロックや発行構造から、売り圧・希薄化リスクを整理してください。", long:"$TOKENのトークノミクスを中心に、将来的な売り圧や希薄化リスクを評価してください。\n\n・アンロック予定と受益者\n・インフレ/発行メカニズム\n・過去のアンロック前後の価格傾向\n\nを整理した上で、\n短期（〜1か月）・中期（〜3か月）で\n売り圧が高まりやすい局面を指摘してください。" },
+      coinRiskLiquidity:{ short:"$TOKENの取引量や板の厚みから、流動性と価格変動リスクを評価してください。", long:"$TOKENについて、流動性や市場構造の観点からリスクを評価してください。\n\n・取引量と板の厚み\n・急落・急騰が起きやすい条件\n・大口売買の影響度\n\nを整理した上で、\n短期トレードに向くか、\n価格変動リスクが高いかを判断してください。" },
+      coinRiskProject:{ short:"$TOKENのチーム・開発状況から、運営リスクや注意点を整理してください。", long:"$TOKENについて、プロジェクト運営や開発面のリスクを分析してください。\n\n・チームの透明性と実績\n・開発の継続性や停滞リスク\n・過去のトラブルや懸念点\n\nを踏まえ、\n信頼性に影響する要素と、\n注意すべきサインを整理してください。" },
+      coinRiskWorstCase:{ short:"$TOKENについて、想定される最悪シナリオと事前に気づける兆候を整理してください。", long:"$TOKENについて、検討前に想定しておくべき最悪シナリオを整理してください。\n\n・市場全体が急落した場合\n・プロジェクトに悪材料が出た場合\n・流動性が急低下した場合\n\nそれぞれで起こりうる影響を示し、\nその兆候や事前に気づけるサインをまとめてください。" },
+      stableFarm:{ short:"現在利回りが高いステーブルコイン運用先を複数挙げ、APYと利回り原資、主要リスクを比較して分類してください。", long:"現在利回りが高いステーブルコイン運用先を、チェーン横断で3〜7件挙げてください。\n各候補について、APY/利回り内訳（手数料/インセンティブ）/必要手順（LP、レンディング等）/主要リスク（デペグ、スマコン、流動性、IL、運営）を整理してください。\n最後に「利回りは高いが危険」「中程度だが堅め」などリスク別に分類し、初心者向けの無難な選択肢も1つ示してください。" },
+      baseGrowth:{ short:"Baseで直近伸びているプロジェクトを挙げ、伸びた理由と持続性（短期/構造）を整理して注目候補を選んでください。", long:"Baseチェーンで直近伸びているプロジェクトを3〜7個挙げてください。\n各プロジェクトについて、セクター（DeFi/NFT/ゲーム等）、成長指標（TVL/出来高/ユーザー/手数料など可能な範囲）、伸びた理由（インセンティブ、提携、トレンド、機能改善等）、短期要因か構造要因かを整理してください。\n最後に「今後も追う価値が高い候補」を理由付きで1〜2個選んでください。" },
+      funding:{ short:"直近7日で資金調達したプロジェクトを列挙し、概要・調達額・投資家・注目理由を整理して優先度上位を選んでください。", long:"直近7日間で資金調達（シード/シリーズ/戦略/助成金等）を発表した暗号資産関連プロジェクトを5〜10件リストアップしてください。\n各案件について、プロジェクト概要、セクター、調達額とラウンド、主な投資家、資金用途（公表範囲）、なぜ注目か（市場テーマとの一致、実績、差別化）を整理してください。\n最後に「ウォッチ優先度が高い案件」を理由付きで上位3つ選んでください。" },
+      unlockMarket:{ short:"今後1か月の大型アンロック予定を、日付・解除量・流通比率で一覧化し、影響が大きそうな上位3件を示してください。", long:"今後1か月で予定されている主要トークンの「大きなアンロック」を一覧化してください。\n各銘柄について「日付・解除量（USD換算が可能なら併記）・流通供給に対する割合・解除先（チーム/投資家等）」を整理してください。\n\nその上で、規模と市場影響の大きさ（売り圧懸念/中立/軽微）で優先度を付け、特に注目すべきイベントを3つ挙げてください。" },
+      weeklyNews:{ short:"直近1週間の暗号資産関連ニュースから、市場に影響が大きかったものを重要度順に10件以内で要約してください。各ニュースについて、影響対象（BTC/アルト/特定セクター）も示してください。" },
+      macroImpact:{ short:"直近の主要マクロイベント（FOMC、金利、株式市場など）が、暗号資産市場に与えた影響を整理し、短期的か構造的かを評価してください。" },
+      newsImpact:{ short:"以下のニュースが暗号資産市場に与える影響を評価してください。影響範囲（BTC/アルト/特定セクター）と、短期的か中期的かを分けて整理してください。\n[ニュースリンク]" },
+      newsAction:{ short:"以下の暗号資産ニュースを踏まえて、短期トレーダーと中期ホルダーそれぞれにとって考えられる行動（警戒/様子見/注目など）を整理してください。\n[ニュースリンク]" },
+      trendOverview:{ short:"現在の暗号資産市場で注目されているトレンドを抽出し、代表銘柄と注目理由、持続性を整理してください。", long:"現在の暗号資産市場で注目されているトレンドやテーマを3〜5個抽出してください。\n\n各トレンドについて、\n・テーマ名（例：AI、RWA、L2、ミームなど）\n・代表的なプロジェクトやトークン\n・なぜ今注目されているのか（背景）\n・短期的な流行か、構造的なトレンドか\n\nを整理してください。\n\n最後に、\n今後も追う価値がありそうなトレンドを理由付きで1〜2個選んでください。" },
+      trendFlow:{ short:"資金流入や出来高の変化から、現在注目されている暗号資産トレンドを整理してください。", long:"暗号資産市場において、直近で資金流入が目立つトレンドやセクターを分析してください。\n\n・出来高やTVLの変化\n・どのチェーンや分野に資金が集まっているか\n・一時的な回転か、継続的な流入か\n\nを整理した上で、\n現在資金が向かいやすいトレンドを特定してください。" },
+      trendNext:{ short:"今後トレンド化する可能性がある暗号資産テーマを、根拠付きでいくつか挙げてください。", long:"現時点ではまだ主流ではないが、今後トレンド化する可能性がある暗号資産テーマを挙げてください。\n\n・最近増えているプロジェクトや話題\n・VC投資や開発動向\n・既存トレンドとの連続性\n\nを踏まえ、\n「なぜ次に来そうか」を根拠付きで説明してください。" },
+      trendDuration:{ short:"注目トレンドについて、資金・実需・過熱感から持続性を評価してください。", long:"注目されている暗号資産トレンドについて、その勢いが今後も続くかを評価してください。\n\n・資金流入の継続性\n・実需や利用状況の有無\n・ナラティブ疲れや過熱感\n\nを踏まえ、\n短期的な流行か、中期的に残るテーマかを判断してください。" },
+      trendApproach:{ short:"特定の暗号資産トレンドについて、投資・トレードでの向き合い方と注意点を整理してください。", long:"特定の暗号資産トレンドについて、投資・トレードの観点からどう向き合うべきかを整理してください。\n\n・短期回転向きか、中期保有向きか\n・個別銘柄選別が重要か、テーマ全体を見るべきか\n・注意すべきリスクや失敗パターン\n\nを踏まえ、\nこのトレンドへの適切な関わり方をまとめてください。" },
     };
 
-    // アコーディオンメニューの開閉
-    function toggleMenu() {
-      const dropdown = document.getElementById('menuDropdown');
-      const toggle = document.querySelector('.menu-toggle');
-      dropdown.classList.toggle('show');
-      toggle.classList.toggle('open');
-    }
-
-    // メニュー外をクリックしたら閉じる
-    document.addEventListener('click', function(event) {
-      const menu = document.querySelector('.menu-accordion');
-      const dropdown = document.getElementById('menuDropdown');
-      const toggle = document.querySelector('.menu-toggle');
-      
-      if (menu && !menu.contains(event.target) && dropdown.classList.contains('show')) {
-        dropdown.classList.remove('show');
-        toggle.classList.remove('open');
-      }
-    });
-
-    // ヘルプツールチップの表示切り替え
-    function toggleHelp(btn) {
-      const tooltip = btn.parentElement.nextElementSibling;
-      const isShowing = tooltip.classList.contains('show');
-      
-      // 他のツールチップを閉じる
-      document.querySelectorAll('.help-tooltip.show').forEach(t => t.classList.remove('show'));
-      
-      // クリックしたツールチップを切り替え
-      if (!isShowing) {
-        tooltip.classList.add('show');
-      }
-    }
-
-    // ページ内のどこかをクリックしたらツールチップを閉じる
-    document.addEventListener('click', function(e) {
-      if (!e.target.classList.contains('help-btn')) {
-        document.querySelectorAll('.help-tooltip.show').forEach(t => t.classList.remove('show'));
-      }
-    });
-
-    function switchCategory(category) {
-      // タブの切り替え
-      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-
-      // コンテンツの切り替え
-      document.querySelectorAll('.category-content').forEach(content => content.classList.remove('active'));
+    /* ─── カテゴリ切り替え ─── */
+    function switchCategory(category, btn) {
+      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
       document.getElementById(category + 'Content').classList.add('active');
     }
 
-    function renderPrompts() {
-      renderPromptList('smartMoneyPrompts', prompts.smartMoney);
-      renderPromptList('tokenDiscoveryPrompts', prompts.tokenDiscovery);
-      renderPromptList('entityPrompts', prompts.entity);
+    /* ─── ヘルプツールチップ ─── */
+    function toggleHelp(btn) {
+      const tooltip = btn.parentElement.nextElementSibling;
+      const showing = tooltip.classList.contains('show');
+      document.querySelectorAll('.help-tooltip.show').forEach(t => t.classList.remove('show'));
+      if (!showing) tooltip.classList.add('show');
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.classList.contains('help-btn'))
+        document.querySelectorAll('.help-tooltip.show').forEach(t => t.classList.remove('show'));
+    });
+
+    /* ─── プロンプトタブ切り替え ─── */
+    function switchPromptTab(btn, mode) {
+      const wrapper = btn.closest('.prompt-card') || btn.closest('.nansen-prompt-card');
+      wrapper.querySelectorAll('.prompt-tab, .nansen-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const display = wrapper.querySelector('.prompt-display, .nansen-prompt-display');
+      display.dataset.mode = mode;
+      updateSingleDisplay(display);
     }
 
-    function renderPromptList(containerId, promptList) {
-      const container = document.getElementById(containerId);
-      const token = tokenInput.value || '$TOKEN';
-      container.innerHTML = promptList.map((prompt) => {
-        // Escape and highlight for title
-        const titleEscaped = (prompt.title || prompt.text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const displayTitle = titleEscaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
-        // Escape and highlight for content
-        const textEscaped = prompt.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const copyTextHighlighted = textEscaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
-        // Help text
-        const helpHtml = prompt.help ? `
-          <button class="help-btn" onclick="toggleHelp(this)">？</button>
-          </div>
-          <div class="help-tooltip">
-            <div class="help-tooltip-title">💡 このプロンプトで分かること</div>
-            ${prompt.help}
-          </div>
-        ` : '</div>';
-        return `
-        <div class="card nansen-card" style="margin-bottom: 16px;">
-          <div class="card-header">
-            <div class="card-title-wrapper">
-              <div class="card-title" style="color: #fff;">${displayTitle}</div>
-              ${helpHtml}
-          </div>
-          <div class="prompt-display nansen-display" style="border-radius: 8px; border-top: 1px solid rgba(74, 222, 128, 0.2);">
-            <div class="prompt-content nansen-content">${copyTextHighlighted}</div>
-            <button class="copy-btn nansen-btn" onclick="copyNansenPrompt(this, '${prompt.text.replace(/'/g, "\\'")}')">コピー</button>
-          </div>
-        </div>
-      `;
-      }).join('');
+    /* ─── プロンプト表示更新 ─── */
+    function updateSingleDisplay(display) {
+      const key = display.dataset.key;
+      const mode = display.dataset.mode || 'short';
+      const data = generalPrompts[key];
+      if (!data) return;
+      const token = tokenInput.value || '$TOKEN名';
+      const raw = (data[mode] || data.short || '');
+      const escaped = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const highlighted = escaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
+      const content = display.querySelector('.prompt-content, .nansen-prompt-content');
+      if (content) content.innerHTML = highlighted;
+    }
+
+    function updateAllDisplays() {
+      document.querySelectorAll('.prompt-display, .nansen-prompt-display').forEach(updateSingleDisplay);
+      // token-title更新
+      const token = tokenInput.value || '$TOKEN名';
+      document.querySelectorAll('.token-title').forEach(el => {
+        const tpl = el.dataset.template;
+        if (tpl) {
+          const esc = tpl.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          el.innerHTML = esc.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
+        }
+      });
+      renderNansenPrompts();
+    }
+
+    /* ─── コピー ─── */
+    function copyFromDisplay(btn) {
+      const display = btn.closest('.prompt-display, .nansen-prompt-display');
+      const text = display.querySelector('.prompt-content, .nansen-prompt-content').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'コピー完了';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+      });
     }
 
     function copyNansenPrompt(btn, template) {
-      const token = tokenInput.value || '$TOKEN';
-      const promptText = template.replace(/\$TOKEN/g, token);
-      navigator.clipboard.writeText(promptText).then(() => {
-        const originalText = btn.textContent;
+      const token = tokenInput.value || '$TOKEN名';
+      const text = template.replace(/\$TOKEN/g, token);
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
         btn.textContent = 'コピー完了';
         btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
       });
     }
 
-    function updateAllPrompts() {
-      const token = tokenInput.value || '$TOKEN';
-      // Re-render Nansen prompts with new token
-      renderPrompts();
-      // Card titles with $TOKEN - highlight the token
-      document.querySelectorAll('.token-title').forEach(el => {
-        const template = el.dataset.template;
-        if (template) {
-          const escaped = template.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          el.innerHTML = escaped.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
-        }
-      });
-      // Update prompt displays
-      updatePromptDisplays();
+    /* ─── Nansenプロンプト描画 ─── */
+    function renderNansenList(containerId, list) {
+      const container = document.getElementById(containerId);
+      const token = tokenInput.value || '$TOKEN名';
+      container.innerHTML = list.map(p => {
+        const titleEsc = p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const titleH = titleEsc.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
+        const textEsc = p.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const textH = textEsc.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
+        const help = p.help ? `<button class="help-btn" onclick="toggleHelp(this)">？</button></div><div class="help-tooltip"><div class="help-tooltip-title">💡 このプロンプトで分かること</div>${p.help}</div>` : '</div>';
+        return `<div class="nansen-prompt-card">
+          <div class="card-header">
+            <div class="card-title-wrapper">
+              <div class="prompt-card-title" style="color:var(--green)">${titleH}</div>
+              ${help}
+          </div>
+          <div class="nansen-prompt-display" style="border-top:1px solid var(--green-line);">
+            <div class="nansen-prompt-content">${textH}</div>
+            <button class="nansen-copy-btn" onclick="copyNansenPrompt(this, '${p.text.replace(/'/g,"\\'")}')">コピー</button>
+          </div>
+        </div>`;
+      }).join('');
     }
 
-    function switchPromptTab(btn, mode) {
-      const card = btn.closest('.card');
-      const tabs = card.querySelectorAll('.prompt-tab');
-      tabs.forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const display = card.querySelector('.prompt-display');
-      display.dataset.mode = mode;
-      updateSinglePromptDisplay(display);
+    function renderNansenPrompts() {
+      renderNansenList('smartMoneyPrompts', nansenPrompts.smartMoney);
+      renderNansenList('tokenDiscoveryPrompts', nansenPrompts.tokenDiscovery);
+      renderNansenList('entityPrompts', nansenPrompts.entity);
     }
 
-    function updatePromptDisplays() {
-      document.querySelectorAll('.prompt-display').forEach(display => {
-        updateSinglePromptDisplay(display);
-      });
-    }
-
-    function updateSinglePromptDisplay(display) {
-      const key = display.dataset.key;
-      const mode = display.dataset.mode || 'short';
-      const promptData = generalPrompts[key];
-      if (!promptData) return;
-      
-      const token = tokenInput.value || '$TOKEN';
-      const rawText = (promptData[mode] || promptData.short || '');
-      // Escape HTML first, then replace $TOKEN with highlighted span
-      const escapedText = rawText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      const highlightedText = escapedText.replace(/\$TOKEN/g, `<span class="token-highlight">${token}</span>`);
-      const content = display.querySelector('.prompt-content');
-      if (content) {
-        content.innerHTML = highlightedText;
-      }
-    }
-
-    function copyFromDisplay(btn) {
-      const display = btn.closest('.prompt-display');
-      const content = display.querySelector('.prompt-content').textContent;
-      navigator.clipboard.writeText(content).then(() => {
-        const originalText = btn.textContent;
-        btn.textContent = 'コピー完了';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
-
-    tokenInput.addEventListener('input', updateAllPrompts);
+    tokenInput.addEventListener('input', updateAllDisplays);
 
     // 初期レンダリング
-    updateAllPrompts();
+    updateAllDisplays();
   </script>
 </body>
 </html>
