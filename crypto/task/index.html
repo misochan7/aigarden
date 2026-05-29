@@ -228,7 +228,79 @@
       font-size: 13px;
     }
 
-    /* ═══ RESPONSIVE ═══ */
+    /* ═══ CHECKBOX ═══ */
+    .item-check {
+      width: 16px; height: 16px;
+      border: 1px solid var(--line);
+      background: white;
+      cursor: pointer;
+      flex-shrink: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      position: relative;
+      transition: all 0.15s;
+      margin-top: 3px;
+    }
+    .item-check:hover { border-color: var(--accent); }
+    .item-check:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .item-check:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 1px;
+      width: 5px; height: 9px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+    .item.checked .item-title {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(102,102,102,0.5);
+    }
+
+    /* 進捗バー */
+    .progress-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 4px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(30,30,30,0.1);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    .progress-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+    .reset-btn {
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid rgba(30,30,30,0.2);
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reset-btn:hover { border-color: var(--line); color: var(--text); }
     @media (max-width: 640px) {
       .nav { flex-wrap: wrap; gap: 12px; }
       .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
@@ -292,6 +364,204 @@
 
       <!-- ═══ 動画 ═══ -->
       <div id="tab-videos" class="tab-content active">
+        <div class="progress-bar-wrap">
+          <span class="progress-label" id="prog-videos">0 / 70</span>
+          <div class="progress-track"><div class="progress-fill" id="fill-videos" style="width:0%"></div></div>
+          <button class="reset-btn" onclick="resetTab('videos')">リセット</button>
+        </div>
+        <ul class="item-list" id="list-videos">
+          <li class="item" data-id="v01"><input type="checkbox" class="item-check"><span class="item-num">01</span><a href="https://community.arc.io/home/videos/agentic-demo-day-ai-projects-built-on-arc-2026-05-28" target="_blank" class="item-title">Agentic Demo Day: AI Projects Built on Arc</a></li>
+          <li class="item" data-id="v02"><input type="checkbox" class="item-check"><span class="item-num">02</span><a href="https://community.arc.io/home/videos/replay-arc-builder-spotlight-tlay-machine-to-machine-nanopayments-on-arc-2026-05-28" target="_blank" class="item-title">Replay: Arc Builder Spotlight: TLAY - Machine-to-Machine Nanopayments on Arc</a></li>
+          <li class="item" data-id="v03"><input type="checkbox" class="item-check"><span class="item-num">03</span><a href="https://community.arc.io/home/videos/bridging-defi-and-tradfi-2026-04-27" target="_blank" class="item-title">Scaling Institutional DeFi</a></li>
+          <li class="item" data-id="v04"><input type="checkbox" class="item-check"><span class="item-num">04</span><a href="https://community.arc.io/home/videos/replay-arc-enterprise-and-defi-hackathon-spotlight-chariot-crosschain-collateral-lending-protocol-on-arc-2026-05-20" target="_blank" class="item-title">Replay: Arc Enterprise & DeFi Hackathon Spotlight: Chariot - Crosschain Collateral Lending Protocol on Arc</a></li>
+          <li class="item" data-id="v05"><input type="checkbox" class="item-check"><span class="item-num">05</span><a href="https://community.arc.io/home/videos/circle-developer-grants-from-idea-to-funded-2026-05-14" target="_blank" class="item-title">Circle Developer Grants: From idea to funded</a></li>
+          <li class="item" data-id="v06"><input type="checkbox" class="item-check"><span class="item-num">06</span><a href="https://community.arc.io/home/videos/morpho-x-arc-2026-04-27" target="_blank" class="item-title">Morpho x Arc featuring Merlin Egalite, Co-Founder of Morpho</a></li>
+          <li class="item" data-id="v07"><input type="checkbox" class="item-check"><span class="item-num">07</span><a href="https://community.arc.io/home/videos/architect-technical-office-hours-2026-05-01" target="_blank" class="item-title">Architect Technical Office Hours 4/30/26</a></li>
+          <li class="item" data-id="v08"><input type="checkbox" class="item-check"><span class="item-num">08</span><a href="https://community.arc.io/home/videos/arcshop-with-elton-unified-balance-kit-for-crosschain-usdc-flows-2026-05-01" target="_blank" class="item-title">ArcShop with Elton: Unified Balance Kit for Crosschain USDC Flows</a></li>
+          <li class="item" data-id="v09"><input type="checkbox" class="item-check"><span class="item-num">09</span><a href="https://community.arc.io/home/videos/arcshop-with-hj-building-chain-agnostic-apps-with-circle-gateway-and-circle-wallets-2026-04-29" target="_blank" class="item-title">ArcShop with HJ: Building Chain Agnostic Apps with Circle Gateway and Circle Wallets</a></li>
+          <li class="item" data-id="v10"><input type="checkbox" class="item-check"><span class="item-num">10</span><a href="https://community.arc.io/home/videos/the-arc-developer-experience-hear-from-early-builders-at-sequence-dynamic-and-bufi-2026-04-21" target="_blank" class="item-title">The Arc developer experience: Hear from early builders at Sequence, Dynamic, and BuFi</a></li>
+          <li class="item" data-id="v11"><input type="checkbox" class="item-check"><span class="item-num">11</span><a href="https://community.arc.io/home/videos/app-kits-developer-office-hours-bridge-swap-send-and-monetization-2026-04-20" target="_blank" class="item-title">App Kits Developer Office Hours: Bridge, Swap, Send, and Monetization</a></li>
+          <li class="item" data-id="v12"><input type="checkbox" class="item-check"><span class="item-num">12</span><a href="https://community.arc.io/home/videos/why-circle-built-arc-the-vision-and-key-features-2026-04-16" target="_blank" class="item-title">Why Circle Built Arc: The Vision and Key Features</a></li>
+          <li class="item" data-id="v13"><input type="checkbox" class="item-check"><span class="item-num">13</span><a href="https://community.arc.io/home/videos/event-replay-introducing-arc-house-and-architects-2026-04-03" target="_blank" class="item-title">Event Replay: Introducing Arc House and Architects</a></li>
+          <li class="item" data-id="v14"><input type="checkbox" class="item-check"><span class="item-num">14</span><a href="https://community.arc.io/home/videos/event-replay-arc-community-spotlight-social-payments-with-usdc-powered-by-xylonet-and-payx-2026-03-26" target="_blank" class="item-title">Event Replay: Arc Community Spotlight: Social Payments with USDC Powered by XyloNet & PayX</a></li>
+          <li class="item" data-id="v15"><input type="checkbox" class="item-check"><span class="item-num">15</span><a href="https://community.arc.io/home/videos/replay-usdc-openclaw-hackathon-winner-spotlight-clawrouter-by-blockrunai-2026-03-19" target="_blank" class="item-title">Replay: USDC OpenClaw Hackathon Winner Spotlight: ClawRouter by BlockRunAI</a></li>
+          <li class="item" data-id="v16"><input type="checkbox" class="item-check"><span class="item-num">16</span><a href="https://community.arc.io/home/videos/arc-day-1-builder-series-kosh-2026-03-13" target="_blank" class="item-title">Arc Day 1 Builder Series: Kosh</a></li>
+          <li class="item" data-id="v17"><input type="checkbox" class="item-check"><span class="item-num">17</span><a href="https://community.arc.io/home/videos/arc-studio-buenos-aires-2026-03-14" target="_blank" class="item-title">Arc Studio: Buenos Aires</a></li>
+          <li class="item" data-id="v18"><input type="checkbox" class="item-check"><span class="item-num">18</span><a href="https://community.arc.io/home/videos/arc-day-one-builder-series-peer-2026-03-13" target="_blank" class="item-title">Arc Day One Builder Series: Peer</a></li>
+          <li class="item" data-id="v19"><input type="checkbox" class="item-check"><span class="item-num">19</span><a href="https://community.arc.io/home/videos/builders-fund-spotlight-hibachi-2026-02-25" target="_blank" class="item-title">Arc Builders Fund Spotlight: Hibachi</a></li>
+          <li class="item" data-id="v20"><input type="checkbox" class="item-check"><span class="item-num">20</span><a href="https://community.arc.io/home/videos/day-one-blockradar-2026-02-24" target="_blank" class="item-title">Day One: Blockradar</a></li>
+          <li class="item" data-id="v21"><input type="checkbox" class="item-check"><span class="item-num">21</span><a href="https://community.arc.io/home/videos/espacio-cripto-podcast-2026-02-10" target="_blank" class="item-title">Espacio Cripto Podcast</a></li>
+          <li class="item" data-id="v22"><input type="checkbox" class="item-check"><span class="item-num">22</span><a href="https://community.arc.io/home/videos/event-replay-day-one-architect-para-2026-02-05" target="_blank" class="item-title">Event Replay: Day One Architect: Para</a></li>
+          <li class="item" data-id="v23"><input type="checkbox" class="item-check"><span class="item-num">23</span><a href="https://community.arc.io/home/videos/ai-agents-usdc-and-the-programmable-economy-or-thirdweb-furqan-rydhan-or-builder-series-2026-02-01" target="_blank" class="item-title">AI Agents, USDC, and the Programmable Economy | thirdweb (Furqan Rydhan) | Builder Series</a></li>
+          <li class="item" data-id="v24"><input type="checkbox" class="item-check"><span class="item-num">24</span><a href="https://community.arc.io/home/videos/emerging-ai-trends-with-usdc-2026-01-20" target="_blank" class="item-title">Emerging AI Trends with USDC</a></li>
+          <li class="item" data-id="v25"><input type="checkbox" class="item-check"><span class="item-num">25</span><a href="https://community.arc.io/home/videos/using-circle-developer-controlled-wallets-to-send-and-manage-usdc-2026-01-20" target="_blank" class="item-title">Using Circle Developer Controlled Wallets to Send and Manage USDC</a></li>
+          <li class="item" data-id="v26"><input type="checkbox" class="item-check"><span class="item-num">26</span><a href="https://community.arc.io/home/videos/using-circle-wallets-to-send-and-manage-usdc-2026-01-20" target="_blank" class="item-title">Using Circle Wallets to Send and Manage USDC</a></li>
+          <li class="item" data-id="v27"><input type="checkbox" class="item-check"><span class="item-num">27</span><a href="https://community.arc.io/home/videos/how-circle-paymaster-works-2026-01-20" target="_blank" class="item-title">How Circle Paymaster Works</a></li>
+          <li class="item" data-id="v28"><input type="checkbox" class="item-check"><span class="item-num">28</span><a href="https://community.arc.io/home/videos/introducing-circle-paymaster-pay-gas-fees-with-usdc-2026-01-20" target="_blank" class="item-title">Introducing Circle Paymaster – Pay Gas Fees with USDC</a></li>
+          <li class="item" data-id="v29"><input type="checkbox" class="item-check"><span class="item-num">29</span><a href="https://community.arc.io/home/videos/cctp-vs-gateway-whats-the-difference-and-when-to-use-each-2026-01-20" target="_blank" class="item-title">CCTP vs. Gateway: What's the Difference and When to Use Each</a></li>
+          <li class="item" data-id="v30"><input type="checkbox" class="item-check"><span class="item-num">30</span><a href="https://community.arc.io/home/videos/circle-ventures-spotlight-tradfi-2025-12-21" target="_blank" class="item-title">Circle Ventures Spotlight: Trad.FI</a></li>
+          <li class="item" data-id="v31"><input type="checkbox" class="item-check"><span class="item-num">31</span><a href="https://community.arc.io/home/videos/event-replay-technical-insights-on-arc-testnet-reliability-2025-12-19" target="_blank" class="item-title">Event Replay: Technical Insights on Arc Testnet Reliability</a></li>
+          <li class="item" data-id="v32"><input type="checkbox" class="item-check"><span class="item-num">32</span><a href="https://community.arc.io/home/videos/how-does-circle-gateway-work-or-explained-2025-12-18" target="_blank" class="item-title">How Does Circle Gateway Work? | Explained</a></li>
+          <li class="item" data-id="v33"><input type="checkbox" class="item-check"><span class="item-num">33</span><a href="https://community.arc.io/home/videos/how-is-usdc-unified-across-blockchains-with-circle-gateway-2025-12-18" target="_blank" class="item-title">How Is USDC Unified Across Blockchains with Circle Gateway?</a></li>
+          <li class="item" data-id="v34"><input type="checkbox" class="item-check"><span class="item-num">34</span><a href="https://community.arc.io/home/videos/demo-moving-usdc-from-optimism-to-ethereum-with-cctp-step-by-step-2025-12-15" target="_blank" class="item-title">Demo: Moving USDC from Optimism to Ethereum with CCTP (Step-by-Step)</a></li>
+          <li class="item" data-id="v35"><input type="checkbox" class="item-check"><span class="item-num">35</span><a href="https://community.arc.io/home/videos/event-replay-crosschain-payments-with-cctp-2025-12-15" target="_blank" class="item-title">Event Replay: Crosschain Payments with CCTP</a></li>
+          <li class="item" data-id="v36"><input type="checkbox" class="item-check"><span class="item-num">36</span><a href="https://community.arc.io/home/videos/event-replay-day-one-architect-hinkal-2025-12-12" target="_blank" class="item-title">Event Replay: Day One Architect- Hinkal</a></li>
+          <li class="item" data-id="v37"><input type="checkbox" class="item-check"><span class="item-num">37</span><a href="https://community.arc.io/home/videos/event-replay-gateway-with-blockradar-2025-12-11" target="_blank" class="item-title">Event Replay: Gateway with Blockradar</a></li>
+          <li class="item" data-id="v38"><input type="checkbox" class="item-check"><span class="item-num">38</span><a href="https://community.arc.io/home/videos/introducing-cctp-fast-transfer-and-how-it-works-2025-12-10" target="_blank" class="item-title">Introducing CCTP Fast Transfer and How it Works</a></li>
+          <li class="item" data-id="v39"><input type="checkbox" class="item-check"><span class="item-num">39</span><a href="https://community.arc.io/home/videos/arcshop-event-replay-introducing-bridge-kit-2025-12-09" target="_blank" class="item-title">Event Replay: Arcshop- Introducing Bridge Kit</a></li>
+          <li class="item" data-id="v40"><input type="checkbox" class="item-check"><span class="item-num">40</span><a href="https://community.arc.io/home/videos/how-is-usdc-interoperable-explained-with-real-world-example-2025-12-08" target="_blank" class="item-title">How Is USDC Interoperable? (Explained with Real-World Example)</a></li>
+          <li class="item" data-id="v41"><input type="checkbox" class="item-check"><span class="item-num">41</span><a href="https://community.arc.io/home/videos/how-to-use-usdc-in-real-world-payments-application-part-2-2025-12-08" target="_blank" class="item-title">How to Use USDC in Real-World Payments Application (Part 2)</a></li>
+          <li class="item" data-id="v42"><input type="checkbox" class="item-check"><span class="item-num">42</span><a href="https://community.arc.io/home/videos/how-to-use-usdc-in-real-world-payments-application-part-1-2025-12-08" target="_blank" class="item-title">How to Use USDC in Real-World Payments Application (Part 1)</a></li>
+          <li class="item" data-id="v43"><input type="checkbox" class="item-check"><span class="item-num">43</span><a href="https://community.arc.io/home/videos/using-circle-developer-controlled-wallets-to-send-and-manage-usdc-2025-12-08" target="_blank" class="item-title">Using Circle Developer Controlled Wallets to Send and Manage USDC</a></li>
+          <li class="item" data-id="v44"><input type="checkbox" class="item-check"><span class="item-num">44</span><a href="https://community.arc.io/home/videos/using-circle-wallets-to-send-and-manage-usdc-2025-12-08" target="_blank" class="item-title">Using Circle Wallets to Send and Manage USDC</a></li>
+          <li class="item" data-id="v45"><input type="checkbox" class="item-check"><span class="item-num">45</span><a href="https://community.arc.io/home/videos/arc-day-one-spotlight-instant-global-payments-for-remote-workers-with-hurupay-2025-12-08" target="_blank" class="item-title">Arc Day One Spotlight: Instant Global Payments for Remote Workers with Hurupay</a></li>
+          <li class="item" data-id="v46"><input type="checkbox" class="item-check"><span class="item-num">46</span><a href="https://community.arc.io/home/videos/arc-day-one-spotlight-simplifying-stablecoin-transactions-with-blockradar-2025-12-08" target="_blank" class="item-title">Arc Day One Spotlight: Simplifying Stablecoin Transactions with Blockradar</a></li>
+          <li class="item" data-id="v47"><input type="checkbox" class="item-check"><span class="item-num">47</span><a href="https://community.arc.io/home/videos/arc-day-one-spotlight-fast-and-predictable-onchain-agentic-commerce-with-crossmint-2025-12-08" target="_blank" class="item-title">Arc Day One Spotlight: Fast and Predictable Onchain Agentic Commerce with Crossmint</a></li>
+          <li class="item" data-id="v48"><input type="checkbox" class="item-check"><span class="item-num">48</span><a href="https://community.arc.io/home/videos/arc-day-one-spotlight-building-a-stable-permissionless-and-interoperable-financial-system-with-flinch-2025-12-08" target="_blank" class="item-title">Arc Day One Spotlight: Building a Stable, Permissionless, and Interoperable Financial System with Flinch</a></li>
+          <li class="item" data-id="v49"><input type="checkbox" class="item-check"><span class="item-num">49</span><a href="https://community.arc.io/home/videos/roundtable-the-arc-experience-2025-12-06" target="_blank" class="item-title">Roundtable: The Arc Experience</a></li>
+          <li class="item" data-id="v50"><input type="checkbox" class="item-check"><span class="item-num">50</span><a href="https://community.arc.io/home/videos/roundtable-arc-the-economic-os-wjeremy-allaire-and-nikhil-chandhok-pt-3-2025-12-06" target="_blank" class="item-title">Roundtable: Arc the Economic OS w/Jeremy Allaire and Nikhil Chandhok Pt. 3</a></li>
+          <li class="item" data-id="v51"><input type="checkbox" class="item-check"><span class="item-num">51</span><a href="https://community.arc.io/home/videos/roundtable-arc-the-economic-os-wjeremy-allaire-and-nikhil-chandhok-pt-2-2025-12-06" target="_blank" class="item-title">Roundtable: Arc the Economic OS w/Jeremy Allaire and Nikhil Chandhok Pt. 2</a></li>
+          <li class="item" data-id="v52"><input type="checkbox" class="item-check"><span class="item-num">52</span><a href="https://community.arc.io/home/videos/roundtable-arc-the-economic-os-part-1-2025-12-06" target="_blank" class="item-title">Roundtable: Arc the Economic OS w/Jeremy Allaire and Nikhil Chandhok Pt. 1</a></li>
+          <li class="item" data-id="v53"><input type="checkbox" class="item-check"><span class="item-num">53</span><a href="https://community.arc.io/home/videos/event-replay-welcome-to-arc" target="_blank" class="item-title">Event Replay: Welcome to Arc</a></li>
+          <li class="item" data-id="v54"><input type="checkbox" class="item-check"><span class="item-num">54</span><a href="https://community.arc.io/home/videos/event-replay-day-one-architect-crossmint" target="_blank" class="item-title">Event Replay: Day One Architect: Crossmint</a></li>
+          <li class="item" data-id="v55"><input type="checkbox" class="item-check"><span class="item-num">55</span><a href="https://community.arc.io/home/videos/event-replay-day-one-architect-highlight-blockradar" target="_blank" class="item-title">Event Replay: Day One Architect Highlight: Blockradar</a></li>
+          <li class="item" data-id="v56"><input type="checkbox" class="item-check"><span class="item-num">56</span><a href="https://community.arc.io/home/videos/making-your-first-usdc-transaction-on-ethereum-2025-11-01" target="_blank" class="item-title">Making Your First USDC Transaction On Ethereum</a></li>
+          <li class="item" data-id="v57"><input type="checkbox" class="item-check"><span class="item-num">57</span><a href="https://community.arc.io/home/videos/how-usdc-works-on-ethereum-erc-20-token-standard-2025-11-01" target="_blank" class="item-title">How USDC Works On Ethereum: ERC-20 Token Standard</a></li>
+          <li class="item" data-id="v58"><input type="checkbox" class="item-check"><span class="item-num">58</span><a href="https://community.arc.io/home/videos/how-usdc-works-onchain-2025-11-01" target="_blank" class="item-title">How USDC Works Onchain</a></li>
+          <li class="item" data-id="v59"><input type="checkbox" class="item-check"><span class="item-num">59</span><a href="https://community.arc.io/home/videos/what-is-usdc-2025-11-01" target="_blank" class="item-title">What is USDC?</a></li>
+          <li class="item" data-id="v60"><input type="checkbox" class="item-check"><span class="item-num">60</span><a href="https://community.arc.io/home/videos/roundtable-arc-global-connection-2025-11-03" target="_blank" class="item-title">Roundtable: Arc Global Connection</a></li>
+          <li class="item" data-id="v61"><input type="checkbox" class="item-check"><span class="item-num">61</span><a href="https://community.arc.io/home/videos/finality-you-can-count-on-2025-11-03" target="_blank" class="item-title">Event Replay: Finality You Can Count On</a></li>
+          <li class="item" data-id="v62"><input type="checkbox" class="item-check"><span class="item-num">62</span><a href="https://community.arc.io/home/videos/jeremy-allaire-arc-public-testnet-is-live-2025-10-30" target="_blank" class="item-title">Jeremy Allaire: Arc Public Testnet is live</a></li>
+          <li class="item" data-id="v63"><input type="checkbox" class="item-check"><span class="item-num">63</span><a href="https://community.arc.io/home/videos/ai-agents-on-arc-with-usdc-2025-10-28" target="_blank" class="item-title">AI Agents on Arc with USDC</a></li>
+          <li class="item" data-id="v64"><input type="checkbox" class="item-check"><span class="item-num">64</span><a href="https://community.arc.io/home/videos/arc-rebuilding-money-on-the-internet-2025-10-24" target="_blank" class="item-title">Arc: Rebuilding Money on the internet</a></li>
+          <li class="item" data-id="v65"><input type="checkbox" class="item-check"><span class="item-num">65</span><a href="https://community.arc.io/home/videos/why-circle-decided-to-build-arc" target="_blank" class="item-title">Why Circle Decided to Build Arc</a></li>
+          <li class="item" data-id="v66"><input type="checkbox" class="item-check"><span class="item-num">66</span><a href="https://community.arc.io/home/videos/arc-developer-overview-in-90-secs-2025-10-24" target="_blank" class="item-title">Arc: Developer Overview in 90 secs</a></li>
+          <li class="item" data-id="v67"><input type="checkbox" class="item-check"><span class="item-num">67</span><a href="https://community.arc.io/home/videos/are-stablecoins-the-internets-financial-infrastructure-2025-10-24" target="_blank" class="item-title">Are Stablecoins the Internet's Financial Infrastructure?</a></li>
+          <li class="item" data-id="v68"><input type="checkbox" class="item-check"><span class="item-num">68</span><a href="https://community.arc.io/home/videos/what-are-stablecoins-2025-10-24" target="_blank" class="item-title">What are Stablecoins?</a></li>
+          <li class="item" data-id="v69"><input type="checkbox" class="item-check"><span class="item-num">69</span><a href="https://community.arc.io/home/videos/arc-developer-overview-with-circles-lead-product-manager-sanket-jain-2025-10-21" target="_blank" class="item-title">Arc: Developer Overview with Circle's Lead Product Manager Sanket Jain</a></li>
+          <li class="item" data-id="v70"><input type="checkbox" class="item-check"><span class="item-num">70</span><a href="https://community.arc.io/home/videos/discover-the-vision-hear-from-arcs-founding-team-2025-10-21" target="_blank" class="item-title">Discover the Vision: Hear from Arc's Founding Team</a></li>
+        </ul>
+      </div>
+
+      <!-- ═══ ブログ ═══ -->
+      <div id="tab-blogs" class="tab-content">
+        <div class="progress-bar-wrap">
+          <span class="progress-label" id="prog-blogs">0 / 26</span>
+          <div class="progress-track"><div class="progress-fill" id="fill-blogs" style="width:0%"></div></div>
+          <button class="reset-btn" onclick="resetTab('blogs')">リセット</button>
+        </div>
+        <ul class="item-list" id="list-blogs">
+          <li class="item" data-id="b01"><input type="checkbox" class="item-check"><span class="item-num">01</span><a href="https://community.arc.io/home/blogs/arc-x-lifi-crosschain-routing-and-liquidity-access-for-arc-builders" target="_blank" class="item-title">Arc 🤝 LI.FI: Crosschain routing and liquidity access for Arc builders</a></li>
+          <li class="item" data-id="b02"><input type="checkbox" class="item-check"><span class="item-num">02</span><a href="https://community.arc.io/home/blogs/goldsky-arc-builders-fund-real-time-data-infrastructure-for-onchain-finance-2026-05-26" target="_blank" class="item-title">Goldsky 🤝 Arc Builders Fund: real-time data infrastructure for onchain finance</a></li>
+          <li class="item" data-id="b03"><input type="checkbox" class="item-check"><span class="item-num">03</span><a href="https://community.arc.io/home/blogs/stablecorp-brings-qcad-to-arc-expanding-stablefx-into-canadian-dollars-2026-05-21" target="_blank" class="item-title">Stablecorp brings QCAD to Arc, expanding StableFX into Canadian dollars</a></li>
+          <li class="item" data-id="b04"><input type="checkbox" class="item-check"><span class="item-num">04</span><a href="https://community.arc.io/home/blogs/circle-developer-grants-program-relaunches-2026-05-14" target="_blank" class="item-title">Circle Developer Grants Program Relaunches</a></li>
+          <li class="item" data-id="b05"><input type="checkbox" class="item-check"><span class="item-num">05</span><a href="https://community.arc.io/home/blogs/arc-turnkey-wallet-and-signing-infrastructure-for-builders-on-arc" target="_blank" class="item-title">Arc 🤝 Turnkey: Wallet and signing infrastructure for builders on Arc</a></li>
+          <li class="item" data-id="b06"><input type="checkbox" class="item-check"><span class="item-num">06</span><a href="https://community.arc.io/home/blogs/dynamic-x-arc" target="_blank" class="item-title">Arc 🤝 Dynamic: Better onboarding for apps built on Arc</a></li>
+          <li class="item" data-id="b07"><input type="checkbox" class="item-check"><span class="item-num">07</span><a href="https://community.arc.io/home/blogs/ship-stablecoin-apps-faster-app-kits" target="_blank" class="item-title">Ship Stablecoin Apps Faster with App Kits</a></li>
+          <li class="item" data-id="b08"><input type="checkbox" class="item-check"><span class="item-num">08</span><a href="https://community.arc.io/home/blogs/tradable-joins-the-arc-builders-fund-institutional-private-credit-onchain-2026-04-02" target="_blank" class="item-title">Tradable joins the Arc Builders Fund: institutional private credit, onchain</a></li>
+          <li class="item" data-id="b09"><input type="checkbox" class="item-check"><span class="item-num">09</span><a href="https://community.arc.io/home/blogs/trm-labs-joins-arc-blockchain-intelligence-monitoring-for-enterprise-grade-apps" target="_blank" class="item-title">TRM Labs joins Arc: blockchain intelligence + monitoring for enterprise-grade apps</a></li>
+          <li class="item" data-id="b10"><input type="checkbox" class="item-check"><span class="item-num">10</span><a href="https://community.arc.io/home/blogs/arc-x-across" target="_blank" class="item-title">Across is live on Arc Testnet: day-one crosschain transfers for builders</a></li>
+          <li class="item" data-id="b11"><input type="checkbox" class="item-check"><span class="item-num">11</span><a href="https://community.arc.io/home/blogs/circle-ai-skills" target="_blank" class="item-title">Introducing Circle Skills: AI Tooling to Help Developers Integrate Faster</a></li>
+          <li class="item" data-id="b12"><input type="checkbox" class="item-check"><span class="item-num">12</span><a href="https://community.arc.io/home/blogs/arc-x-elliptic" target="_blank" class="item-title">Arc x Elliptic: Blockchain analytics and monitoring for compliance-first Arc apps</a></li>
+          <li class="item" data-id="b13"><input type="checkbox" class="item-check"><span class="item-num">13</span><a href="https://community.arc.io/home/blogs/arc-x-alchemy" target="_blank" class="item-title">Arc x Alchemy: Alchemy Integrates with Arc</a></li>
+          <li class="item" data-id="b14"><input type="checkbox" class="item-check"><span class="item-num">14</span><a href="https://community.arc.io/home/blogs/arc-x-hibachi" target="_blank" class="item-title">Arc x Hibachi: Perpetuals on Arc, With ZK-Verified Settlement</a></li>
+          <li class="item" data-id="b15"><input type="checkbox" class="item-check"><span class="item-num">15</span><a href="https://community.arc.io/home/blogs/arc-x-sequence" target="_blank" class="item-title">Arc x Sequence: Embedded Wallets for Arc Apps</a></li>
+          <li class="item" data-id="b16"><input type="checkbox" class="item-check"><span class="item-num">16</span><a href="https://community.arc.io/home/blogs/arc-x-bufi" target="_blank" class="item-title">Arc x BuFi: Permissionless, Composable DeFi Infrastructure on Arc</a></li>
+          <li class="item" data-id="b17"><input type="checkbox" class="item-check"><span class="item-num">17</span><a href="https://community.arc.io/home/blogs/quickstart-spotlight-transfer-usdc-or-eurc-on-arc-using-dev-controlled-wallets" target="_blank" class="item-title">Quickstart Spotlight: Transfer USDC or EURC on Arc using Dev-Controlled Wallets</a></li>
+          <li class="item" data-id="b18"><input type="checkbox" class="item-check"><span class="item-num">18</span><a href="https://community.arc.io/home/blogs/quickstart-spotlight-bridge-usdc-to-arc-with-cctp-bridge-kit" target="_blank" class="item-title">Quickstart Spotlight: Bridge USDC to Arc with CCTP + Bridge Kit</a></li>
+          <li class="item" data-id="b19"><input type="checkbox" class="item-check"><span class="item-num">19</span><a href="https://community.arc.io/home/blogs/quickstart-spotlight-deploy-an-erc-20-on-arc-using-circle-contracts" target="_blank" class="item-title">Quickstart Spotlight: Deploy an ERC-20 on Arc using Circle Contracts</a></li>
+          <li class="item" data-id="b20"><input type="checkbox" class="item-check"><span class="item-num">20</span><a href="https://community.arc.io/home/blogs/building-an-autonomous-wallet-agent" target="_blank" class="item-title">Building an Autonomous Wallet Agent</a></li>
+          <li class="item" data-id="b21"><input type="checkbox" class="item-check"><span class="item-num">21</span><a href="https://community.arc.io/home/blogs/welcome-to-the-arc-hub-an-introduction" target="_blank" class="item-title">Welcome to the Arc Hub, A Community Introduction</a></li>
+          <li class="item" data-id="b22"><input type="checkbox" class="item-check"><span class="item-num">22</span><a href="https://community.arc.io/home/blogs/the-next-internet-economy-built-on-arc-with-usdc-2025-11-04" target="_blank" class="item-title">The Next Internet Economy, Built on Arc with USDC</a></li>
+          <li class="item" data-id="b23"><input type="checkbox" class="item-check"><span class="item-num">23</span><a href="https://community.arc.io/home/blogs/arcs-deterministic-finality" target="_blank" class="item-title">Arc's Deterministic Finality</a></li>
+          <li class="item" data-id="b24"><input type="checkbox" class="item-check"><span class="item-num">24</span><a href="https://community.arc.io/home/blogs/the-internet-financial-system-needs-a-new-blockchain" target="_blank" class="item-title">The Internet Financial System Needs a New Blockchain</a></li>
+          <li class="item" data-id="b25"><input type="checkbox" class="item-check"><span class="item-num">25</span><a href="https://community.arc.io/home/blogs/introducing-arc-the-financial-os-for-the-internet" target="_blank" class="item-title">Introducing Arc: The Financial OS for the Internet</a></li>
+          <li class="item" data-id="b26"><input type="checkbox" class="item-check"><span class="item-num">26</span><a href="https://community.arc.io/home/blogs/arcs-architecture-inside-the-blockchain-built-for-money-movement" target="_blank" class="item-title">Arc's Architecture: Inside the Blockchain Built for Money Movement</a></li>
+        </ul>
+      </div>
+
+      <!-- ═══ 外部記事 ═══ -->
+      <div id="tab-externals" class="tab-content">
+        <div class="progress-bar-wrap">
+          <span class="progress-label" id="prog-externals">0 / 24</span>
+          <div class="progress-track"><div class="progress-fill" id="fill-externals" style="width:0%"></div></div>
+          <button class="reset-btn" onclick="resetTab('externals')">リセット</button>
+        </div>
+        <ul class="item-list" id="list-externals">
+          <li class="item" data-id="e01"><input type="checkbox" class="item-check"><span class="item-num">01</span><a href="https://community.arc.io/home/externals/introducing-the-arc-whitepaper-exploring-arcs-native-coordination-asset-2026-05-11" target="_blank" class="item-title">Introducing the ARC Whitepaper: Exploring Arc's Native Coordination Asset</a></li>
+          <li class="item" data-id="e02"><input type="checkbox" class="item-check"><span class="item-num">02</span><a href="https://community.arc.io/home/externals/app-kits-a-suite-of-sdks-to-build-onchain-2026-04-10" target="_blank" class="item-title">App Kits: A Suite of SDKs to Build Onchain</a></li>
+          <li class="item" data-id="e03"><input type="checkbox" class="item-check"><span class="item-num">03</span><a href="https://community.arc.io/home/externals/build-institutional-grade-prediction-markets-on-arc-or-arc-blueprints-2026-05-15" target="_blank" class="item-title">Build Institutional Grade Prediction Markets on Arc | Arc Blueprints</a></li>
+          <li class="item" data-id="e04"><input type="checkbox" class="item-check"><span class="item-num">04</span><a href="https://community.arc.io/home/externals/how-arc-supports-lending-and-borrowing-or-arc-blueprints-2026-05-15" target="_blank" class="item-title">How Arc Supports Lending and Borrowing | Arc Blueprints</a></li>
+          <li class="item" data-id="e05"><input type="checkbox" class="item-check"><span class="item-num">05</span><a href="https://community.arc.io/home/externals/agentic-economy-on-arc-2026-05-08" target="_blank" class="item-title">Agentic Economy on Arc</a></li>
+          <li class="item" data-id="e06"><input type="checkbox" class="item-check"><span class="item-num">06</span><a href="https://community.arc.io/home/externals/unified-balance-kit-one-integration-for-unified-usdc-flows-2026-04-24" target="_blank" class="item-title">Unified Balance Kit: One Integration for Unified USDC Flows</a></li>
+          <li class="item" data-id="e07"><input type="checkbox" class="item-check"><span class="item-num">07</span><a href="https://community.arc.io/home/externals/how-hifi-offers-institutions-a-compliant-defi-gateway-on-arc-2026-04-17" target="_blank" class="item-title">How HIFI Offers Institutions a Compliant DeFi Gateway on Arc</a></li>
+          <li class="item" data-id="e08"><input type="checkbox" class="item-check"><span class="item-num">08</span><a href="https://community.arc.io/home/externals/open-sourcing-arc-run-your-own-arc-node-and-bug-bounty-program-2026-04-09" target="_blank" class="item-title">Open Sourcing Arc: Run Your Own Arc Node and Bug Bounty Program</a></li>
+          <li class="item" data-id="e09"><input type="checkbox" class="item-check"><span class="item-num">09</span><a href="https://community.arc.io/home/externals/running-an-agentic-economic-flow-on-arc-with-erc-8183-2026-04-07" target="_blank" class="item-title">Running an Agentic Economic Flow on Arc with ERC-8183</a></li>
+          <li class="item" data-id="e10"><input type="checkbox" class="item-check"><span class="item-num">10</span><a href="https://community.arc.io/home/externals/how-arc-supports-treasury-management-or-arc-blueprints-2026-04-06" target="_blank" class="item-title">How Arc Supports Treasury Management | Arc Blueprints</a></li>
+          <li class="item" data-id="e11"><input type="checkbox" class="item-check"><span class="item-num">11</span><a href="https://community.arc.io/home/externals/arcs-quantum-resistant-design-and-roadmap-why-it-matters-2026-04-03" target="_blank" class="item-title">Arc's Quantum-Resistant Design and Roadmap: Why It Matters</a></li>
+          <li class="item" data-id="e12"><input type="checkbox" class="item-check"><span class="item-num">12</span><a href="https://community.arc.io/home/externals/preparing-blockchains-for-q-day-2026-04-02" target="_blank" class="item-title">Preparing Blockchains for Q-Day</a></li>
+          <li class="item" data-id="e13"><input type="checkbox" class="item-check"><span class="item-num">13</span><a href="https://community.arc.io/home/externals/introducing-arc-house-and-the-architects-program-2026-03-31" target="_blank" class="item-title">Introducing Arc House and the Architects Program</a></li>
+          <li class="item" data-id="e14"><input type="checkbox" class="item-check"><span class="item-num">14</span><a href="https://community.arc.io/home/externals/usdc-on-arc-a-capital-efficient-path-to-earning-onchain-2026-03-26" target="_blank" class="item-title">USDC on Arc: A Capital-Efficient Path to Earning Onchain</a></li>
+          <li class="item" data-id="e15"><input type="checkbox" class="item-check"><span class="item-num">15</span><a href="https://community.arc.io/home/externals/arc-is-proud-to-join-the-mastercard-crypto-partner-program-2026-03-14" target="_blank" class="item-title">Arc is proud to join the Mastercard Crypto Partner Program</a></li>
+          <li class="item" data-id="e16"><input type="checkbox" class="item-check"><span class="item-num">16</span><a href="https://community.arc.io/home/externals/how-arc-supports-cross-border-payments-or-arc-blueprints-2026-02-18" target="_blank" class="item-title">How Arc Supports Cross-Border Payments | Arc Blueprints</a></li>
+          <li class="item" data-id="e17"><input type="checkbox" class="item-check"><span class="item-num">17</span><a href="https://community.arc.io/home/externals/building-the-internet-financial-system-circles-product-vision-for-2026-2026-01-29" target="_blank" class="item-title">Building the Internet Financial System: Circle's Product Vision for 2026</a></li>
+          <li class="item" data-id="e18"><input type="checkbox" class="item-check"><span class="item-num">18</span><a href="https://community.arc.io/home/externals/technical-insights-on-arc-testnet-reliability-2026-01-29" target="_blank" class="item-title">Technical Insights on Arc Testnet Reliability</a></li>
+          <li class="item" data-id="e19"><input type="checkbox" class="item-check"><span class="item-num">19</span><a href="https://community.arc.io/home/externals/tokenizing-real-world-assets-with-circle-contracts-2026-01-23" target="_blank" class="item-title">Tokenizing Real-World Assets with Circle Contracts</a></li>
+          <li class="item" data-id="e20"><input type="checkbox" class="item-check"><span class="item-num">20</span><a href="https://community.arc.io/home/externals/beyond-stablecoins-the-rise-of-the-internet-financial-system-2025-12-05" target="_blank" class="item-title">Beyond Stablecoins: The Rise of the Internet Financial System</a></li>
+          <li class="item" data-id="e21"><input type="checkbox" class="item-check"><span class="item-num">21</span><a href="https://community.arc.io/home/externals/arc-is-live-build-the-internet-financial-system-2025-12-05" target="_blank" class="item-title">Arc is Live: Build The Internet Financial System</a></li>
+          <li class="item" data-id="e22"><input type="checkbox" class="item-check"><span class="item-num">22</span><a href="https://community.arc.io/home/externals/usdc-stablecoin-101-guide-to-payments-and-smart-contracts-2025-11-03" target="_blank" class="item-title">USDC Stablecoin 101: Guide to Payments and Smart Contracts</a></li>
+          <li class="item" data-id="e23"><input type="checkbox" class="item-check"><span class="item-num">23</span><a href="https://community.arc.io/home/externals/stablecoin-101-a-developers-guide-2025-10-31" target="_blank" class="item-title">Stablecoin 101: A Developer's Guide</a></li>
+          <li class="item" data-id="e24"><input type="checkbox" class="item-check"><span class="item-num">24</span><a href="https://community.arc.io/home/externals/introducing-arc-the-financial-os-for-the-internet-2025-10-21" target="_blank" class="item-title">Introducing Arc: The Financial OS for the Internet</a></li>
+        </ul>
+      </div>
+
+      <!-- ═══ リソース ═══ -->
+      <div id="tab-resources" class="tab-content">
+        <div class="progress-bar-wrap">
+          <span class="progress-label" id="prog-resources">0 / 7</span>
+          <div class="progress-track"><div class="progress-fill" id="fill-resources" style="width:0%"></div></div>
+          <button class="reset-btn" onclick="resetTab('resources')">リセット</button>
+        </div>
+        <ul class="item-list" id="list-resources">
+          <li class="item" data-id="r01"><input type="checkbox" class="item-check"><span class="item-num">01</span><a href="https://community.arc.io/home/resources/circle-developer-brand-survey-2026-05-26" target="_blank" class="item-title">Developer Brand Survey</a></li>
+          <li class="item" data-id="r02"><input type="checkbox" class="item-check"><span class="item-num">02</span><a href="https://community.arc.io/home/resources/architects-overview" target="_blank" class="item-title">Architects: Program Overview</a></li>
+          <li class="item" data-id="r03"><input type="checkbox" class="item-check"><span class="item-num">03</span><a href="https://community.arc.io/home/resources/architects-tiers-and-benefits" target="_blank" class="item-title">Architects: Tiers & Benefits</a></li>
+          <li class="item" data-id="r04"><input type="checkbox" class="item-check"><span class="item-num">04</span><a href="https://community.arc.io/home/resources/architects-roles" target="_blank" class="item-title">Architects: Roles</a></li>
+          <li class="item" data-id="r05"><input type="checkbox" class="item-check"><span class="item-num">05</span><a href="https://community.arc.io/home/resources/arc-engagement-amplification-guide" target="_blank" class="item-title">Arc Engagement Amplification Guide</a></li>
+          <li class="item" data-id="r06"><input type="checkbox" class="item-check"><span class="item-num">06</span><a href="https://community.arc.io/home/resources/architects-contribution-opportunities" target="_blank" class="item-title">Architects: Contribution Opportunities</a></li>
+          <li class="item" data-id="r07"><input type="checkbox" class="item-check"><span class="item-num">07</span><a href="https://community.arc.io/home/resources/architects-terms-and-conditions" target="_blank" class="item-title">Architects: Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- ═══ グループ内 ═══ -->
+      <div id="tab-group" class="tab-content">
+        <div class="progress-bar-wrap">
+          <span class="progress-label" id="prog-group">0 / 13</span>
+          <div class="progress-track"><div class="progress-fill" id="fill-group" style="width:0%"></div></div>
+          <button class="reset-btn" onclick="resetTab('group')">リセット</button>
+        </div>
+
+        <div class="sub-section-label">🎬 動画（7件）</div>
+        <ul class="item-list" id="list-group">
+          <li class="item" data-id="g01"><input type="checkbox" class="item-check"><span class="item-num">01</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/introducing-circle-agent-stack-quickstart" target="_blank" class="item-title">Circle Agent Stack Quickstart - financial infrastructure for the agentic economy</a></li>
+          <li class="item" data-id="g02"><input type="checkbox" class="item-check"><span class="item-num">02</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/arc-enterprise-and-defi-hackathon-spotlight-crumb-gasless-usdc-nanopayments-and-settlement-on-arc-2026-04-29" target="_blank" class="item-title">Arc Enterprise & DeFi Hackathon Spotlight: Crumb - Gasless USDC Nanopayments and settlement on Arc</a></li>
+          <li class="item" data-id="g03"><input type="checkbox" class="item-check"><span class="item-num">03</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/arc-enterprise-and-defi-hackathon-spotlight-blink-nanopayment-insurance-2026-04-20" target="_blank" class="item-title">Arc Enterprise & DeFi Hackathon Spotlight: Blink Nanopayment Insurance</a></li>
+          <li class="item" data-id="g04"><input type="checkbox" class="item-check"><span class="item-num">04</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/event-replay-building-an-agentic-economy-on-arc-with-rsoft-agentic-bank-2026-04-02" target="_blank" class="item-title">Event Replay: Building an Agentic Economy on Arc with RSoft Agentic Bank</a></li>
+          <li class="item" data-id="g05"><input type="checkbox" class="item-check"><span class="item-num">05</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/day-one-crossmint-2025-12-05" target="_blank" class="item-title">Day One: Crossmint</a></li>
+          <li class="item" data-id="g06"><input type="checkbox" class="item-check"><span class="item-num">06</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/day-one-para-2026-01-28" target="_blank" class="item-title">Day One: Para</a></li>
+          <li class="item" data-id="g07"><input type="checkbox" class="item-check"><span class="item-num">07</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/videos/day-one-thirdweb-2026-01-28" target="_blank" class="item-title">Day One: thirdweb</a></li>
+
+          <div class="sub-section-label">✍️ ブログ（4件）</div>
+          <li class="item" data-id="g08"><input type="checkbox" class="item-check"><span class="item-num">08</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/blogs/what-nanopayments-powered-by-circle-gateway-changes-for-arc-builders-2026-04-29" target="_blank" class="item-title">What Nanopayments powered by Circle Gateway changes for Arc builders</a></li>
+          <li class="item" data-id="g09"><input type="checkbox" class="item-check"><span class="item-num">09</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/blogs/circle-products-ai-native-docs" target="_blank" class="item-title">We Made Circle Docs AI-Native</a></li>
+          <li class="item" data-id="g10"><input type="checkbox" class="item-check"><span class="item-num">10</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/blogs/the-new-era-of-agentic-commerce-highlights-from-the-arc-hackathon" target="_blank" class="item-title">Guest Post: The New Era of Agentic Commerce, Highlights from the Arc Hackathon</a></li>
+          <li class="item" data-id="g11"><input type="checkbox" class="item-check"><span class="item-num">11</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/blogs/new-group-introducing-agentic-economy-in-arc-house-2026-05-08" target="_blank" class="item-title">New Group: Introducing Agentic Economy in Arc House</a></li>
+
+          <div class="sub-section-label">🔗 外部記事（1件）/ 📁 リソース（1件）</div>
+          <li class="item" data-id="g12"><input type="checkbox" class="item-check"><span class="item-num">12</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/externals/how-arc-supports-the-agentic-economy-or-arc-blueprints-2026-05-15" target="_blank" class="item-title">How Arc Supports the Agentic Economy | Arc Blueprints</a></li>
+          <li class="item" data-id="g13"><input type="checkbox" class="item-check"><span class="item-num">13</span><a href="https://community.arc.io/home/clubs/agentic-economy-dofua/resources/circle-agent-stack-builder-feedback-2026-05-12" target="_blank" class="item-title">Circle Agent Stack - Builder Feedback Survey</a></li>
+        </ul>
+      </div>
         <ul class="item-list">
           <li class="item"><span class="item-num">01</span><a href="https://community.arc.io/home/videos/agentic-demo-day-ai-projects-built-on-arc-2026-05-28" target="_blank" class="item-title">Agentic Demo Day: AI Projects Built on Arc</a></li>
           <li class="item"><span class="item-num">02</span><a href="https://community.arc.io/home/videos/replay-arc-builder-spotlight-tlay-machine-to-machine-nanopayments-on-arc-2026-05-28" target="_blank" class="item-title">Replay: Arc Builder Spotlight: TLAY - Machine-to-Machine Nanopayments on Arc</a></li>
@@ -478,7 +748,7 @@
       <!-- FOOTER PROFILE -->
       <section class="profile-section">
         <div class="profile-icon">
-          <img src="../../images/pfp.png" alt="sasami profile" />
+          <img src="../images/pfp.png" alt="sasami profile" />
         </div>
         <div>
           <h2>sasami</h2>
@@ -498,12 +768,95 @@
   </footer>
 
   <script>
+    /* ─── タブ設定 ─── */
+    const TAB_TOTALS = { videos:70, blogs:26, externals:24, resources:7, group:13 };
+
     function switchTab(name, btn) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('tab-' + name).classList.add('active');
     }
+
+    /* ─── 進捗バー更新 ─── */
+    function updateProgress(tabName) {
+      const total = TAB_TOTALS[tabName];
+      const listId = tabName === 'group' ? 'list-group' : 'list-' + tabName;
+      const checked = document.querySelectorAll('#' + listId + ' .item-check:checked').length;
+      const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+      const progEl = document.getElementById('prog-' + tabName);
+      const fillEl = document.getElementById('fill-' + tabName);
+      if (progEl) progEl.textContent = checked + ' / ' + total;
+      if (fillEl) fillEl.style.width = pct + '%';
+    }
+
+    /* ─── ストレージ保存 ─── */
+    async function saveChecked() {
+      const state = {};
+      document.querySelectorAll('.item[data-id]').forEach(li => {
+        const cb = li.querySelector('.item-check');
+        if (cb && cb.checked) state[li.dataset.id] = true;
+      });
+      try {
+        await window.storage.set('arc-checklist', JSON.stringify(state));
+      } catch(e) {
+        // ストレージ未対応環境ではlocalStorageにフォールバック
+        try { localStorage.setItem('arc-checklist', JSON.stringify(state)); } catch(_) {}
+      }
+    }
+
+    /* ─── ストレージ読み込み ─── */
+    async function loadChecked() {
+      let raw = null;
+      try {
+        const result = await window.storage.get('arc-checklist');
+        if (result) raw = result.value;
+      } catch(e) {
+        try { raw = localStorage.getItem('arc-checklist'); } catch(_) {}
+      }
+      if (!raw) return;
+      let state = {};
+      try { state = JSON.parse(raw); } catch(e) { return; }
+
+      document.querySelectorAll('.item[data-id]').forEach(li => {
+        if (state[li.dataset.id]) {
+          const cb = li.querySelector('.item-check');
+          if (cb) { cb.checked = true; li.classList.add('checked'); }
+        }
+      });
+      Object.keys(TAB_TOTALS).forEach(updateProgress);
+    }
+
+    /* ─── チェックボックスイベント ─── */
+    document.addEventListener('change', e => {
+      if (!e.target.classList.contains('item-check')) return;
+      const li = e.target.closest('.item');
+      if (!li) return;
+      li.classList.toggle('checked', e.target.checked);
+      // どのタブか判断
+      const tabContent = e.target.closest('.tab-content');
+      if (tabContent) {
+        const tabName = tabContent.id.replace('tab-', '');
+        updateProgress(tabName);
+      }
+      saveChecked();
+    });
+
+    /* ─── リセット ─── */
+    async function resetTab(tabName) {
+      const listId = tabName === 'group' ? 'list-group' : 'list-' + tabName;
+      document.querySelectorAll('#' + listId + ' .item-check').forEach(cb => {
+        cb.checked = false;
+        cb.closest('.item').classList.remove('checked');
+      });
+      updateProgress(tabName);
+      saveChecked();
+    }
+
+    /* ─── 初期化 ─── */
+    document.addEventListener('DOMContentLoaded', () => {
+      loadChecked();
+    });
   </script>
 </body>
 </html>
