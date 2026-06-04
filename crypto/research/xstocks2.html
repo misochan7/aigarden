@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xStocks FUD調査 — 開発元BackedファウンダーのDAOstack過去とKraken買収について | AIGARDEN</title>
+  <meta name="description" content="xStocksのFUDを調査。開発元BackedのファウンダーはDAOstack（GENトークン・運営停止）の立ち上げ人。KrakenがBackedを買収済みで大手審査は通過。詳細まとめ。">
+  <meta property="og:title" content="xStocks FUD調査 — 開発元BackedファウンダーのDAOstack過去とKraken買収について">
+  <meta property="og:description" content="xStocks開発元BackedのファウンダーはDAOstack（運営停止）の立ち上げ人。KrakenがBackedを買収済み。FUDの背景と現状まとめ。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/xstocks-fud.html">
+  <meta property="og:site_name" content="AIGARDEN">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f2ec;
+      --text: #111111;
+      --muted: #666666;
+      --line: #1e1e1e;
+      --accent: #0d5f66;
+      --accent-light: rgba(13,95,102,0.08);
+      --amber: #92600a;
+      --amber-light: rgba(146,96,10,0.08);
+      --red: #8b1a1a;
+      --red-light: rgba(139,26,26,0.07);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ═══ HEADER ═══ */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .brand:hover { opacity: 0.65; }
+    .diamond {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      align-items: center;
+    }
+    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing: 0.02em; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .lang-switch button {
+      background: transparent; border: none;
+      padding: 6px 10px; cursor: pointer;
+      font-size: 11px; font-family: 'Inter', sans-serif;
+      font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .lang-switch button.active { background: var(--text); color: white; }
+
+    /* ═══ ARTICLE HEADER ═══ */
+    .article-hero {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .breadcrumb a { color: var(--accent); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.4; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 1.05rem;
+      color: #333;
+      max-width: 680px;
+      line-height: 1.75;
+    }
+    .post-date {
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      display: block;
+      border: 1px solid rgba(30,30,30,0.3);
+      border-bottom: none;
+      padding: 8px 14px 4px;
+    }
+    .disclaimer-inline {
+      font-size: 14px;
+      color: #c45200;
+      display: block;
+      border: 1px solid rgba(30,30,30,0.3);
+      border-top: none;
+      padding: 4px 14px 8px;
+    }
+
+    /* ═══ ARTICLE BODY ═══ */
+    .article-body {
+      max-width: 720px;
+      padding: 44px 0 60px;
+    }
+
+    /* セクション */
+    .section {
+      margin-bottom: 44px;
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(30,30,30,0.15);
+    }
+    .section p {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ポイントリスト */
+    .point-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .point-list li {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.8;
+      padding: 8px 0 8px 18px;
+      border-bottom: 1px solid rgba(30,30,30,0.07);
+      position: relative;
+    }
+    .point-list li:last-child { border-bottom: none; }
+    .point-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* 懸念点ボックス */
+    .concern-box {
+      border: 1px solid rgba(139,26,26,0.25);
+      background: var(--red-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .concern-box .concern-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .concern-box ul {
+      list-style: none;
+    }
+    .concern-box ul li {
+      font-size: 0.93rem;
+      color: #3a1010;
+      line-height: 1.8;
+      padding: 6px 0 6px 16px;
+      border-bottom: 1px solid rgba(139,26,26,0.1);
+      position: relative;
+    }
+    .concern-box ul li:last-child { border-bottom: none; }
+    .concern-box ul li::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* 結論ボックス */
+    .verdict-box {
+      border: 1px solid rgba(13,95,102,0.3);
+      background: var(--accent-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .verdict-box .verdict-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .verdict-box p {
+      font-size: 0.95rem;
+      color: #0a3b40;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .verdict-box p:last-child { margin-bottom: 0; }
+
+    /* 外部リンクボタン */
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: var(--text);
+      border: 1px solid var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: white;
+      transition: all 0.2s;
+    }
+    .ext-link:hover { background: #333; border-color: #333; color: white; }
+    .ext-link .code-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+    }
+
+    /* Xボタン */
+    .x-post-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 44px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(30,30,30,0.15);
+    }
+    .x-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .x-btn:hover { background: var(--text); color: var(--bg); }
+
+    /* ナビゲーション（前後記事） */
+    .article-nav {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      margin-top: 0;
+      gap: 20px;
+    }
+    .article-nav a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .article-nav a:hover { color: var(--accent); }
+
+    /* ═══ FOOTER PROFILE ═══ */
+    .profile-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--line);
+    }
+    .profile-icon {
+      width: 140px; height: 140px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .profile-icon img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .profile-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px; margin-bottom: 8px;
+    }
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+    }
+    .profile-links a {
+      border: 1px solid var(--line);
+      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
+    }
+    .profile-links a:hover { background: var(--text); color: white; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
+      .article-hero h1 { font-size: 1.8rem; }
+      .profile-section { flex-direction: column; }
+      .profile-icon { width: 96px; height: 96px; }
+      .profile-section h2 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <div class="container nav">
+      <a href="/crypto/" class="brand">
+        <div class="diamond"></div>
+        <span>CRYPTO TOOLS</span>
+        <span style="font-weight:400; opacity:.7;">BY SASAMI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/crypto/fdv/">FDV Calculator</a>
+        <a href="/crypto/prompt/">AI Prompts</a>
+        <a href="/crypto/prediction/">Prediction</a>
+        <a href="/crypto/research/" class="active">Research</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ARTICLE HEADER -->
+      <div class="article-hero">
+        <div class="breadcrumb">
+          <a href="/crypto/research/">Research</a>
+          <span>›</span>
+          <span>xStocks FUD調査</span>
+        </div>
+        <div class="project-tag">xStocks / チーム調査</div>
+        <h1>xStocks FUD調査 — 開発元BackedファウンダーのDAOstack過去とKraken買収について</h1>
+        <p class="lead">
+          xStocksにFUDが出ていたので調べました。開発元BackedのファウンダーはかつてDAOstack（GENトークン・現在運営停止）を立ち上げた人物です。一方でKrakenがBackedを買収しており、大手取引所の審査を通過しているという事実もあります。
+        </p>
+        <div style="display:inline-flex; flex-direction:column; margin-top:20px;">
+          <p class="post-date">調査時点：2026年3月12日 午前5:42</p>
+          <p class="disclaimer-inline">※ 本記事は投稿時点の情報です。投資判断は自己責任でお願いします。</p>
+        </div>
+      </div>
+
+      <article class="article-body">
+
+        <!-- FUDの背景 -->
+        <div class="section">
+          <h2 class="section-title">FUDが出ている背景</h2>
+          <p>
+            xStocksの開発元はBackedというプロジェクトです。ファウンダーはAdam LeviとYehonatan Goldmanの2名。この2人は2017年にDAOstackというプロジェクトを立ち上げており（現在は退職済み）、GENトークンも発行していました。結果的にDAOstackは運営停止となっており、これがFUDの発生源です。
+          </p>
+        </div>
+
+        <!-- 調査結果 -->
+        <div class="section">
+          <h2 class="section-title">調査結果</h2>
+          <ul class="point-list">
+            <li>DAOstackが運営停止になった経緯として、<strong>チームがトークンを売って逃げたのか、単に運営を停止しただけなのか</strong>は軽く調べた限り明確には分からなかった</li>
+            <li><strong>KrakenがBackedを買収</strong>しているため、少なくとも大手取引所の審査は通過しているプロジェクトではある</li>
+            <li>ファウンダー2名のXを見るとイスラエル在住で、前プロジェクトのDAOstackもイスラエル発</li>
+          </ul>
+        </div>
+
+        <!-- まとめ -->
+        <div class="section">
+          <h2 class="section-title">まとめ</h2>
+          <div class="verdict-box">
+            <div class="verdict-title">まとめ</div>
+            <p>
+              過去のDAOstack運営停止という実績は気になるが、Kraken買収という事実はそれなりの信頼性の裏付けにはなる。DAOstackの詳細な経緯が不明な点が残るため、不安な方はあんまり頑張らなくてもいいんじゃないかなというのが個人的な見解です。
+            </p>
+          </div>
+        </div>
+
+        <!-- Xボタン -->
+        <div class="x-post-link">
+          <a href="https://x.com/neko_smg/status/2031833107482231057" target="_blank" rel="noopener noreferrer" class="x-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Xでポストを見る
+          </a>
+        </div>
+
+      </article>
+
+      <!-- 前後ナビ -->
+      <div class="article-nav">
+        <a href="/crypto/research/">← Research 一覧に戻る</a>
+        <span></span>
+      </div>
+
+      <!-- FOOTER PROFILE -->
+      <section class="profile-section">
+        <div class="profile-icon">
+          <img src="../../images/pfp.png" alt="sasami profile" />
+        </div>
+        <div>
+          <h2>sasami</h2>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank">X / Twitter →</a>
+            <a href="https://note.com/" target="_blank">note →</a>
+            <a href="https://ai-garden-lab.com/" target="_blank">AIGARDEN →</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
+  </footer>
+
+</body>
+</html>
