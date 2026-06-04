@@ -4,249 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research | Crypto Tools by sasami</title>
-  <meta name="description" content="sasamiのクリプトリサーチまとめ。プロジェクトごとに整理。各記事は投稿時点の情報です。">
-  <meta property="og:title" content="Research | Crypto Tools by sasami">
-  <meta property="og:description" content="sasamiのクリプトリサーチまとめ。プロジェクトごとに整理。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/">
-  <meta property="og:site_name" content="AIGARDEN">
-
+  <meta name="description" content="sasamiのクリプトリサーチまとめ。エアドロップ・プロジェクト調査・セキュリティ・Tips。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg: #f4f2ec;
-      --text: #111111;
-      --muted: #666666;
-      --line: #1e1e1e;
-      --accent: #0d5f66;
-      --accent-light: rgba(13,95,102,0.08);
+      --bg:#f4f2ec; --text:#111111; --muted:#666666; --line:#1e1e1e;
+      --accent:#0d5f66; --accent-light:rgba(13,95,102,0.08);
+      --red:#8b1a1a; --red-light:rgba(139,26,26,0.07);
+      --amber:#7a5000; --amber-light:rgba(122,80,0,0.07);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(1080px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    /* ═══ HEADER ═══ */
-    header {
-      border-bottom: 1px solid var(--line);
-      padding: 18px 0;
-    }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--text);
-      transition: opacity 0.2s;
-    }
-    .brand:hover { opacity: 0.65; }
-    .diamond {
-      width: 18px; height: 18px;
-      background: var(--accent);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 13px;
-      align-items: center;
-    }
-    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing: 0.02em; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--accent); font-weight: 600; }
-
-    /* ═══ HERO ═══ */
-    .page-hero {
-      padding: 48px 0 36px;
-      border-bottom: 1px solid var(--line);
-    }
-    .page-hero h1 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: clamp(40px, 6vw, 72px);
-      line-height: 0.95;
-      font-weight: 400;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-    .page-hero .subtitle { color: var(--muted); font-size: 0.9rem; }
-    .disclaimer {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ═══ PROJECT LIST ═══ */
-    .project-list {
-      padding: 8px 0 0;
-    }
-
-    /* ============================================================
-       ▼ 新しいプロジェクトを追加するときはここをコピー
-
-       <div class="project">
-         <div class="project-header">
-           <h2 class="project-name">プロジェクト名</h2>
-           <span class="project-tag">チェーン / カテゴリ</span>
-         </div>
-         <ul class="post-list">
-           <li>
-             <a href="ファイル名.html" class="post-link">
-               <span class="post-title">タイトル</span>
-               <span class="post-arrow">→</span>
-             </a>
-           </li>
-         </ul>
-       </div>
-
-    ============================================================ -->
-
-    .project {
-      border-bottom: 1px solid var(--line);
-      padding: 32px 0;
-    }
-    .project:last-child { border-bottom: none; }
-
-    .project-header {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .project-name {
-      font-family: 'Noto Serif JP', serif;
-      font-size: clamp(22px, 3vw, 32px);
-      font-weight: 600;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .project-tag {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 2px 8px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .post-list {
-      list-style: none;
-      border-top: 1px solid rgba(30,30,30,0.1);
-    }
-    .post-list li {
-      border-bottom: 1px solid rgba(30,30,30,0.1);
-    }
-    .post-list li:last-child { border-bottom: none; }
-
-    .post-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 13px 4px;
-      transition: all 0.15s;
-      gap: 16px;
-    }
-    .post-link:hover { padding-left: 10px; }
-    .post-title {
-      font-size: 0.95rem;
-      color: var(--text);
-      line-height: 1.5;
-      transition: color 0.15s;
-    }
-    .post-link:hover .post-title { color: var(--accent); }
-    .post-arrow {
-      font-size: 13px;
-      color: var(--muted);
-      flex-shrink: 0;
-      transition: color 0.15s;
-    }
-    .post-link:hover .post-arrow { color: var(--accent); }
-
-    /* ═══ FOOTER PROFILE ═══ */
-    .profile-section {
-      display: flex;
-      gap: 28px;
-      align-items: flex-start;
-      padding: 48px 0 64px;
-      border-top: 1px solid var(--line);
-      margin-top: 40px;
-    }
-    .profile-icon {
-      width: 140px; height: 140px;
-      overflow: hidden; flex-shrink: 0;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-    .profile-icon img {
-      width:100%; height:100%;
-      object-fit:cover; object-position:center; display:block;
-    }
-    .profile-section h2 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 48px; margin-bottom: 8px;
-    }
-    .profile-links {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
-    }
-    .profile-links a {
-      border: 1px solid var(--line);
-      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
-    }
-    .profile-links a:hover { background: var(--text); color: white; }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 24px 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* ═══ RESPONSIVE ═══ */
-    @media (max-width: 640px) {
-      .nav { flex-wrap: wrap; gap: 12px; }
-      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
-      .page-hero h1 { font-size: 2.4rem; }
-      .profile-section { flex-direction: column; }
-      .profile-icon { width: 96px; height: 96px; }
-      .profile-section h2 { font-size: 38px; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1080px,calc(100% - 40px));margin:0 auto;}
+    header{border-bottom:1px solid var(--line);padding:18px 0;}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+    .brand{display:flex;align-items:center;gap:12px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;color:var(--text);transition:opacity 0.2s;}
+    .brand:hover{opacity:0.65;}
+    .diamond{width:18px;height:18px;background:var(--accent);transform:rotate(45deg);flex-shrink:0;}
+    .nav-links{display:flex;gap:28px;font-size:13px;align-items:center;}
+    .nav-links a{color:var(--muted);transition:color 0.2s;letter-spacing:0.02em;}
+    .nav-links a:hover{color:var(--text);}
+    .nav-links a.active{color:var(--accent);font-weight:600;}
+    .page-hero{padding:48px 0 40px;border-bottom:1px solid var(--line);}
+    .page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(40px,6vw,72px);line-height:0.95;font-weight:400;letter-spacing:-0.03em;margin-bottom:14px;}
+    .page-hero .subtitle{font-size:1.05rem;color:#333;margin-bottom:16px;}
+    .disclaimer{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);border:1px solid rgba(30,30,30,0.2);padding:8px 14px;}
+    .categories{padding:48px 0 64px;}
+    .category-section{margin-bottom:56px;}
+    .category-section:last-child{margin-bottom:0;}
+    .category-header{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+    .category-title{font-family:'Noto Serif JP',serif;font-size:clamp(20px,2.5vw,28px);font-weight:600;line-height:1;letter-spacing:-0.02em;}
+    .category-count{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:rgba(30,30,30,0.15);border:1px solid rgba(30,30,30,0.15);}
+    .research-card{background:var(--bg);padding:20px 22px;display:flex;flex-direction:column;gap:10px;transition:background 0.15s;}
+    .research-card:hover{background:var(--accent-light);}
+    .card-tag{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);}
+    .card-title{font-family:'Noto Serif JP',serif;font-size:0.95rem;font-weight:600;line-height:1.45;color:var(--text);}
+    .research-card:hover .card-title{color:var(--accent);}
+    .card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:6px;}
+    .card-date{font-size:11px;color:var(--muted);}
+    .card-arrow{font-size:13px;color:var(--muted);transition:color 0.15s;}
+    .research-card:hover .card-arrow{color:var(--accent);}
+    .card-security:hover{background:var(--red-light);}
+    .card-security .card-tag{color:var(--red);}
+    .card-security:hover .card-title{color:var(--red);}
+    .card-security:hover .card-arrow{color:var(--red);}
+    .card-tips:hover{background:var(--amber-light);}
+    .card-tips .card-tag{color:var(--amber);}
+    .card-tips:hover .card-title{color:var(--amber);}
+    .card-tips:hover .card-arrow{color:var(--amber);}
+    .profile-section{display:flex;gap:28px;align-items:flex-start;padding:48px 0 64px;border-top:1px solid var(--line);}
+    .profile-icon{width:140px;height:140px;overflow:hidden;flex-shrink:0;border:1px solid rgba(0,0,0,0.08);}
+    .profile-icon img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+    .profile-section h2{font-family:'Noto Serif JP',serif;font-size:48px;margin-bottom:8px;}
+    .profile-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+    .profile-links a{border:1px solid var(--line);padding:10px 18px;font-size:13px;transition:all 0.2s;}
+    .profile-links a:hover{background:var(--text);color:white;}
+    footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:13px;}
+    @media(max-width:640px){
+      .nav{flex-wrap:wrap;gap:12px;}
+      .nav-links{order:3;width:100%;gap:16px;font-size:12px;}
+      .page-hero h1{font-size:2.4rem;}
+      .card-grid{grid-template-columns:1fr;}
+      .profile-section{flex-direction:column;}
+      .profile-icon{width:96px;height:96px;}
+      .profile-section h2{font-size:38px;}
     }
   </style>
 </head>
 <body>
-
-  <!-- ═══ HEADER ═══ -->
   <header>
     <div class="container nav">
       <a href="/crypto/" class="brand">
         <div class="diamond"></div>
         <span>CRYPTO TOOLS</span>
-        <span style="font-weight:400; opacity:.7;">BY SASAMI</span>
+        <span style="font-weight:400;opacity:.7;">BY SASAMI</span>
       </a>
       <nav class="nav-links">
         <a href="/crypto/fdv/">FDV Calculator</a>
@@ -260,39 +95,131 @@
   <main>
     <div class="container">
 
-      <!-- HERO -->
       <div class="page-hero">
         <h1>Research.</h1>
-        <p class="subtitle">プロジェクトのリサーチまとめ</p>
-        <p class="disclaimer">⚠︎ 各記事は投稿時点の情報です。投資判断は自己責任でお願いします。</p>
+        <p class="subtitle">プロジェクトのエアドロップ等のリサーチ</p>
+        <div class="disclaimer">⚠︎ 各記事は投稿時点の情報です。投資判断は自己責任でお願いします。</div>
       </div>
 
-      <!-- ═══ PROJECTS ═══ -->
-      <div class="project-list">
+      <div class="categories">
 
-        <!-- ============================================================
-          ▼ 新しいプロジェクトを追加するときはこのブロックをコピー＆ペースト
-          ▼ 同じプロジェクトに記事を追加するときは <li> を1行足すだけ
-        ============================================================ -->
-
-        <div class="project">
-          <div class="project-header">
-            <h2 class="project-name">Percolator</h2>
-            <span class="project-tag">Solana / DeFi</span>
+        <!-- リサーチ -->
+        <div class="category-section">
+          <div class="category-header">
+            <h2 class="category-title">リサーチ</h2>
+            <span class="category-count">13件</span>
           </div>
-          <ul class="post-list">
-            <li>
-              <a href="percolator.html" class="post-link">
-                <span class="post-title">Percolator — 誰でも作れるSolanaレバレッジ取引市場</span>
-                <span class="post-arrow">→</span>
-              </a>
-            </li>
-          </ul>
+          <div class="card-grid">
+            <a href="percolator.html" class="research-card">
+              <div class="card-tag">Solana / DeFi</div>
+              <div class="card-title">Percolator — 誰でも作れるSolanaレバレッジ取引市場</div>
+              <div class="card-footer"><span class="card-date">2026年6月3日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="bulk.html" class="research-card">
+              <div class="card-tag">Solana / Perp</div>
+              <div class="card-title">Bulk — SolanaのPerpプレデポジット開始、資金調達8M</div>
+              <div class="card-footer"><span class="card-date">2026年6月2日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="onyx.html" class="research-card">
+              <div class="card-tag">Hyperliquid / Perp</div>
+              <div class="card-title">Onyx — Sentimentの転生、ハイリキPerpでTGEは2026Q4</div>
+              <div class="card-footer"><span class="card-date">2026年6月1日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="popdex.html" class="research-card">
+              <div class="card-tag">DEX / ベータ募集中</div>
+              <div class="card-title">PopDEX — 匿名チームで30M調達、ベータテスター募集中</div>
+              <div class="card-footer"><span class="card-date">2026年5月23日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="giwa.html" class="research-card">
+              <div class="card-tag">Ethereum L2 / テストネット</div>
+              <div class="card-title">GIWA Chain — UpbitのL2、テストネット手順まとめ</div>
+              <div class="card-footer"><span class="card-date">2026年5月18日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="dac.html" class="research-card">
+              <div class="card-tag">テストネット / エアドロ</div>
+              <div class="card-title">DAC — 6日間限定アーリーバッジとQE獲得の仕組み</div>
+              <div class="card-footer"><span class="card-date">2026年4月19日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="litvm.html" class="research-card">
+              <div class="card-tag">Litecoin / L2 テストネット</div>
+              <div class="card-title">LitVM — Litecoin L2テストネット、品質に難あり</div>
+              <div class="card-footer"><span class="card-date">2026年4月18日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="moca.html" class="research-card">
+              <div class="card-tag">Mocaverse / 人間証明</div>
+              <div class="card-title">MocaProof — 保有NFT・トークン・取引量で人間証明</div>
+              <div class="card-footer"><span class="card-date">2026年4月17日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="arc.html" class="research-card">
+              <div class="card-tag">Arc / コミュニティ</div>
+              <div class="card-title">Arc アーキテクトプログラム — トークン報酬なし、ビルダー向け</div>
+              <div class="card-footer"><span class="card-date">2026年4月3日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="xstocks.html" class="research-card">
+              <div class="card-tag">DeFi / ポイントプログラム</div>
+              <div class="card-title">xStocks — ポイントプログラム、流動性提供・レンディング・保有</div>
+              <div class="card-footer"><span class="card-date">2026年3月18日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="xstocks2.html" class="research-card">
+              <div class="card-tag">xStocks / チーム調査</div>
+              <div class="card-title">xStocks FUD調査 — BackedファウンダーのDAOstack過去とKraken買収</div>
+              <div class="card-footer"><span class="card-date">2026年3月12日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="shelby.html" class="research-card">
+              <div class="card-tag">Aptos / テストネット</div>
+              <div class="card-title">Shelby — AptosとJump Crypto共同のWeb3版クラウドストレージ</div>
+              <div class="card-footer"><span class="card-date">2026年3月21日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="kast.html" class="research-card">
+              <div class="card-tag">クリプトカード / TGE予定</div>
+              <div class="card-title">KAST — 90M調達・AWS提携も、ポイント想定・受け取り条件に懸念</div>
+              <div class="card-footer"><span class="card-date">2026年3月13日</span><span class="card-arrow">→</span></div>
+            </a>
+          </div>
         </div>
 
-      </div><!-- /project-list -->
+        <!-- セキュリティ -->
+        <div class="category-section">
+          <div class="category-header">
+            <h2 class="category-title">セキュリティ</h2>
+            <span class="category-count">2件</span>
+          </div>
+          <div class="card-grid">
+            <a href="scam-protection.html" class="research-card card-security">
+              <div class="card-tag">セキュリティ / 詐欺対策</div>
+              <div class="card-title">仮想通貨スキャム・詐欺の見分け方 — 初心者が引っかかりやすいパターンと対策</div>
+              <div class="card-footer"><span class="card-date">2026年4月8日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="xsecurity.html" class="research-card card-security">
+              <div class="card-tag">セキュリティ / X</div>
+              <div class="card-title">X連携アプリの整理 — 使っていないアプリは定期的に解除しよう</div>
+              <div class="card-footer"><span class="card-date">2026年5月10日</span><span class="card-arrow">→</span></div>
+            </a>
+          </div>
+        </div>
 
-      <!-- FOOTER PROFILE -->
+        <!-- Tips -->
+        <div class="category-section">
+          <div class="category-header">
+            <h2 class="category-title">Tips</h2>
+            <span class="category-count">2件</span>
+          </div>
+          <div class="card-grid">
+            <a href="perpvolume.html" class="research-card card-tips">
+              <div class="card-tag">知識 / PerpDEX</div>
+              <div class="card-title">PerpDEXのVolume/OI比率 — 7倍以上は要注意のサイン</div>
+              <div class="card-footer"><span class="card-date">2026年5月15日</span><span class="card-arrow">→</span></div>
+            </a>
+            <a href="fdv.html" class="research-card card-tips">
+              <div class="card-tag">知識 / FDV・バリュエーション</div>
+              <div class="card-title">FDVの考え方 — 今の市場でFDV200〜300Mは「十分頑張ってる」部類</div>
+              <div class="card-footer"><span class="card-date">2026年1月20日</span><span class="card-arrow">→</span></div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
       <section class="profile-section">
         <div class="profile-icon">
           <img src="../../images/pfp.png" alt="sasami profile" />
@@ -313,6 +240,5 @@
   <footer>
     <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
   </footer>
-
 </body>
 </html>
