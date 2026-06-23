@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk リサーチ — 初期勢（アーリーユーザー）冷遇問題を整理 | AIGARDEN</title>
+  <meta name="description" content="Bulkが初期勢を優遇しなかった件について整理。去年からのステーカー・テストネット参加者へのポイント配布が50万のみ、プレデポジットは毎週100万山分け。ファウンダー発言との矛盾点をまとめます。">
+  <meta property="og:title" content="Bulk リサーチ — 初期勢（アーリーユーザー）冷遇問題を整理">
+  <meta property="og:description" content="Bulkの初期勢冷遇問題。ステーカー・テストネット参加者への配布が少なく、ファウンダー発言と矛盾しているのではという指摘を整理。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/research-bulk-early.html">
+  <meta property="og:site_name" content="AIGARDEN">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f2ec;
+      --text: #111111;
+      --muted: #666666;
+      --line: #1e1e1e;
+      --accent: #0d5f66;
+      --accent-light: rgba(13,95,102,0.08);
+      --amber: #92600a;
+      --amber-light: rgba(146,96,10,0.08);
+      --red: #8b1a1a;
+      --red-light: rgba(139,26,26,0.07);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ═══ HEADER ═══ */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .brand:hover { opacity: 0.65; }
+    .diamond {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      align-items: center;
+    }
+    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing: 0.02em; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .lang-switch button {
+      background: transparent; border: none;
+      padding: 6px 10px; cursor: pointer;
+      font-size: 11px; font-family: 'Inter', sans-serif;
+      font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .lang-switch button.active { background: var(--text); color: white; }
+
+    /* ═══ ARTICLE HEADER ═══ */
+    .article-hero {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .breadcrumb a { color: var(--accent); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.4; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 1.05rem;
+      color: #333;
+      max-width: 680px;
+      line-height: 1.75;
+    }
+    .notice-date {
+      font-size: 0.9rem !important;
+      font-weight: 600;
+      color: #5a3c06 !important;
+      letter-spacing: 0.02em;
+      padding-bottom: 10px;
+      margin-bottom: 2px !important;
+      border-bottom: 1px solid rgba(146,96,10,0.2);
+    }
+
+    /* ═══ ARTICLE BODY ═══ */
+    .article-body {
+      max-width: 720px;
+      padding: 44px 0 60px;
+    }
+
+    /* 注意事項ボックス（本文冒頭） */
+    .notice-box {
+      border: 1px solid rgba(146,96,10,0.3);
+      background: var(--amber-light);
+      padding: 16px 20px;
+      margin-bottom: 40px;
+    }
+    .notice-box p {
+      font-size: 0.88rem;
+      color: #5a3c06;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .notice-box p + p { margin-top: 8px; }
+
+    /* セクション */
+    .section {
+      margin-bottom: 44px;
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(30,30,30,0.15);
+    }
+    .section p {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ポイントリスト */
+    .point-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .point-list li {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.8;
+      padding: 8px 0 8px 18px;
+      border-bottom: 1px solid rgba(30,30,30,0.07);
+      position: relative;
+    }
+    .point-list li:last-child { border-bottom: none; }
+    .point-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* 懸念点ボックス */
+    .concern-box {
+      border: 1px solid rgba(139,26,26,0.25);
+      background: var(--red-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .concern-box .concern-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .concern-box ul {
+      list-style: none;
+    }
+    .concern-box ul li {
+      font-size: 0.93rem;
+      color: #3a1010;
+      line-height: 1.8;
+      padding: 6px 0 6px 16px;
+      border-bottom: 1px solid rgba(139,26,26,0.1);
+      position: relative;
+    }
+    .concern-box ul li:last-child { border-bottom: none; }
+    .concern-box ul li::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* 結論ボックス */
+    .verdict-box {
+      border: 1px solid rgba(13,95,102,0.3);
+      background: var(--accent-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .verdict-box .verdict-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .verdict-box p {
+      font-size: 0.95rem;
+      color: #0a3b40;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .verdict-box p:last-child { margin-bottom: 0; }
+
+    /* 外部リンクボタン */
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: var(--text);
+      border: 1px solid var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: white;
+      transition: all 0.2s;
+    }
+    .ext-link:hover { background: #333; border-color: #333; color: white; }
+    .ext-link .code-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+    }
+
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .link-buttons .ext-link,
+    .link-buttons .x-btn { margin-top: 0; }
+    .x-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .x-btn:hover { background: var(--text); color: var(--bg); }
+
+    /* ナビゲーション（前後記事） */
+    .article-nav {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      margin-top: 0;
+      gap: 20px;
+    }
+    .article-nav a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .article-nav a:hover { color: var(--accent); }
+
+    /* ═══ FOOTER PROFILE ═══ */
+    .profile-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--line);
+    }
+    .profile-icon {
+      width: 140px; height: 140px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .profile-icon img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .profile-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px; margin-bottom: 8px;
+    }
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+    }
+    .profile-links a {
+      border: 1px solid var(--line);
+      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
+    }
+    .profile-links a:hover { background: var(--text); color: white; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
+      .article-hero h1 { font-size: 1.8rem; }
+      .profile-section { flex-direction: column; }
+      .profile-icon { width: 96px; height: 96px; }
+      .profile-section h2 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <div class="container nav">
+      <a href="/crypto/" class="brand">
+        <div class="diamond"></div>
+        <span>CRYPTO TOOLS</span>
+        <span style="font-weight:400; opacity:.7;">BY SASAMI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/crypto/fdv/">FDV Calculator</a>
+        <a href="/crypto/prompt/">AI Prompts</a>
+        <a href="/crypto/prediction/">Prediction</a>
+        <a href="/crypto/research/" class="active">Research</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ARTICLE HEADER -->
+      <div class="article-hero">
+        <div class="breadcrumb">
+          <a href="/crypto/research/">Research</a>
+          <span>›</span>
+          <span>Bulk 初期勢冷遇問題</span>
+        </div>
+
+        <div class="project-tag">Bulk / Tokenomics</div>
+
+        <h1>Bulk — 初期勢（アーリーユーザー）冷遇問題を整理</h1>
+
+        <p class="lead">
+          Bulkが初期勢を優遇しなかった件についてまとめます。去年からのステーカーやテストネット参加者を煽って集めておきながら、その期間の配布量はわずか50万ポイント。一方で先週から始まったプレデポジットでは毎週100万ポイントを山分けしており、アーリーユーザーを冷遇しているのではという指摘があります。
+        </p>
+      </div>
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body">
+
+        <!-- 注意事項＋調査時点（全記事共通・日付だけ書き換える） -->
+        <div class="notice-box">
+          <p class="notice-date">調査時点：2026年6月7日 午後7:12</p>
+          <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
+        </div>
+
+        <!-- ============================================================
+          セクションの構成は自由。以下はよく使うパターン。
+          不要なセクションは削除、必要なら追加してOK。
+          <h2>のテキストも自由に変えてよい。
+        ============================================================ -->
+
+        <!-- 概要 -->
+        <div class="section">
+          <h2 class="section-title">何が問題になっているか</h2>
+          <p>
+            Bulkは去年からステークを開始し、ステーカーへの配布やテストネットの参加制限などで期待を煽ってきました。しかし実際に初期勢へ割り当てられたポイントは少なく、後発のプレデポジット参加者の方が多く受け取れる状況になっており、アーリーユーザーを冷遇しているのではという批判が出ています。
+          </p>
+        </div>
+
+        <!-- 経緯 -->
+        <div class="section">
+          <h2 class="section-title">煽りの経緯</h2>
+          <ul class="point-list">
+            <li>去年からステークを開始し、ステーカーへ〇〇（伏字）を配布するとアナウンス</li>
+            <li>テストネットの参加人数を制限し、リプライから選ばれた人のみが参加できる形にした</li>
+            <li>上記2点で期待を煽ったものの、その期間分の配布量は<strong>50万ポイントのみ</strong></li>
+            <li>先週から始まったプレデポジットでは、<strong>毎週100万ポイント</strong>を山分けしている</li>
+          </ul>
+        </div>
+
+        <!-- ステーカーの恩恵 -->
+        <div class="section">
+          <h2 class="section-title">ステーカーが得られた恩恵</h2>
+          <p>
+            一応、ステーカーは手数料なしでAPY6〜7%を獲得できるという恩恵もありました。そのためポイントはおまけ程度の位置づけだったのかもしれません。ただ、それを差し引いてもポイントの割り当てが少なすぎ、初期から貢献したユーザーへの扱いとしては物足りないという声があります。
+          </p>
+        </div>
+
+        <!-- ファウンダー発言との矛盾 -->
+        <div class="section">
+          <h2 class="section-title">ファウンダー発言との矛盾</h2>
+          <div class="concern-box">
+            <div class="concern-title">チェックすべきポイント</div>
+            <ul>
+              <li>ファウンダーはプレデポジット開始時に「後から大量にポイントを配って、早く参加した人の価値を下げることはしない」と発言していた</li>
+              <li>しかし現時点で既に初期勢を優遇していない状態になっており、この発言と矛盾していると感じられる</li>
+              <li>初期勢への配布50万に対し、プレデポジットは毎週100万山分けという配分バランス</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="section">
+          <h2 class="section-title">現時点の判断</h2>
+          <div class="verdict-box">
+            <div class="verdict-title">まとめ</div>
+            <p>
+              ステーカーにはAPYという実利があったとはいえ、煽った割に初期勢へのポイント配布が少なく、後発のプレデポジット勢の方が優遇される構図には疑問が残ります。ファウンダーの「早く参加した人の価値を下げない」という発言とも噛み合っていません。
+            </p>
+            <p>
+              できるだけ早い段階でロードマップを発表し、延期せず誠実に進めてほしいというのが正直な気持ちです。今後の運営方針とポイント配分の透明性を見極めたいところです。
+            </p>
+          </div>
+
+          <!-- 下部ボタン（Xポスト） -->
+          <div class="link-buttons">
+            <a href="https://x.com/neko_smg/status/2063564721132015985" target="_blank" rel="noopener noreferrer" class="x-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Xでポストを見る
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- 前後ナビ -->
+      <div class="article-nav">
+        <a href="/crypto/research/">← Research 一覧に戻る</a>
+        <span></span>
+      </div>
+
+      <!-- FOOTER PROFILE -->
+      <section class="profile-section">
+        <div class="profile-icon">
+          <img src="../../images/pfp.png" alt="sasami profile" />
+        </div>
+        <div>
+          <h2>sasami</h2>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank">X / Twitter →</a>
+            <a href="https://note.com/" target="_blank">note →</a>
+            <a href="https://ai-garden-lab.com/" target="_blank">AIGARDEN →</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
+  </footer>
+
+</body>
+</html>
