@@ -74,16 +74,18 @@
       font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
     }
     .article-hero .lead { font-size: 1.05rem; color: #333; max-width: 680px; line-height: 1.75; }
-    .post-date {
-      font-size: 14px; color: var(--text); letter-spacing: 0.02em; display: block;
-      border: 1px solid rgba(30,30,30,0.3); border-bottom: none; padding: 8px 14px 4px;
-    }
-    .disclaimer-inline {
-      font-size: 14px; color: #c45200; display: block;
-      border: 1px solid rgba(30,30,30,0.3); border-top: none; padding: 4px 14px 8px;
-    }
 
     .article-body { max-width: 720px; padding: 44px 0 60px; }
+
+    .notice-date {
+      font-size: 0.9rem !important;
+      font-weight: 600;
+      color: #5a3c06 !important;
+      letter-spacing: 0.02em;
+      padding-bottom: 10px;
+      margin-bottom: 2px !important;
+      border-bottom: 1px solid rgba(146,96,10,0.2);
+    }
 
     .notice-box {
       border: 1px solid rgba(146,96,10,0.3); background: var(--amber-light);
@@ -153,10 +155,16 @@
     .verdict-box p { font-size: 0.95rem; color: #3a1010; line-height: 1.8; margin-bottom: 10px; }
     .verdict-box p:last-child { margin-bottom: 0; }
 
-    .x-post-link {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-      margin-top: 44px; padding-top: 28px; border-top: 1px solid rgba(30,30,30,0.15);
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
     }
+    .link-buttons .ext-link,
+    .link-buttons .x-btn { margin-top: 0; }
     .x-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 11px 20px; border: 1px solid var(--line);
@@ -233,17 +241,13 @@
         <p class="lead">
           LensのHey（旧Lenster）がほぼラグりました。ファウンダーのトークン発行ミスから引退宣言までの経緯と、その後チームが変わって再始動している現状について整理します。有料サブスクが残っているため注意が必要です。
         </p>
-
-        <div style="display:inline-flex; flex-direction:column; margin-top:20px;">
-          <p class="post-date">調査時点：2026年6月18日 午前0:48</p>
-          <p class="disclaimer-inline">※ 本記事は投稿時点の情報です。投資判断は自己責任でお願いします。</p>
-        </div>
       </div>
 
       <article class="article-body">
 
         <div class="notice-box">
-          <p>⚠︎ 各記事は投稿時点の情報です。投資判断は自己責任でお願いします。</p>
+          <p class="notice-date">調査時点：2026年6月18日 午前0:48</p>
+          <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
           <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
         </div>
 
@@ -327,8 +331,8 @@
           </div>
         </div>
 
-        <!-- Xボタン -->
-        <div class="x-post-link">
+        <!-- 下部ボタン（Xポスト） -->
+        <div class="link-buttons">
           <a href="https://x.com/neko_smg/status/2067273249587957945" target="_blank" rel="noopener noreferrer" class="x-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
