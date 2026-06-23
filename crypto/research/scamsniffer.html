@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮想通貨セキュリティ拡張機能 — ScamSniffer導入とフィッシング対策 | AIGARDEN</title>
+  <meta name="description" content="ブラウザに入れるだけで危険サイト・スキャムリンク・不審な署名を警告してくれるセキュリティ拡張機能ScamSnifferの導入方法、プラン、実例、Rabbyウォレット併用、スマホ運用の注意点まで解説。">
+  <meta property="og:title" content="仮想通貨セキュリティ拡張機能 — ScamSniffer導入とフィッシング対策">
+  <meta property="og:description" content="ScamSnifferの導入方法・無料プランの注意点・実例・スマホ運用のコツまで、仮想通貨のフィッシング対策をまとめました。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/research-security-extension.html">
+  <meta property="og:site_name" content="AIGARDEN">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f2ec;
+      --text: #111111;
+      --muted: #666666;
+      --line: #1e1e1e;
+      --accent: #0d5f66;
+      --accent-light: rgba(13,95,102,0.08);
+      --amber: #92600a;
+      --amber-light: rgba(146,96,10,0.08);
+      --red: #8b1a1a;
+      --red-light: rgba(139,26,26,0.07);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ═══ HEADER ═══ */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .brand:hover { opacity: 0.65; }
+    .diamond {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      align-items: center;
+    }
+    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing: 0.02em; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .lang-switch button {
+      background: transparent; border: none;
+      padding: 6px 10px; cursor: pointer;
+      font-size: 11px; font-family: 'Inter', sans-serif;
+      font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .lang-switch button.active { background: var(--text); color: white; }
+
+    /* ═══ ARTICLE HEADER ═══ */
+    .article-hero {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .breadcrumb a { color: var(--accent); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.4; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 1.05rem;
+      color: #333;
+      max-width: 680px;
+      line-height: 1.75;
+    }
+    .notice-date {
+      font-size: 0.9rem !important;
+      font-weight: 600;
+      color: #5a3c06 !important;
+      letter-spacing: 0.02em;
+      padding-bottom: 10px;
+      margin-bottom: 2px !important;
+      border-bottom: 1px solid rgba(146,96,10,0.2);
+    }
+
+    /* ═══ ARTICLE BODY ═══ */
+    .article-body {
+      max-width: 720px;
+      padding: 44px 0 60px;
+    }
+
+    /* 注意事項ボックス（本文冒頭） */
+    .notice-box {
+      border: 1px solid rgba(146,96,10,0.3);
+      background: var(--amber-light);
+      padding: 16px 20px;
+      margin-bottom: 40px;
+    }
+    .notice-box p {
+      font-size: 0.88rem;
+      color: #5a3c06;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .notice-box p + p { margin-top: 8px; }
+
+    /* セクション */
+    .section {
+      margin-bottom: 44px;
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(30,30,30,0.15);
+    }
+    .section p {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ポイントリスト */
+    .point-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .point-list li {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.8;
+      padding: 8px 0 8px 18px;
+      border-bottom: 1px solid rgba(30,30,30,0.07);
+      position: relative;
+    }
+    .point-list li:last-child { border-bottom: none; }
+    .point-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* 懸念点ボックス */
+    .concern-box {
+      border: 1px solid rgba(139,26,26,0.25);
+      background: var(--red-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .concern-box .concern-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .concern-box ul {
+      list-style: none;
+    }
+    .concern-box ul li {
+      font-size: 0.93rem;
+      color: #3a1010;
+      line-height: 1.8;
+      padding: 6px 0 6px 16px;
+      border-bottom: 1px solid rgba(139,26,26,0.1);
+      position: relative;
+    }
+    .concern-box ul li:last-child { border-bottom: none; }
+    .concern-box ul li::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* 結論ボックス */
+    .verdict-box {
+      border: 1px solid rgba(13,95,102,0.3);
+      background: var(--accent-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .verdict-box .verdict-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .verdict-box p {
+      font-size: 0.95rem;
+      color: #0a3b40;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .verdict-box p:last-child { margin-bottom: 0; }
+
+    /* おすすめ対策ボックス（ポジティブ・teal系） */
+    .tips-box {
+      border: 1px solid rgba(13,95,102,0.25);
+      background: var(--accent-light);
+      padding: 18px 22px;
+      margin-top: 12px;
+    }
+    .tips-box .tips-title {
+      font-size: 14px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li {
+      font-size: 0.93rem; color: #0a3b40; line-height: 1.8;
+      padding: 7px 0 7px 22px;
+      border-bottom: 1px solid rgba(13,95,102,0.1);
+      position: relative;
+    }
+    .tips-box ul li:last-child { border-bottom: none; }
+    .tips-box ul li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: var(--accent); font-weight: 700; font-size: 12px;
+    }
+
+    /* 手順リスト（番号付き） */
+    .step-list { list-style: none; counter-reset: step; margin-top: 4px; }
+    .step-list li {
+      position: relative; padding: 6px 0 6px 38px;
+      font-size: 0.97rem; color: #222; line-height: 1.8;
+      border-bottom: 1px solid rgba(30,30,30,0.07);
+      counter-increment: step;
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 8px;
+      width: 24px; height: 24px;
+      background: var(--accent); color: #fff;
+      border-radius: 50%; font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* 外部リンクボタン */
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: var(--text);
+      border: 1px solid var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: white;
+      transition: all 0.2s;
+    }
+    .ext-link:hover { background: #333; border-color: #333; color: white; }
+    .ext-link .code-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+    }
+
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .link-buttons .ext-link,
+    .link-buttons .x-btn { margin-top: 0; }
+    .x-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .x-btn:hover { background: var(--text); color: var(--bg); }
+
+    /* ナビゲーション（前後記事） */
+    .article-nav {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      margin-top: 0;
+      gap: 20px;
+    }
+    .article-nav a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .article-nav a:hover { color: var(--accent); }
+
+    /* ═══ FOOTER PROFILE ═══ */
+    .profile-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--line);
+    }
+    .profile-icon {
+      width: 140px; height: 140px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .profile-icon img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .profile-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px; margin-bottom: 8px;
+    }
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+    }
+    .profile-links a {
+      border: 1px solid var(--line);
+      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
+    }
+    .profile-links a:hover { background: var(--text); color: white; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
+      .article-hero h1 { font-size: 1.8rem; }
+      .profile-section { flex-direction: column; }
+      .profile-icon { width: 96px; height: 96px; }
+      .profile-section h2 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <div class="container nav">
+      <a href="/crypto/" class="brand">
+        <div class="diamond"></div>
+        <span>CRYPTO TOOLS</span>
+        <span style="font-weight:400; opacity:.7;">BY SASAMI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/crypto/fdv/">FDV Calculator</a>
+        <a href="/crypto/prompt/">AI Prompts</a>
+        <a href="/crypto/prediction/">Prediction</a>
+        <a href="/crypto/research/" class="active">Research</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ARTICLE HEADER -->
+      <div class="article-hero">
+        <div class="breadcrumb">
+          <a href="/crypto/research/">Research</a>
+          <span>›</span>
+          <span>セキュリティ拡張機能</span>
+        </div>
+
+        <div class="project-tag">Security / フィッシング対策</div>
+
+        <h1>仮想通貨セキュリティ拡張機能 — ScamSnifferでフィッシング対策</h1>
+
+        <p class="lead">
+          仮想通貨のセキュリティ拡張機能をブラウザに入れておくだけで、危険なサイトへのアクセス時に警告が出たり、X上のスキャムリンクに警告が出たり、署名時に不審な内容を知らせてくれます。おすすめは ScamSniffer。導入方法・無料プランの注意点・実例・スマホ運用のコツまで、既に使っている方にも役立つようまとめました。
+        </p>
+      </div>
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body">
+
+        <!-- 注意事項＋調査時点（全記事共通・日付だけ書き換える） -->
+        <div class="notice-box">
+          <p class="notice-date">調査時点：2026年2月19日 午後5:50</p>
+          <p>⚠︎ 本記事は上記の調査時点における情報です。PRやリファラルではありません。これだけで全ての被害を防げるわけではない点にご注意ください。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
+        </div>
+
+        <!-- ============================================================
+          セクションの構成は自由。以下はよく使うパターン。
+          不要なセクションは削除、必要なら追加してOK。
+          <h2>のテキストも自由に変えてよい。
+        ============================================================ -->
+
+        <!-- 何をしてくれるか -->
+        <div class="section">
+          <h2 class="section-title">何をしてくれるのか</h2>
+          <p>
+            ScamSnifferのようなセキュリティ拡張機能をブラウザに入れておくと、主に次のようなフィッシング対策をしてくれます。
+          </p>
+          <ul class="point-list">
+            <li>危険なサイトにアクセスしたときに警告を表示</li>
+            <li>X（旧Twitter）上のスキャムリンクに警告を表示</li>
+            <li>署名時に不審な内容を知らせてくれる</li>
+          </ul>
+        </div>
+
+        <!-- インストール方法 -->
+        <div class="section">
+          <h2 class="section-title">インストール方法</h2>
+          <ol class="step-list">
+            <li>ScamSniffer（@realScamSniffer）の公式Xアカウントから公式サイトへアクセスする</li>
+            <li>「Add to Chrome」から拡張機能をインストールする</li>
+            <li>インストール完了後、すぐに機能し始める</li>
+          </ol>
+          <p style="margin-top:14px;">
+            ※ 拡張機能を入れる際は、必ず公式アカウント経由で正規の配布元から入れてください。偽の拡張機能には注意が必要です。
+          </p>
+        </div>
+
+        <!-- プランと制限 -->
+        <div class="section">
+          <h2 class="section-title">プランと制限について</h2>
+          <p>
+            デフォルトでプレミアムプランがオンになっています。プレミアムプランは現在は無料ですが、本来はDEX取引ごとに0.25%の手数料がかかる仕組みです。
+          </p>
+          <div class="concern-box">
+            <div class="concern-title">手数料に関する注意</div>
+            <ul>
+              <li>無料期間がいつまでか記載されていない</li>
+              <li>不安な方はプレミアムをオフにしておき、月間検知数が上限に達したときだけオンにするのがおすすめ</li>
+              <li>設定は拡張機能のアイコンをクリックすると開く</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 実例 -->
+        <div class="section">
+          <h2 class="section-title">実例：スキャムアカウントを検知</h2>
+          <p>
+            例として、Moonbirds公式ポストのリプ欄にいたスキャムアカウントがあります。公式に似たIDで金色バッジまで付けており、さらに「2/3〜3/3」のように書いてスレッドと誤認させようとしていました。
+          </p>
+          <p>
+            そのリプにはスキャムリンクが貼られていましたが、ScamSnifferが警告を出してくれました。これがなければ騙される人もいたかもしれません。
+          </p>
+          <p>
+            また、Txのセキュリティチェックでは、通常は緑のチェック（✅）が表示されますが、これが「赤色の！マーク」になっている場合は注意です。その際は署名を控えましょう。
+          </p>
+          <p style="font-size:0.88rem; color:var(--muted);">
+            ※ 出たばかりのURLだとすぐには検知できない場合があるので注意です。
+          </p>
+        </div>
+
+        <!-- Rabby併用 -->
+        <div class="section">
+          <h2 class="section-title">Rabbyウォレットとの併用がおすすめ</h2>
+          <p>
+            ウォレットをRabby（@Rabby_io）にするのもおすすめです。日本語対応なので署名内容が分かりやすくなり、不審な署名に気づきやすくなります。ScamSnifferと組み合わせることで、より安全に操作できます。
+          </p>
+        </div>
+
+        <!-- スマホでの注意 -->
+        <div class="section">
+          <h2 class="section-title">スマホでは使えない・スマホ運用の心得</h2>
+          <p>
+            ScamSnifferは拡張機能なのでスマホでは使えません。大前提として、スマホで仮想通貨を触ること自体がリスク高めです。自分がどれだけ意識するかが重要になります。
+          </p>
+          <div class="tips-box">
+            <div class="tips-title">スマホで仮想通貨を触るときの心得</div>
+            <ul>
+              <li>金額の多い操作はPCで行う</li>
+              <li>スマホは「確認・少額操作のみ」にとどめる</li>
+              <li>眠い時や疲れている時は触らない</li>
+              <li>エアドロやミントなどは一度PCで確認してから、またはPCで行う</li>
+              <li>メールで来るものはほぼスキャムと考える</li>
+              <li>Free Wi-Fiに繋いだ状態で仮想通貨を触らない</li>
+            </ul>
+          </div>
+          <p style="margin-top:14px;">
+            とはいえ急がなければいけないときもあります。スマホだとスイスイ進めてしまいがちなので、ひとつずつ確認しながら慎重に操作するしかありません。
+          </p>
+        </div>
+
+        <!-- まとめ -->
+        <div class="section">
+          <h2 class="section-title">まとめ</h2>
+          <div class="verdict-box">
+            <div class="verdict-title">セキュリティ向上のために</div>
+            <p>
+              ScamSnifferを入れておくだけで、危険サイト・スキャムリンク・不審な署名への警告という基本的なフィッシング対策ができます。Rabbyウォレットと併用し、スマホでの操作を控えめにすることで、さらにリスクを下げられます。
+            </p>
+            <p>
+              これだけで全てを防げるわけではありませんが、セキュリティ向上の第一歩としておすすめです。友達にも教えてあげてください。
+            </p>
+          </div>
+
+          <!-- 下部ボタン（公式X＋元ポスト。縦並び） -->
+          <div class="link-buttons">
+            <a href="https://x.com/realScamSniffer" target="_blank" rel="noopener noreferrer" class="ext-link">
+              ScamSniffer 公式X（@realScamSniffer）
+            </a>
+            <a href="https://x.com/neko_smg/status/2024406347455090800" target="_blank" rel="noopener noreferrer" class="x-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Xでポストを見る
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- 前後ナビ -->
+      <div class="article-nav">
+        <a href="/crypto/research/">← Research 一覧に戻る</a>
+        <span></span>
+      </div>
+
+      <!-- FOOTER PROFILE -->
+      <section class="profile-section">
+        <div class="profile-icon">
+          <img src="../../images/pfp.png" alt="sasami profile" />
+        </div>
+        <div>
+          <h2>sasami</h2>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank">X / Twitter →</a>
+            <a href="https://note.com/" target="_blank">note →</a>
+            <a href="https://ai-garden-lab.com/" target="_blank">AIGARDEN →</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
+  </footer>
+
+</body>
+</html>
