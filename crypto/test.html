@@ -41,19 +41,16 @@
 
     /* ─── HEADER ─── */
     header {
-      width: 100%;
-      min-height: 200px;
-      background-image: url('../../images/header.png');
-      background-size: cover;
-      background-position: center center;
-      background-color: #2a3f5f;
-      padding-bottom: 31.7%;  /* 457/1440 = 31.7% で画像の縦横比を維持 */
-    }
-    .header-bg { display: none; }
-    .header-bg-overlay { display: none; }
-    header {
       position: relative;
+      width: 100%;
+      background: #2a3f5f;
     }
+    .header-bg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .header-bg-overlay { display: none; }
     .header-nav {
       position: absolute;
       top: 18px;
@@ -228,19 +225,21 @@
 
     /* ─── FOOTER（画像 + プロフィール枠） ─── */
     .footer-img-wrap {
+      position: relative;
       width: 100%;
-      background-image: url('../../images/footer.png');
-      background-size: cover;
-      background-position: center center;
-      background-color: #3a5a3a;
-      padding: 32px 0;
       margin-top: 16px;
     }
-    .footer-bg { display: none; }
+    .footer-bg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
     .footer-bg-overlay { display: none; }
     .profile-overlay {
-      display: inline-block;
-      margin-left: 32px;
+      position: absolute;
+      top: 50%;
+      left: 32px;
+      transform: translateY(-50%);
       z-index: 10;
       background: rgba(245,246,244,0.96);
       border: 1.5px solid var(--ink);
@@ -348,6 +347,7 @@
 
   <!-- ─── HEADER（背景画像 + ナビ） ─── -->
   <header>
+    <img class="header-bg" src="../../images/header.png" alt="" aria-hidden="true" />
     <div class="container header-nav">
       <div class="nav-top">
         <a href="/crypto/" class="brand">
@@ -460,6 +460,7 @@
 
   <!-- ─── FOOTER（背景画像 + プロフィール枠） ─── -->
   <div class="footer-img-wrap">
+    <img class="footer-bg" src="../../images/footer.png" alt="" aria-hidden="true" />
     <div class="profile-overlay">
       <div class="profile-icon">
         <img src="../../images/pfp.png" alt="sasami" />
