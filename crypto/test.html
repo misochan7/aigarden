@@ -41,40 +41,25 @@
 
     /* ─── HEADER ─── */
     header {
+      width: 100%;
+      min-height: 200px;
+      background-image: url('../../images/header.png');
+      background-size: cover;
+      background-position: center center;
+      background-color: #2a3f5f;
+      padding-bottom: 31.7%;  /* 457/1440 = 31.7% で画像の縦横比を維持 */
+    }
+    .header-bg { display: none; }
+    .header-bg-overlay { display: none; }
+    header {
       position: relative;
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-    }
-    .header-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-    /* 上下にグラデーションで馴染ませる */
-    .header-bg-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.18) 0%,
-        rgba(0,0,0,0.05) 60%,
-        rgba(245,246,244,0.55) 100%
-      );
-      pointer-events: none;
     }
     .header-nav {
-      position: relative;
-      z-index: 10;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px 0 14px;
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1040px, calc(100% - 44px));
     }
     .nav-top {
       display: flex;
@@ -243,39 +228,19 @@
 
     /* ─── FOOTER（画像 + プロフィール枠） ─── */
     .footer-img-wrap {
-      position: relative;
       width: 100%;
-      height: 180px;
-      overflow: hidden;
+      background-image: url('../../images/footer.png');
+      background-size: cover;
+      background-position: center center;
+      background-color: #3a5a3a;
+      padding: 32px 0;
       margin-top: 16px;
     }
-    .footer-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    /* 上だけフェード */
-    .footer-bg-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(245,246,244,0.6) 0%,
-        rgba(0,0,0,0.08) 40%,
-        rgba(0,0,0,0.15) 100%
-      );
-      pointer-events: none;
-    }
-    /* プロフィール枠：フッター画像の左上に重ねる（スクショ準拠） */
+    .footer-bg { display: none; }
+    .footer-bg-overlay { display: none; }
     .profile-overlay {
-      position: absolute;
-      top: 50%;
-      left: 32px;
-      transform: translateY(-50%);
+      display: inline-block;
+      margin-left: 32px;
       z-index: 10;
       background: rgba(245,246,244,0.96);
       border: 1.5px solid var(--ink);
@@ -366,7 +331,7 @@
       }
       .tool-title { font-size: 1.1rem; }
 
-      .footer-img-wrap { height: 220px; }
+
       .profile-overlay {
         left: 16px;
         right: 16px;
@@ -383,8 +348,6 @@
 
   <!-- ─── HEADER（背景画像 + ナビ） ─── -->
   <header>
-    <img class="header-bg" src="../../images/header.png" alt="" aria-hidden="true" />
-    <div class="header-bg-overlay"></div>
     <div class="container header-nav">
       <div class="nav-top">
         <a href="/crypto/" class="brand">
@@ -497,8 +460,6 @@
 
   <!-- ─── FOOTER（背景画像 + プロフィール枠） ─── -->
   <div class="footer-img-wrap">
-    <img class="footer-bg" src="../../images/footer.png" alt="" aria-hidden="true" />
-    <div class="footer-bg-overlay"></div>
     <div class="profile-overlay">
       <div class="profile-icon">
         <img src="../../images/pfp.png" alt="sasami" />
