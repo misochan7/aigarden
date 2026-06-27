@@ -3,416 +3,289 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI画像生成プロンプト作成ツール｜AIGARDEN - Midjourney・Stable Diffusion対応</title>
-  <meta name="description" content="AI画像生成のプロンプトを簡単作成。キャラクターの髪型、目、表情、服装などを選ぶだけでプロンプトを自動生成。Midjourney、Stable Diffusion、DALL-E、Gemini、にじジャーニー対応。">
-  <meta name="keywords" content="AI画像生成,プロンプト,Midjourney,Stable Diffusion,DALL-E,にじジャーニー,キャラクター,イラスト">
-  <link rel="canonical" href="https://ai-garden-lab.com/">
-  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <title>AIGARDEN | sasami</title>
+  <meta name="description" content="仮想通貨に関する情報発信。便利なツールや自分のポストをまとめたものを掲載しています。">
+  <meta property="og:title" content="AIGARDEN | sasami">
+  <meta property="og:description" content="仮想通貨に関する情報発信。便利なツールや自分のポストをまとめています。">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI画像生成プロンプト作成ツール｜AIGARDEN">
-  <meta property="og:description" content="キャラクターの特徴を選ぶだけでプロンプトを自動生成。Midjourney、Stable Diffusion対応。">
   <meta property="og:url" content="https://ai-garden-lab.com/">
   <meta property="og:image" content="https://ai-garden-lab.com/images/ogp.png">
   <meta property="og:site_name" content="AIGARDEN">
-  <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@sasami">
-  <meta name="twitter:title" content="AI画像生成プロンプト作成ツール｜AIGARDEN">
-  <meta name="twitter:description" content="キャラクターの特徴を選ぶだけでプロンプトを自動生成">
-  <meta name="twitter:image" content="https://ai-garden-lab.com/images/ogp.png">
-  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <meta name="twitter:site" content="@neko_smg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #c4b5fd; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #a78bfa; }
+    :root {
+      --paper: #f5f6f4;
+      --ink:   #15181a;
+      --muted: #6b7370;
+      --line:  #dcdfda;
+      --accent: #0d5f66;
+      --accent-soft: rgba(13,95,102,0.06);
+      --signal: #c8401c;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans JP', sans-serif;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(860px, calc(100% - 44px)); margin: 0 auto; }
+
+    /* ─── HEADER ─── */
+    header {
+      width: 100%;
+      border-bottom: 1.5px solid var(--ink);
+      padding: 16px 0;
+      background: var(--paper);
+    }
+    .header-nav { }
+    .nav-inner {
+      width: min(860px, calc(100% - 44px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 7px 14px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .brand:hover { background: var(--ink); color: #fff; }
+    .brand-by { font-weight: 400; opacity: 0.6; }
+
+    /* ─── MAIN ─── */
+    main { padding: 56px 0 0; }
+
+    /* プロフィール */
+    .profile {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 44px;
+    }
+    .profile-icon {
+      width: 80px; height: 80px;
+      flex-shrink: 0;
+      border: 1.5px solid var(--ink);
+      overflow: hidden;
+    }
+    .profile-icon img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-name {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .profile-bio {
+      font-size: 15px;
+      color: #3d423f;
+      line-height: 1.95;
+      max-width: 540px;
+      margin-bottom: 16px;
+    }
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .profile-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--ink);
+      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .profile-links a:hover {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    /* セクションタイトル */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* コンテンツカード */
+    .card-list {
+      border: 1.5px solid var(--ink);
+      background: #fff;
+      margin-bottom: 56px;
+    }
+    .card {
+      display: grid;
+      grid-template-columns: 50px 1fr 24px;
+      align-items: center;
+      gap: 0 24px;
+      padding: 24px;
+      border-top: 1px solid var(--line);
+      position: relative;
+      transition: background 0.18s;
+    }
+    .card:first-child { border-top: none; }
+    .card:hover { background: var(--accent-soft); }
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.2s;
+    }
+    .card:hover::before { transform: scaleY(1); }
+
+    .card-icon {
+      width: 50px; height: 50px;
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--paper);
+      transition: border-color 0.18s;
+    }
+    .card:hover .card-icon { border-color: var(--accent); }
+    .card-icon svg { stroke: var(--ink); transition: stroke 0.18s; }
+    .card:hover .card-icon svg { stroke: var(--accent); }
+
+    .card-body {}
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .card-arrow {
+      font-family: var(--mono);
+      font-size: 20px;
+      color: var(--muted);
+      text-align: right;
+      transition: transform 0.2s, color 0.18s;
+    }
+    .card:hover .card-arrow {
+      transform: translateX(5px);
+      color: var(--accent);
+    }
+
+    /* ─── FOOTER ─── */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 20px 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 640px) {
+      .profile { flex-direction: column; gap: 16px; }
+      .profile-name { font-size: 24px; }
+      .card { grid-template-columns: 42px 1fr 20px; gap: 0 14px; padding: 18px 16px; }
+      .footer-profile { flex-direction: column; text-align: center; padding: 14px 20px; gap: 12px; white-space: normal; }
+      .footer-links { justify-content: center; }
+    }
   </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6374564167687670"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <div id="root"></div>
-  <script type="text/babel">
-    const { useState, useEffect } = React;
-
-    const Icons = {
-      Copy: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>),
-      Check: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>),
-      ChevronDown: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>),
-      RotateCcw: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>),
-      Save: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>),
-      FolderOpen: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>),
-      Trash2: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>),
-      X: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>),
-      Twitter: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>),
-      Shuffle: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>),
-      Info: ({ className }) => (<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>),
-    };
-
-    const japaneseToEnglish = {
-      '赤': 'red', '青': 'blue', '緑': 'green', '黄色': 'yellow', '黄': 'yellow',
-      'オレンジ': 'orange', '橙': 'orange', '紫': 'purple', 'ピンク': 'pink',
-      '黒': 'black', '白': 'white', '茶色': 'brown', '茶': 'brown', 'グレー': 'gray',
-      '灰色': 'gray', '金': 'gold', '金色': 'golden', '銀': 'silver', '銀色': 'silver',
-      '水色': 'light blue', '空色': 'sky blue', '紺': 'navy blue', '紺色': 'navy blue',
-      'クリーム': 'cream', 'ベージュ': 'beige', 'アイボリー': 'ivory',
-      'エメラルド': 'emerald', 'ターコイズ': 'turquoise', 'コーラル': 'coral',
-      'ラベンダー': 'lavender', 'ワイン': 'wine red', 'ローズ': 'rose',
-      'アッシュ': 'ash', 'プラチナ': 'platinum', 'シルバー': 'silver',
-      '虹色': 'rainbow colored', 'パステル': 'pastel colored',
-      '明るい': 'bright', '暗い': 'dark', '淡い': 'pale', '濃い': 'deep',
-      'グラデーション': 'gradient', 'メッシュ': 'highlights', 'インナーカラー': 'inner color',
-      'ツートン': 'two-tone', 'オンブレ': 'ombre',
-      'キラキラ': 'sparkling', '澄んだ': 'clear', '深い': 'deep',
-      '大きい': 'large', '小さい': 'small', '長い': 'long', '短い': 'short',
-    };
-
-    const translateToEnglish = (text) => {
-      if (!text) return '';
-      let result = text.trim();
-      if (japaneseToEnglish[result]) return japaneseToEnglish[result];
-      Object.entries(japaneseToEnglish).forEach(([ja, en]) => {
-        result = result.replace(new RegExp(ja, 'g'), en);
-      });
-      return result;
-    };
-
-    const styleOptions = [
-      { label: '萌え', prompt: 'moe style, cute anime style, soft shading' },
-      { label: '少年漫画', prompt: 'shonen manga style, dynamic, bold lines' },
-      { label: '水彩アニメ', prompt: 'watercolor anime style, soft colors, warm atmosphere' },
-      { label: '3D', prompt: '3d cartoon style, 3d render, cute character design' },
-      { label: 'リアル', prompt: 'semi-realistic, detailed, anime' },
-    ];
-
-    const qualityOptions = [
-      { label: '高解像度・詳細', prompt: 'high-resolution, ultra-detailed' },
-      { label: '4K画質', prompt: '4k quality, super-detailed illustrations' },
-      { label: 'シャープ・クリア', prompt: 'sharp focus, crystal clear' },
-      { label: '最高品質', prompt: 'masterpiece, best quality, highly detailed' },
-      { label: '8K', prompt: '8k resolution, extremely detailed' },
-    ];
-
-    const characterSettings = {
-      gender: { label: '性別', options: [{ label: '女性', prompt: '1girl, female' }, { label: '男性', prompt: '1boy, male' }, { label: '中性的', prompt: 'androgynous' }] },
-      age: { label: '年齢層', options: [{ label: '若い', prompt: 'young adult (20s)' }, { label: '中年', prompt: 'middle aged' }, { label: '老人', prompt: 'elderly, old' }] },
-      bodyType: { label: '体型', options: [{ label: '細身', prompt: 'slim, slender body' }, { label: '普通', prompt: 'average body' }, { label: 'ぽっちゃり', prompt: 'chubby, plump' }, { label: '筋肉質', prompt: 'muscular, athletic body' }, { label: '小柄', prompt: 'petite, small frame' }, { label: '長身', prompt: 'tall, long legs' }] },
-      hairLength: { label: '髪の長さ', options: [{ label: 'ベリーショート', prompt: 'very short hair' }, { label: 'ショート', prompt: 'short hair' }, { label: 'ミディアム', prompt: 'medium hair' }, { label: 'ロング', prompt: 'long hair' }, { label: '超ロング', prompt: 'very long hair' }] },
-      hairStyle: {
-        label: '髪型',
-        female: [{ label: 'ストレート', prompt: 'straight hair' }, { label: 'ウェーブ', prompt: 'wavy hair' }, { label: 'カール', prompt: 'curly hair' }, { label: 'ツインテール', prompt: 'twintails' }, { label: 'ポニーテール', prompt: 'ponytail' }, { label: 'お団子', prompt: 'hair bun' }, { label: '三つ編み', prompt: 'braided hair' }, { label: 'サイドテール', prompt: 'side ponytail' }, { label: 'ハーフアップ', prompt: 'half updo' }, { label: 'おさげ', prompt: 'twin braids' }, { label: 'シニヨン', prompt: 'chignon' }, { label: 'ボブ', prompt: 'bob cut' }, { label: 'ぱっつん前髪', prompt: 'blunt bangs' }, { label: '外ハネ', prompt: 'flipped hair' }, { label: 'アホ毛', prompt: 'ahoge' }],
-        male: [{ label: 'ストレート', prompt: 'straight hair' }, { label: 'ウェーブ', prompt: 'wavy hair' }, { label: 'カール', prompt: 'curly hair' }, { label: 'スパイキー', prompt: 'spiky hair' }, { label: 'オールバック', prompt: 'slicked back hair' }, { label: 'マッシュ', prompt: 'bowl cut' }, { label: 'アンダーカット', prompt: 'undercut' }, { label: 'ウルフカット', prompt: 'wolf cut' }, { label: 'センター分け', prompt: 'center parted hair' }, { label: '坊主', prompt: 'buzz cut, shaved head' }, { label: 'アホ毛', prompt: 'ahoge' }]
-      },
-      hairColor: { label: '髪色', options: [{ label: '黒', prompt: 'black hair' }, { label: '茶色', prompt: 'brown hair' }, { label: '金髪', prompt: 'blonde hair' }, { label: '赤', prompt: 'red hair' }, { label: 'ピンク', prompt: 'pink hair' }, { label: '青', prompt: 'blue hair' }, { label: '紫', prompt: 'purple hair' }, { label: '緑', prompt: 'green hair' }, { label: '白/銀', prompt: 'white hair, silver hair' }, { label: 'オレンジ', prompt: 'orange hair' }, { label: '水色', prompt: 'light blue hair' }] },
-      eyeType: { label: '目の形', options: [{ label: 'ぱっちり', prompt: 'big eyes, round eyes' }, { label: '切れ長', prompt: 'narrow eyes, sharp eyes' }, { label: 'タレ目', prompt: 'droopy eyes' }, { label: 'つり目', prompt: 'upturned eyes' }, { label: '糸目', prompt: 'closed eyes, slit eyes' }, { label: 'ジト目', prompt: 'half-closed eyes' }] },
-      eyeState: { label: '目の状態', options: [{ label: '開いた', prompt: 'eyes open' }, { label: '閉じた', prompt: 'eyes closed' }, { label: '片目閉じ', prompt: 'one eye closed, wink' }, { label: '半開き', prompt: 'half-closed eyes' }] },
-      eyeColor: { label: '瞳の色', options: [{ label: '黒', prompt: 'black eyes' }, { label: '茶色', prompt: 'brown eyes' }, { label: '青', prompt: 'blue eyes' }, { label: '緑', prompt: 'green eyes' }, { label: '紫', prompt: 'purple eyes' }, { label: '赤', prompt: 'red eyes' }, { label: '金', prompt: 'golden eyes' }, { label: 'ピンク', prompt: 'pink eyes' }, { label: 'オッドアイ', prompt: 'heterochromia, odd eyes' }] },
-      eyeFeature: { label: '目の特徴', options: [{ label: 'ハイライト', prompt: 'eye highlights' }, { label: 'キラキラ', prompt: 'sparkling eyes' }, { label: '涙目', prompt: 'teary eyes, watery eyes' }] },
-      nose: { label: '鼻の特徴', options: [{ label: '小さい鼻', prompt: 'small nose' }, { label: '高い鼻', prompt: 'high nose bridge' }, { label: '丸い鼻', prompt: 'button nose' }] },
-      mouthState: { label: '口の状態', options: [{ label: '閉じた口', prompt: 'closed mouth' }, { label: '少し開いた', prompt: 'slightly open mouth' }, { label: '笑顔', prompt: 'smiling mouth' }, { label: '歯を見せる', prompt: 'teeth showing' }, { label: '八重歯', prompt: 'fang, cute fang' }, { label: '舌を出す', prompt: 'tongue out' }, { label: 'への字口', prompt: 'frown' }] },
-      ears: { label: '耳', options: [{ label: 'エルフ耳', prompt: 'elf ears, pointed ears' }, { label: '猫耳', prompt: 'cat ears, nekomimi' }, { label: '犬耳', prompt: 'dog ears, inumimi' }, { label: 'うさ耳', prompt: 'rabbit ears, bunny ears' }, { label: '狐耳', prompt: 'fox ears' }] }
-    };
-
-    const expressionSettings = {
-      expression: { label: '表情', options: [{ label: '笑顔', prompt: 'smile, happy face' }, { label: 'にっこり', prompt: 'grinning, big smile' }, { label: '無表情', prompt: 'expressionless, blank face' }, { label: '恥ずかしい', prompt: 'embarrassed, blushing' }, { label: '怒り', prompt: 'angry expression' }, { label: '悲しい', prompt: 'sad expression' }, { label: '驚き', prompt: 'surprised expression' }, { label: 'ドヤ顔', prompt: 'smug face, confident expression' }, { label: '泣き顔', prompt: 'crying, tears' }, { label: 'キリッ', prompt: 'serious face, determined look' }, { label: 'あくび', prompt: 'yawning' }, { label: '狂気', prompt: 'crazy expression, manic' }, { label: 'ゲス顔', prompt: 'evil grin, nasty face, villainous smirk' }, { label: '困り顔', prompt: 'troubled expression, worried face' }] },
-      emotion: { label: '感情・雰囲気', options: [{ label: '幸せそう', prompt: 'happy, joyful' }, { label: 'クール', prompt: 'cool, calm' }, { label: 'ミステリアス', prompt: 'mysterious' }, { label: '元気', prompt: 'energetic, cheerful' }, { label: 'おっとり', prompt: 'gentle, calm demeanor' }, { label: 'ツンデレ', prompt: 'tsundere expression' }, { label: '恋する', prompt: 'lovestruck, in love' }, { label: '眠そう', prompt: 'sleepy, drowsy' }, { label: '自信満々', prompt: 'extremely confident, self-assured' }, { label: '無邪気', prompt: 'innocent, carefree' }, { label: '闇落ち', prompt: 'fallen, dark aura, corrupted' }, { label: '覚醒', prompt: 'awakened, power-up aura' }] }
-    };
-
-    const poseSettings = {
-      pose: { label: 'ポーズ', options: [{ label: '立ち姿', prompt: 'standing' }, { label: '座る', prompt: 'sitting' }, { label: '歩く', prompt: 'walking' }, { label: '走る', prompt: 'running' }, { label: 'ピース', prompt: 'peace sign, v sign' }, { label: '腕組み', prompt: 'arms crossed' }, { label: '手を振る', prompt: 'waving hand' }, { label: '頬杖', prompt: 'chin rest, head on hand' }, { label: 'ジャンプ', prompt: 'jumping' }, { label: '寝る', prompt: 'lying down, sleeping pose' }, { label: '振り向き', prompt: 'looking back' }, { label: 'ハート', prompt: 'heart hands, making heart shape' }, { label: 'ウインク', prompt: 'wink' }, { label: '戦闘ポーズ', prompt: 'combat pose, fighting stance' }, { label: 'アイドルポーズ', prompt: 'idol pose' }, { label: '指差し', prompt: 'pointing finger, pointing at viewer' }] },
-      angle: { label: 'アングル', options: [{ label: '正面', prompt: 'front view, facing viewer' }, { label: '横顔', prompt: 'side view, profile' }, { label: '斜め', prompt: 'three quarter view' }, { label: '見上げ', prompt: 'from below, low angle' }, { label: '見下ろし', prompt: 'from above, high angle' }] },
-      shotType: { label: 'ショットタイプ', options: [{ label: '顔アップ', prompt: 'close-up, face focus' }, { label: '上半身', prompt: 'upper body, bust shot' }, { label: '上半身', prompt: 'upper body shot' }, { label: '全身', prompt: 'full body' }, { label: '膝上', prompt: 'cowboy shot, thighs up' }] }
-    };
-
-    const situationOptions = [
-      { label: '教室', prompt: 'classroom, school' }, { label: '屋上', prompt: 'rooftop, school rooftop' }, { label: '通学路', prompt: 'walking to school, street' }, { label: '公園', prompt: 'park, outdoors' }, { label: 'カフェ', prompt: 'cafe, coffee shop' }, { label: '海辺', prompt: 'beach, seaside' }, { label: '森', prompt: 'forest, woods' }, { label: '夜空', prompt: 'night sky, starry sky' }, { label: '桜', prompt: 'cherry blossoms, sakura' }, { label: '雨', prompt: 'rain, rainy day' }, { label: '夕焼け', prompt: 'sunset, golden hour' }, { label: '部屋', prompt: 'bedroom, indoor' }, { label: '図書館', prompt: 'library' }, { label: 'ステージ', prompt: 'stage, concert' }, { label: '神社', prompt: 'shrine, torii' }, { label: 'ファンタジー', prompt: 'fantasy world, magical realm' }, { label: '城', prompt: 'castle, palace' }, { label: '街中', prompt: 'city, urban, downtown' }, { label: '祭り', prompt: 'festival, matsuri' },
-      { label: '異世界転生', prompt: 'isekai, reincarnated in another world' }, { label: '廃墟', prompt: 'ruins, abandoned place' }, { label: '宇宙', prompt: 'outer space, universe' }, { label: '魔界', prompt: 'demon world, hellscape' }, { label: '温泉', prompt: 'onsen, hot spring' }, { label: 'サイバーパンク', prompt: 'cyberpunk city, neon lights' },
-    ];
-
-    const clothingOptions = [
-      { label: '制服', prompt: 'school uniform' }, { label: 'セーラー服', prompt: 'sailor uniform, serafuku' }, { label: 'ブレザー', prompt: 'blazer, school blazer' }, { label: '私服', prompt: 'casual clothes' }, { label: 'ワンピース', prompt: 'dress, one piece dress' }, { label: 'Tシャツ', prompt: 't-shirt' }, { label: 'パーカー', prompt: 'hoodie' }, { label: 'ゴスロリ', prompt: 'gothic lolita dress' }, { label: 'メイド服', prompt: 'maid outfit, maid dress' }, { label: '巫女', prompt: 'miko outfit, shrine maiden' }, { label: '着物', prompt: 'kimono, japanese clothes' }, { label: '浴衣', prompt: 'yukata, summer kimono' }, { label: 'チャイナドレス', prompt: 'china dress, qipao' }, { label: 'ドレス', prompt: 'formal dress, elegant dress' }, { label: 'アイドル衣装', prompt: 'idol costume, stage outfit' }, { label: '水着', prompt: 'swimsuit, bikini' }, { label: 'スポーツウェア', prompt: 'sportswear, athletic wear' }, { label: 'ナース', prompt: 'nurse outfit, nurse uniform' }, { label: '魔法少女', prompt: 'magical girl outfit' }, { label: '軍服', prompt: 'military uniform' }, { label: 'スーツ', prompt: 'business suit' }, { label: 'パジャマ', prompt: 'pajamas, sleepwear' }, { label: 'セーター', prompt: 'sweater, knit sweater' }, { label: 'コート', prompt: 'coat, winter coat' },
-    ];
-
-    const accessoryOptions = [
-      { label: 'メガネ', prompt: 'glasses' }, { label: 'サングラス', prompt: 'sunglasses' }, { label: 'リボン', prompt: 'hair ribbon' }, { label: 'ヘアピン', prompt: 'hairpin, hair clip' }, { label: 'カチューシャ', prompt: 'headband' }, { label: 'イヤリング', prompt: 'earrings' }, { label: 'ネックレス', prompt: 'necklace' }, { label: 'ネクタイ', prompt: 'necktie' }, { label: '帽子', prompt: 'hat' }, { label: 'ベレー帽', prompt: 'beret' }, { label: 'ヘッドホン', prompt: 'headphones' }, { label: 'マフラー', prompt: 'scarf, muffler' }, { label: '傘', prompt: 'umbrella' }, { label: '翼', prompt: 'wings, angel wings' }, { label: '天使の羽', prompt: 'angel wings' }, { label: '悪魔の翼', prompt: 'demon wings, bat wings' }, { label: '天使の輪', prompt: 'halo' }, { label: '角（ツノ）', prompt: 'horns' }, { label: '尻尾', prompt: 'tail' }, { label: 'ヘッドドレス', prompt: 'headdress' }, { label: '花飾り', prompt: 'flower ornament, hair flower' }, { label: '眼帯', prompt: 'eyepatch' }, { label: '手袋', prompt: 'gloves' }, { label: 'チョーカー', prompt: 'choker' },
-      { label: '鎖', prompt: 'chains' }, { label: '武器', prompt: 'weapon' }, { label: 'ぬいぐるみ', prompt: 'plushie, stuffed animal' }, { label: '包帯', prompt: 'bandages' }, { label: 'タトゥー', prompt: 'tattoo' }, { label: 'スマホ', prompt: 'smartphone' }, { label: '本', prompt: 'book' }, { label: 'ドリンク', prompt: 'drink, beverage' },
-    ];
-
-    const CollapsibleSection = ({ title, children, defaultOpen = false }) => {
-      const [isOpen, setIsOpen] = useState(defaultOpen);
-      return (
-        <div className="mb-3 rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-300 shadow-md">
-          <button onClick={() => setIsOpen(!isOpen)} className="w-full px-5 py-4 flex items-center justify-between transition-all hover:bg-white/90">
-            <span className="font-semibold text-gray-700 tracking-wide">{title}</span>
-            <div className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}><Icons.ChevronDown className="w-5 h-5 text-gray-400" /></div>
-          </button>
-          <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-            <div className="px-5 pb-5 pt-2 border-t border-gray-200">{children}</div>
-          </div>
-        </div>
-      );
-    };
-
-    const OptionButton = ({ label, selected, onClick }) => (<button onClick={onClick} className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${selected ? 'bg-violet-600 text-white shadow-md shadow-violet-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{label}</button>);
-    const MultiSelectButton = ({ label, selected, onClick }) => (<button onClick={onClick} className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${selected ? 'bg-rose-500 text-white shadow-md shadow-rose-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{label}</button>);
-    const CustomInput = ({ value, onChange, placeholder }) => (<input type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="w-full mt-3 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-violet-400 focus:ring-2 focus:ring-violet-100 focus:outline-none transition-all" />);
-
-    const OptionGroup = ({ label, options, selectedValue, onSelect, customInput, customValue, onCustomChange }) => (
-      <div className="mb-5 last:mb-0">
-        <div className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">{label}</div>
-        <div className="flex flex-wrap gap-2">{options.map(option => (<OptionButton key={option.label} label={option.label} selected={selectedValue?.prompt === option.prompt} onClick={() => onSelect(option)} />))}</div>
-        {customInput && <CustomInput value={customValue || ''} onChange={onCustomChange} placeholder={`その他の${label}を入力...`} />}
+  <!-- HEADER -->
+  <header>
+    <div class="header-nav">
+      <div class="nav-inner">
+        <a href="/" class="brand">
+          AIGARDEN <span class="brand-by">BY SASAMI</span>
+        </a>
       </div>
-    );
+    </div>
+  </header>
 
-    const SubSection = ({ label, children }) => (<div className="border-t border-gray-100 pt-4 mt-4"><div className="text-sm font-semibold text-gray-600 mb-3 bg-gradient-to-r from-violet-50 to-transparent rounded-lg px-3 py-2">{label}</div>{children}</div>);
+  <main>
+    <div class="container">
 
-    function PromptHelper() {
-      const [currentPage, setCurrentPage] = useState('main');
-      const [selections, setSelections] = useState({});
-      const [multiSelections, setMultiSelections] = useState({ accessories: [] });
-      const [customInputs, setCustomInputs] = useState({});
-      const [customText, setCustomText] = useState('');
-      const [copied, setCopied] = useState(false);
-      const [style, setStyle] = useState(null);
-      const [quality, setQuality] = useState(null);
-      const [presets, setPresets] = useState([]);
-      const [showSaveModal, setShowSaveModal] = useState(false);
-      const [showLoadModal, setShowLoadModal] = useState(false);
-      const [presetName, setPresetName] = useState('');
-
-      useEffect(() => { const saved = localStorage.getItem('characterPresets'); if (saved) { try { setPresets(JSON.parse(saved)); } catch (e) {} } }, []);
-
-      const handleSelect = (category, option) => { setSelections(prev => ({ ...prev, [category]: prev[category]?.prompt === option.prompt ? null : option })); };
-      const handleMultiSelect = (category, option) => { setMultiSelections(prev => { const current = prev[category] || []; const exists = current.some(item => item.prompt === option.prompt); return { ...prev, [category]: exists ? current.filter(item => item.prompt !== option.prompt) : [...current, option] }; }); };
-      const handleCustomInput = (category, value) => { setCustomInputs(prev => ({ ...prev, [category]: value })); };
-
-      const generatePrompt = () => {
-        const parts = [];
-        if (quality) parts.push(quality.prompt);
-        if (style) parts.push(style.prompt);
-        Object.values(selections).forEach(sel => { if (sel?.prompt) parts.push(sel.prompt); });
-        Object.values(multiSelections).flat().forEach(sel => { if (sel?.prompt) parts.push(sel.prompt); });
-        Object.entries(customInputs).forEach(([key, value]) => { if (value) parts.push(translateToEnglish(value)); });
-        if (customText.trim()) parts.push(translateToEnglish(customText.trim()));
-        return parts.join(', ');
-      };
-
-      const copyToClipboard = () => { navigator.clipboard.writeText(generatePrompt()); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-      const shareToTwitter = () => { const text = `AIキャラクタープロンプトメーカー\n作りたい特徴を選択するだけで呪文が生成されます🧙\nお気に入りのキャラを作って遊んでね⭐\n`; const url = 'https://ai-garden-lab.com/'; window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'); };
-      const resetAll = () => { setSelections({}); setMultiSelections({ accessories: [] }); setCustomInputs({}); setCustomText(''); setStyle(null); setQuality(null); };
-      const savePreset = () => { if (!presetName.trim()) return; const characterKeys = ['gender', 'age', 'bodyType', 'hairLength', 'hairStyle', 'eyeColor', 'hairColor', 'skinTone', 'face', 'chestSize']; const characterSelections = {}; characterKeys.forEach(key => { if (selections[key]) characterSelections[key] = selections[key]; }); const newPreset = { id: Date.now(), name: presetName, data: { selections: characterSelections, multiSelections, customInputs } }; const updated = [...presets, newPreset]; setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); setPresetName(''); setShowSaveModal(false); };
-      const loadPreset = (preset) => { setSelections(prev => ({ ...prev, ...preset.data.selections })); setMultiSelections(preset.data.multiSelections || { accessories: [] }); setCustomInputs(preset.data.customInputs || {}); setShowLoadModal(false); };
-      const deletePreset = (id) => { const updated = presets.filter(p => p.id !== id); setPresets(updated); localStorage.setItem('characterPresets', JSON.stringify(updated)); };
-
-      const generateRandom = () => {
-        const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-        setStyle(randomPick(styleOptions));
-        setQuality(Math.random() > 0.3 ? randomPick(qualityOptions) : null);
-        const randomGender = randomPick(characterSettings.gender.options);
-        let hairStyleOptions = randomGender.label === '女性' ? characterSettings.hairStyle.female : randomGender.label === '男性' ? characterSettings.hairStyle.male : [...characterSettings.hairStyle.female, ...characterSettings.hairStyle.male];
-        setSelections({ gender: randomGender, age: randomPick(characterSettings.age.options), bodyType: randomPick(characterSettings.bodyType.options), hairLength: randomPick(characterSettings.hairLength.options), hairStyle: randomPick(hairStyleOptions), hairColor: randomPick(characterSettings.hairColor.options), eyeType: randomPick(characterSettings.eyeType.options), eyeState: randomPick(characterSettings.eyeState.options), eyeColor: randomPick(characterSettings.eyeColor.options), eyeFeature: Math.random() > 0.5 ? randomPick(characterSettings.eyeFeature.options) : null, nose: Math.random() > 0.5 ? randomPick(characterSettings.nose.options) : null, mouthState: Math.random() > 0.5 ? randomPick(characterSettings.mouthState.options) : null, ears: Math.random() > 0.7 ? randomPick(characterSettings.ears.options) : null, expression: randomPick(expressionSettings.expression.options), emotion: Math.random() > 0.5 ? randomPick(expressionSettings.emotion.options) : null, pose: randomPick(poseSettings.pose.options), angle: randomPick(poseSettings.angle.options), shotType: randomPick(poseSettings.shotType.options), situation: randomPick(situationOptions), clothing: randomPick(clothingOptions) });
-        const accessoryCount = Math.floor(Math.random() * 4);
-        const shuffled = [...accessoryOptions].sort(() => Math.random() - 0.5);
-        setMultiSelections({ accessories: shuffled.slice(0, accessoryCount) });
-        setCustomInputs({}); setCustomText('');
-      };
-
-      const selectedCount = Object.values(selections).filter(Boolean).length + Object.values(multiSelections).flat().length + Object.values(customInputs).filter(Boolean).length + (style ? 1 : 0) + (quality ? 1 : 0);
-      const getHairStyleOptions = () => { const gender = selections.gender?.label; if (gender === '女性') return characterSettings.hairStyle.female; if (gender === '男性') return characterSettings.hairStyle.male; const all = [...characterSettings.hairStyle.female, ...characterSettings.hairStyle.male]; return all.filter((item, index, self) => index === self.findIndex(t => t.prompt === item.prompt)); };
-
-      if (currentPage === 'howto') {
-        return (
-          <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50 to-slate-100">
-            <div className="max-w-2xl mx-auto p-4">
-              <div className="text-center mb-8 pt-4">
-                <h1 className="text-2xl font-bold text-gray-800">使い方・このサイトについて</h1>
-                <button onClick={() => setCurrentPage('main')} className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 hover:bg-gray-900 text-white rounded-xl font-medium transition-all text-sm">← 作成ツールに戻る</button>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">使い方</h2>
-                <div className="space-y-4 text-gray-600">
-                  <div><h3 className="font-medium text-gray-800 mb-1">1. 画質・スタイルを選ぶ</h3><p className="text-sm">高画質設定や「萌え」「少年漫画」「リアル」など、作りたいイラストの雰囲気を選びます。</p></div>
-                  <div><h3 className="font-medium text-gray-800 mb-1">2. キャラ設定を決める</h3><p className="text-sm">性別、年齢、髪型、目の色など細かく設定できます。</p></div>
-                  <div><h3 className="font-medium text-gray-800 mb-1">3. 表情・ポーズ・シチュエーションを選ぶ</h3><p className="text-sm">キャラクターの表情やポーズ、どんな場所にいるかを設定します。</p></div>
-                  <div><h3 className="font-medium text-gray-800 mb-1">4. 服装・アクセサリーを選ぶ</h3><p className="text-sm">アクセサリーは複数選択できます。</p></div>
-                  <div><h3 className="font-medium text-gray-800 mb-1">5. プロンプトをコピー</h3><p className="text-sm">画面下部に生成されたプロンプトをコピーして、お好きな画像生成AIにペーストしてください。</p></div>
-                </div>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">対応している画像生成AI</h2>
-                <ul className="text-sm text-gray-600 space-y-1"><li>• Midjourney</li><li>• DALL-E（ChatGPT）</li><li>• Gemini</li><li>• にじジャーニー</li><li>• その他、英語プロンプト対応のAI</li></ul>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">便利な機能</h2>
-                <div className="space-y-3 text-sm text-gray-600">
-                  <div><span className="font-medium text-gray-800">保存機能：</span>作成したキャラ設定に名前をつけて保存できます。※ローカル環境に保存されるためキャッシュクリアを行うと消えます。ご注意ください。</div>
-                </div>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 mb-4">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">著作権・利用規約</h2>
-                <div className="space-y-3 text-sm text-gray-600">
-                  <div><span className="font-medium text-gray-800">このツールについて：</span><p>本ツールは無料でご利用いただけます。生成されたプロンプトは商用・非商用問わず自由にお使いください。当サイトのデザイン、UI、機能設計、コンセプトの模倣・複製はご遠慮ください。</p></div>
-                  <div><span className="font-medium text-gray-800">生成した画像について：</span><p>本ツールで作成したプロンプトを使って生成した画像の著作権は、ご利用の画像生成AIサービスの利用規約に従います。</p></div>
-                  <div><span className="font-medium text-gray-800">免責事項：</span><p>本ツールの利用により生じたいかなる損害についても、作者は責任を負いません。</p></div>
-                </div>
-              </div>
-              <div className="text-center py-6 border-t border-gray-200 mt-6">
-                <p className="text-sm text-gray-500 mb-1">© 2025 AIGARDEN│キャラクタープロンプト作成ツール</p>
-                <p className="text-xs text-gray-400 mb-3">当サイトのデザイン、UI、機能設計、コンセプトの模倣・複製はご遠慮ください。</p>
-                <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-500 hover:text-violet-600 transition-colors"><Icons.Twitter className="w-5 h-5" /><span className="text-sm font-medium">@sasami</span></a>
-              </div>
-            </div>
-          </div>
-        );
-      }
-
-      return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50 to-slate-100">
-          {/* 全幅ヘッダー */}
-          <div className="w-full relative" style={{backgroundColor: '#ff751f'}}>
-            <a href="https://ai-garden-lab.com/" className="block hover:opacity-90 transition-opacity">
-              <img src="/images/logo.png" alt="AIGARDEN" width="1000" height="200" className="mx-auto block max-w-full h-auto" />
-            </a>
-          </div>
-
-          <div className="max-w-2xl mx-auto p-4">
-            <div className="text-center mb-6">
-              <div className="mb-3">
-                <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-medium transition-all text-sm shadow-sm">
-                  <Icons.Twitter className="w-4 h-4" />
-                  作者X@sasami フォローしてね！
-                </a>
-              </div>
-              <div className="mb-4">
-                <h1 className="text-2xl sm:text-3xl font-bold text-black">AIキャラプロンプトメーカー</h1>
-              </div>
-              <p className="text-gray-500 text-sm">選ぶだけでプロンプトを自動生成</p>
-              <div className="flex justify-center gap-2 mt-5 flex-wrap">
-                <button onClick={() => setCurrentPage('howto')} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-xl font-medium transition-all text-sm shadow-sm" style={{color: '#ff751f'}}><Icons.Info className="w-4 h-4" />使い方</button>
-                <button onClick={() => setShowSaveModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 text-gray-600 hover:text-emerald-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.Save className="w-4 h-4" />保存</button>
-                <button onClick={() => setShowLoadModal(true)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-600 hover:text-blue-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.FolderOpen className="w-4 h-4" />読込 {presets.length > 0 && <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded-full">{presets.length}</span>}</button>
-              </div>
-              <div className="flex justify-center gap-2 mt-3 flex-wrap">
-                <button onClick={generateRandom} className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-gradient-to-r from-pink-300 to-rose-400 hover:from-pink-400 hover:to-rose-500 text-white rounded-xl font-medium transition-all text-sm shadow-md shadow-pink-200"><Icons.Shuffle className="w-4 h-4" />ランダム生成</button>
-                {selectedCount > 0 && (<button onClick={resetAll} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 hover:bg-red-50 hover:border-red-200 text-gray-600 hover:text-red-600 rounded-xl font-medium transition-all text-sm shadow-sm"><Icons.RotateCcw className="w-4 h-4" />クリア</button>)}
-              </div>
-            </div>
-
-            <CollapsibleSection title="画質設定" defaultOpen={true}>
-              <div className="flex flex-wrap gap-2">{qualityOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={quality?.prompt === option.prompt} onClick={() => setQuality(quality?.prompt === option.prompt ? null : option)} />))}</div>
-              <p className="text-xs text-gray-400 mt-3">高画質・高解像度で生成したい場合に選択してください</p>
-            </CollapsibleSection>
-
-            <CollapsibleSection title="スタイル" defaultOpen={true}>
-              <div className="flex flex-wrap gap-2">{styleOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={style?.prompt === option.prompt} onClick={() => setStyle(style?.prompt === option.prompt ? null : option)} />))}</div>
-            </CollapsibleSection>
-
-            <CollapsibleSection title="キャラ設定">
-              <OptionGroup label={characterSettings.gender.label} options={characterSettings.gender.options} selectedValue={selections.gender} onSelect={(opt) => handleSelect('gender', opt)} />
-              <OptionGroup label={characterSettings.age.label} options={characterSettings.age.options} selectedValue={selections.age} onSelect={(opt) => handleSelect('age', opt)} />
-              <OptionGroup label={characterSettings.bodyType.label} options={characterSettings.bodyType.options} selectedValue={selections.bodyType} onSelect={(opt) => handleSelect('bodyType', opt)} />
-              <SubSection label="髪">
-                <OptionGroup label={characterSettings.hairLength.label} options={characterSettings.hairLength.options} selectedValue={selections.hairLength} onSelect={(opt) => handleSelect('hairLength', opt)} />
-                <OptionGroup label={characterSettings.hairStyle.label} options={getHairStyleOptions()} selectedValue={selections.hairStyle} onSelect={(opt) => handleSelect('hairStyle', opt)} />
-                <OptionGroup label={characterSettings.hairColor.label} options={characterSettings.hairColor.options} selectedValue={selections.hairColor} onSelect={(opt) => handleSelect('hairColor', opt)} customInput={true} customValue={customInputs.hairColor} onCustomChange={(v) => handleCustomInput('hairColor', v)} />
-              </SubSection>
-              <SubSection label="目">
-                <OptionGroup label={characterSettings.eyeType.label} options={characterSettings.eyeType.options} selectedValue={selections.eyeType} onSelect={(opt) => handleSelect('eyeType', opt)} />
-                <OptionGroup label={characterSettings.eyeState.label} options={characterSettings.eyeState.options} selectedValue={selections.eyeState} onSelect={(opt) => handleSelect('eyeState', opt)} />
-                <OptionGroup label={characterSettings.eyeColor.label} options={characterSettings.eyeColor.options} selectedValue={selections.eyeColor} onSelect={(opt) => handleSelect('eyeColor', opt)} customInput={true} customValue={customInputs.eyeColor} onCustomChange={(v) => handleCustomInput('eyeColor', v)} />
-                <OptionGroup label={characterSettings.eyeFeature.label} options={characterSettings.eyeFeature.options} selectedValue={selections.eyeFeature} onSelect={(opt) => handleSelect('eyeFeature', opt)} />
-              </SubSection>
-              <SubSection label="鼻"><OptionGroup label={characterSettings.nose.label} options={characterSettings.nose.options} selectedValue={selections.nose} onSelect={(opt) => handleSelect('nose', opt)} /></SubSection>
-              <SubSection label="口"><OptionGroup label={characterSettings.mouthState.label} options={characterSettings.mouthState.options} selectedValue={selections.mouthState} onSelect={(opt) => handleSelect('mouthState', opt)} /></SubSection>
-              <div className="border-t border-gray-100 pt-4 mt-4"><OptionGroup label={characterSettings.ears.label} options={characterSettings.ears.options} selectedValue={selections.ears} onSelect={(opt) => handleSelect('ears', opt)} /></div>
-            </CollapsibleSection>
-
-            <CollapsibleSection title="表情・感情">
-              <OptionGroup label={expressionSettings.expression.label} options={expressionSettings.expression.options} selectedValue={selections.expression} onSelect={(opt) => handleSelect('expression', opt)} />
-              <OptionGroup label={expressionSettings.emotion.label} options={expressionSettings.emotion.options} selectedValue={selections.emotion} onSelect={(opt) => handleSelect('emotion', opt)} />
-            </CollapsibleSection>
-
-            <CollapsibleSection title="ポーズ・アングル">
-              <OptionGroup label={poseSettings.pose.label} options={poseSettings.pose.options} selectedValue={selections.pose} onSelect={(opt) => handleSelect('pose', opt)} />
-              <CustomInput value={customInputs.pose || ''} onChange={(v) => handleCustomInput('pose', v)} placeholder="その他のポーズを入力..." />
-              <OptionGroup label={poseSettings.angle.label} options={poseSettings.angle.options} selectedValue={selections.angle} onSelect={(opt) => handleSelect('angle', opt)} />
-              <OptionGroup label={poseSettings.shotType.label} options={poseSettings.shotType.options} selectedValue={selections.shotType} onSelect={(opt) => handleSelect('shotType', opt)} />
-            </CollapsibleSection>
-
-            <CollapsibleSection title="シチュエーション・場所">
-              <div className="flex flex-wrap gap-2">{situationOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={selections.situation?.prompt === option.prompt} onClick={() => handleSelect('situation', option)} />))}</div>
-              <CustomInput value={customInputs.situation || ''} onChange={(v) => handleCustomInput('situation', v)} placeholder="その他のシチュエーションを入力..." />
-            </CollapsibleSection>
-
-            <CollapsibleSection title="服装">
-              <div className="flex flex-wrap gap-2">{clothingOptions.map(option => (<OptionButton key={option.label} label={option.label} selected={selections.clothing?.prompt === option.prompt} onClick={() => handleSelect('clothing', option)} />))}</div>
-              <CustomInput value={customInputs.clothing || ''} onChange={(v) => handleCustomInput('clothing', v)} placeholder="その他の服装を入力..." />
-            </CollapsibleSection>
-
-            <CollapsibleSection title="アクセサリー（複数可）">
-              <div className="flex flex-wrap gap-2">{accessoryOptions.map(option => (<MultiSelectButton key={option.label} label={option.label} selected={multiSelections.accessories.some(item => item.prompt === option.prompt)} onClick={() => handleMultiSelect('accessories', option)} />))}</div>
-            </CollapsibleSection>
-
-            <div className="mb-4 bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-300 shadow-md">
-              <div className="text-sm font-semibold text-gray-700 mb-2">フリーテキスト</div>
-              <textarea value={customText} onChange={(e) => setCustomText(e.target.value)} placeholder="追加のプロンプトを自由に入力（日本語OK）..." className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-violet-400 focus:ring-2 focus:ring-violet-100 focus:outline-none resize-none transition-all" rows={2} />
-            </div>
-
-            <div className="sticky bottom-4 bg-violet-100/95 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-violet-300/50">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-sm font-semibold text-gray-700">生成されたプロンプト</div>
-                <div className="flex gap-2">
-                  <button onClick={resetAll} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-600 rounded-lg text-sm font-medium transition-all"><Icons.RotateCcw className="w-4 h-4" />クリア</button>
-                  <button onClick={copyToClipboard} className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-violet-600 hover:bg-violet-700 text-white'}`}>{copied ? <Icons.Check className="w-4 h-4" /> : <Icons.Copy className="w-4 h-4" />}{copied ? 'コピー完了' : 'コピー'}</button>
-                </div>
-              </div>
-              <div className="text-sm text-gray-600 bg-gray-50 rounded-xl p-4 min-h-[60px] break-all border border-gray-100">{generatePrompt() || <span className="text-gray-400">オプションを選択してください</span>}</div>
-              <div className="flex items-center justify-between mt-3">
-                <div className="text-xs text-gray-400">Midjourney、ChatGPT、Geminiなどにペースト</div>
-                <button onClick={shareToTwitter} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm font-medium transition-all"><Icons.Twitter className="w-4 h-4" />共有</button>
-              </div>
-            </div>
-
-            <div className="text-center py-6 mt-6">
-              <p className="text-sm text-gray-400 mb-1">© 2025 AIGARDEN│キャラクタープロンプト作成ツール</p>
-              <p className="text-sm text-gray-400 mb-1"><a href="/privacy.html" className="hover:text-gray-600 underline">プライバシーポリシー</a></p>
-              <p className="text-xs text-gray-400 mb-3">当サイトのデザイン、UI、機能設計、コンセプトの模倣・複製はご遠慮ください。</p>
-              <a href="https://twitter.com/neko_smg" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-medium transition-all text-sm shadow-sm"><Icons.Twitter className="w-4 h-4" />@sasami</a>
-            </div>
-          </div>
-
-          {showSaveModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-              <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl">
-                <div className="flex justify-between items-center mb-4"><h3 className="font-bold text-gray-800">プリセットを保存</h3><button onClick={() => setShowSaveModal(false)} className="text-gray-400 hover:text-gray-600"><Icons.X className="w-5 h-5" /></button></div>
-                <input type="text" value={presetName} onChange={(e) => setPresetName(e.target.value)} placeholder="プリセット名を入力..." className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm mb-4 focus:border-violet-400 focus:ring-2 focus:ring-violet-100 focus:outline-none" />
-                <div className="flex gap-2"><button onClick={() => setShowSaveModal(false)} className="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium text-gray-600 transition-all">キャンセル</button><button onClick={savePreset} className="flex-1 py-2.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium transition-all">保存</button></div>
-              </div>
-            </div>
-          )}
-
-          {showLoadModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-              <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl max-h-[80vh] overflow-auto">
-                <div className="flex justify-between items-center mb-4"><h3 className="font-bold text-gray-800">プリセットを読み込み</h3><button onClick={() => setShowLoadModal(false)} className="text-gray-400 hover:text-gray-600"><Icons.X className="w-5 h-5" /></button></div>
-                {presets.length === 0 ? (<p className="text-gray-500 text-sm text-center py-8">保存されたプリセットがありません</p>) : (
-                  <div className="space-y-2">{presets.map(preset => (<div key={preset.id} className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl"><button onClick={() => loadPreset(preset)} className="flex-1 text-left text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors">{preset.name}</button><button onClick={() => deletePreset(preset.id)} className="p-2 text-gray-400 hover:text-red-500 transition-colors"><Icons.Trash2 className="w-4 h-4" /></button></div>))}</div>
-                )}
-              </div>
-            </div>
-          )}
+      <!-- プロフィール -->
+      <div class="profile">
+        <div class="profile-icon">
+          <img src="../images/pfp.png" alt="sasami" />
         </div>
-      );
-    }
+        <div>
+          <div class="profile-name">sasami</div>
+          <p class="profile-bio">
+            仮想通貨に関する情報発信をしています。<br>
+            エアドロップ調査・プロジェクトリサーチなど、自分が実際に調べたことをまとめたリサーチページや、FDV計算・AIプロンプト集など便利なツールを掲載しています。<br>
+          </p>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank" rel="noopener">X / Twitter ↗</a>
+            <a href="https://note.com/" target="_blank" rel="noopener">note ↗</a>
+          </div>
+        </div>
+      </div>
 
-    const root = ReactDOM.createRoot(document.getElementById('root')); root.render(<PromptHelper />);
-  </script>
+      <!-- コンテンツ -->
+      <div class="section-label">Contents</div>
+      <div class="card-list">
+
+        <a href="/crypto/" class="card">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-title">Crypto Tools</div>
+            <div class="card-desc">FDV計算、AIプロンプト集、Prediction、Researchなど仮想通貨に役立つ無料ツール集。</div>
+          </div>
+          <div class="card-arrow">›</div>
+        </a>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 AIGARDEN.</div>
+  </footer>
+
 </body>
 </html>
-
