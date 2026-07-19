@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src https://gamma-api.polymarket.com; style-src 'self' 'unsafe-inline';">
   <title>Prediction | Crypto Tools</title>
   <meta name="description" content="BTC/ETH価格予想、TGE前トークン、戦争・政治・コモディティの予測市場を一画面に。">
 
@@ -23,15 +21,6 @@
       --line: #1e1e1e;
       --accent: #0d5f66;
       --accent-light: rgba(13,95,102,0.08);
-      --green: #1a7a4a;
-      --green-light: rgba(26,122,74,0.08);
-      --red: #8b1a1a;
-      --red-light: rgba(139,26,26,0.08);
-      --amber: #92600a;
-      --amber-light: rgba(146,96,10,0.10);
-      --bar-green: #1a7a4a;
-      --bar-amber: #92600a;
-      --bar-red: #8b1a1a;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -92,25 +81,6 @@
     .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: var(--accent); font-weight: 600; }
 
-    /* ページヒーロー内の更新ボタン */
-    .refresh-hero-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 14px;
-      border: 1px solid var(--line);
-      background: transparent;
-      padding: 7px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .refresh-hero-btn:hover { background: var(--text); color: var(--bg); }
-
     /* ═══════════════════════════════════════
        PAGE HERO
     ═══════════════════════════════════════ */
@@ -129,203 +99,40 @@
     .page-hero .subtitle { color: var(--muted); font-size: 0.9rem; }
 
     /* ═══════════════════════════════════════
-       CATEGORY TABS
+       COMING SOON（準備中）
     ═══════════════════════════════════════ */
-    .category-tabs {
+    .coming-soon {
       display: flex;
-      border-bottom: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: 12px 20px;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      background: transparent;
-      border: none;
-      border-right: 1px solid var(--line);
-      color: var(--muted);
-      cursor: pointer;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
-    }
-    .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
-    .tab-btn.active { background: var(--text); color: var(--bg); }
-
-    .tab-icon {
-      width: 16px; height: 16px;
-      border-radius: 2px;
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .tab-icon-crypto { background: #e8830a; color:#fff; }
-    .tab-icon-tge    { background: #7c3aed; color:#fff; }
-    .tab-icon-war    { background: var(--red); color:#fff; }
-    .tab-icon-com    { background: var(--accent); color:#fff; }
-
-    /* ═══════════════════════════════════════
-       SUB-TABS (BTC/ETH/HYPE内)
-    ═══════════════════════════════════════ */
-    .sub-tabs {
-      display: flex;
-      border: 1px solid var(--line);
-      width: fit-content;
-      margin-bottom: 24px;
-    }
-    .sub-tab-btn {
-      padding: 8px 20px;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      background: transparent;
-      border: none;
-      border-right: 1px solid var(--line);
-      color: var(--muted);
-      cursor: pointer;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-    .sub-tab-btn:last-child { border-right: none; }
-    .sub-tab-btn:hover { background: var(--accent-light); color: var(--accent); }
-    .sub-tab-btn.active { background: var(--text); color: var(--bg); }
-
-    .sub-content { display: none; }
-    .sub-content.active { display: block; }
-
-    /* ═══════════════════════════════════════
-       TAB CONTENT
-    ═══════════════════════════════════════ */
-    .tab-content { display: none; padding: 28px 0; }
-    .tab-content.active { display: block; }
-
-    /* セクションラベル */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      padding: 0 0 10px;
-      margin-top: 28px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid rgba(30,30,30,0.15);
-    }
-    .section-label:first-child { margin-top: 0; }
-
-    /* カードグリッド */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1px;
-      background: rgba(30,30,30,0.28);
-      border: 1px solid rgba(30,30,30,0.28);
-      margin-bottom: 2px;
-    }
-
-    .card {
-      background: var(--bg);
-      padding: 18px 20px;
-      transition: background 0.15s;
-    }
-    .card:hover { background: rgba(13,95,102,0.04); }
-
-    .card-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      line-height: 1.45;
-    }
-    .card-title a { color: var(--text); transition: color 0.2s; }
-    .card-title a:hover { color: var(--accent); }
-
-    /* マーケット行 */
-    .market-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-    .market-label {
-      flex: 1;
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .bar-wrap {
-      flex: 1;
-      height: 4px;
-      background: rgba(30,30,30,0.1);
-      overflow: hidden;
-    }
-    .bar { height: 100%; transition: width 0.4s; }
-    .prob {
-      font-size: 13px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      width: 42px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    /* カードフッター */
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(30,30,30,0.08);
-      font-size: 11px;
-      color: var(--muted);
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-    .vol-badge {
-      background: var(--accent-light);
-      color: var(--accent);
-      padding: 2px 7px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .days-badge {
-      background: rgba(146,96,10,0.1);
-      color: var(--amber);
-      padding: 2px 7px;
-      font-size: 11px;
-    }
-
-    /* ローディング */
-    .loading {
       text-align: center;
-      padding: 60px 20px;
+      padding: 100px 20px 120px;
+      border-bottom: 1px solid var(--line);
+    }
+    .coming-soon .badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 5px 14px;
+      margin-bottom: 26px;
+    }
+    .coming-soon h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+    .coming-soon p {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 0.95rem;
+      max-width: 460px;
+      line-height: 1.9;
     }
-    .spinner {
-      display: inline-block;
-      width: 18px; height: 18px;
-      border: 2px solid rgba(30,30,30,0.1);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
 
     /* ═══════════════════════════════════════
        FOOTER PROFILE — トップページと同一
@@ -374,8 +181,7 @@
       .nav { flex-wrap: wrap; gap: 12px; }
       .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
       .page-hero h1 { font-size: 2.4rem; }
-      .tab-btn { padding: 10px 14px; font-size: 11px; }
-      .grid { grid-template-columns: 1fr; }
+      .coming-soon { padding: 70px 20px 90px; }
       .profile-section { flex-direction: column; }
       .profile-icon { width: 96px; height: 96px; }
       .profile-section h2 { font-size: 38px; }
@@ -407,45 +213,15 @@
       <!-- PAGE HERO -->
       <div class="page-hero">
         <h1>Prediction.</h1>
-        <p class="subtitle">Polymarket — 予測市場のリアルタイムダッシュボード。<br>本ダッシュボードは、予測市場の集合知を参考情報として可視化したものです。日本国内からの利用を推奨・勧誘するものではありません。</p>
-        <button id="refresh-btn" class="refresh-hero-btn" onclick="loadAll()">↺ <span id="refresh-label">更新</span></button>
+        <p class="subtitle">Polymarket — 予測市場のリアルタイムダッシュボード。</p>
       </div>
 
-      <!-- CATEGORY TABS -->
-      <div class="category-tabs">
-        <button class="tab-btn active" onclick="switchTab('tab-btc', this)">
-          <span class="tab-icon tab-icon-crypto">₿</span>
-          <span data-i18n="tab_btc"></span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('tab-tge', this)">
-          <span class="tab-icon tab-icon-tge">🚀</span>
-          <span data-i18n="tab_tge"></span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('tab-pol', this)">
-          <span class="tab-icon tab-icon-war">🌏</span>
-          <span data-i18n="tab_pol"></span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('tab-com', this)">
-          <span class="tab-icon tab-icon-com">💹</span>
-          <span data-i18n="tab_com"></span>
-        </button>
+      <!-- ═══════════════ 準備中 ═══════════════ -->
+      <div class="coming-soon">
+        <span class="badge">Coming Soon</span>
+        <h2>準備中</h2>
+        <p>このページは現在準備中です。<br>予測市場ダッシュボードは近日公開予定です。もうしばらくお待ちください。</p>
       </div>
-
-      <!-- TAB CONTENTS -->
-      <div id="tab-btc" class="tab-content active">
-        <!-- サブタブ -->
-        <div class="sub-tabs">
-          <button class="sub-tab-btn active" onclick="switchSubTab('tab-btc', 'sub-bitcoin', this)">Bitcoin</button>
-          <button class="sub-tab-btn" onclick="switchSubTab('tab-btc', 'sub-ethereum', this)">Ethereum</button>
-          <button class="sub-tab-btn" onclick="switchSubTab('tab-btc', 'sub-hype', this)">HYPE</button>
-        </div>
-        <div id="sub-bitcoin" class="sub-content active"></div>
-        <div id="sub-ethereum" class="sub-content"></div>
-        <div id="sub-hype" class="sub-content"></div>
-      </div>
-      <div id="tab-tge" class="tab-content"></div>
-      <div id="tab-pol" class="tab-content"></div>
-      <div id="tab-com" class="tab-content"></div>
 
       <!-- FOOTER PROFILE -->
       <section class="profile-section">
@@ -469,319 +245,5 @@
     <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
   </footer>
 
-  <script>
-    /* ─── i18n ─── */
-    const I18N = {
-      ja: {
-        tab_btc:      'BTC / ETH / HYPE',
-        tab_tge:      'TGE前トークン',
-        tab_pol:      '戦争・政治',
-        tab_com:      'コモディティ',
-        refresh:      '更新',
-        loading:      '読み込み中...',
-        nodata:       'データなし',
-        vol:          '出来高 ',
-        ended:        '終了',
-        today:        '本日',
-        days_left:    '日残り',
-        markets_unit: '件',
-        error:        'エラー: ',
-        sec_bitcoin:  'Bitcoin',
-        sec_ethereum: 'Ethereum',
-        sec_hype:     'Hyperliquid (HYPE)',
-        sec_pre:      'TGE / Pre-Market',
-        sec_iran:     'イラン',
-        sec_ukraine:  'ウクライナ',
-        sec_economy:  'エコノミー',
-        sec_oil:      '原油 / コモディティ',
-        sec_commodities: '商品先物',
-        sec_stocks:   '株式',
-      },
-      en: {
-        tab_btc:      'BTC / ETH / HYPE',
-        tab_tge:      'Pre-TGE Tokens',
-        tab_pol:      'War & Politics',
-        tab_com:      'Commodities',
-        refresh:      'Refresh',
-        loading:      'Loading...',
-        nodata:       'No data',
-        vol:          'Vol ',
-        ended:        'Ended',
-        today:        'Today',
-        days_left:    'd left',
-        markets_unit: ' mkts',
-        error:        'Error: ',
-        sec_bitcoin:  'Bitcoin',
-        sec_ethereum: 'Ethereum',
-        sec_hype:     'Hyperliquid (HYPE)',
-        sec_pre:      'TGE / Pre-Market',
-        sec_iran:     'Iran',
-        sec_ukraine:  'Ukraine',
-        sec_economy:  'Economy',
-        sec_oil:      'Oil / Commodities',
-        sec_commodities: 'Commodities Futures',
-        sec_stocks:   'Stocks',
-      }
-    };
-
-    /* ─── ノイズ除外キーワード ─── */
-    const EXCLUDE_KW = [
-      '5min','15min','1-hour','4-hour','daily candle',
-      'up or down daily','up or down 5','up or down 15','up or down 4','up or down 1-',
-      'btc up or down','eth up or down',
-    ];
-
-    /* ─── タブ設定 ─── */
-    const TABS = {
-      'tab-btc': [
-        { secKey:'sec_bitcoin',   tagSlug:'bitcoin',      minVol:500000, subTab:'sub-bitcoin' },
-        { secKey:'sec_ethereum',  tagSlug:'ethereum',     minVol:500000, subTab:'sub-ethereum' },
-        { secKey:'sec_hype',      tagSlug:'hyperliquid',  minVol:0,      subTab:'sub-hype' },
-      ],
-      'tab-tge': [
-        { secKey:'sec_pre',       tagSlug:'pre-market',  minVol:0 },
-      ],
-      'tab-pol': [
-        { secKey:'sec_geo',       tagSlug:'geopolitics', minVol:500000 },
-        { secKey:'sec_iran',      tagSlug:'iran',        minVol:500000 },
-        { secKey:'sec_ukraine',   tagSlug:'ukraine',     minVol:500000 },
-        { secKey:'sec_economy',   tagSlug:'economy',     minVol:500000 },
-      ],
-      'tab-com': [
-        { secKey:'sec_oil',          tagSlug:'oil',         minVol:0 },
-        { secKey:'sec_commodities',  tagSlug:'commodities', minVol:0 },
-        { secKey:'sec_stocks',       tagSlug:'stocks',      minVol:500000 },
-      ],
-    };
-
-    let lang = localStorage.getItem('pm_lang') || 'ja';
-    let refreshTimer = null;
-    const REFRESH_MS = 60 * 60 * 1000;
-
-    const t = k => I18N[lang][k] || k;
-
-    function applyLang() {
-      const refreshLabel = document.getElementById('refresh-label');
-      if (refreshLabel) refreshLabel.textContent = t('refresh');
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.textContent = t(el.dataset.i18n);
-      });
-    }
-
-    function switchTab(id, btn) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      btn.classList.add('active');
-    }
-
-    function barColor(p) {
-      if (p >= 70) return 'var(--bar-green)';
-      if (p >= 40) return 'var(--bar-amber)';
-      return 'var(--bar-red)';
-    }
-
-    function fmtVol(v) {
-      v = parseFloat(v) || 0;
-      if (v >= 1e9) return '$'+(v/1e9).toFixed(1)+'B';
-      if (v >= 1e6) return '$'+(v/1e6).toFixed(1)+'M';
-      if (v >= 1e3) return '$'+(v/1e3).toFixed(0)+'K';
-      return '$'+v.toFixed(0);
-    }
-
-    function fmtDays(end) {
-      if (!end) return '';
-      const d = Math.round((new Date(end) - Date.now()) / 86400000);
-      if (d < 0)  return t('ended');
-      if (d === 0) return t('today');
-      return d + t('days_left');
-    }
-
-    function isExcluded(title) {
-      const tl = (title || '').toLowerCase();
-      return EXCLUDE_KW.some(kw => tl.includes(kw));
-    }
-
-    /* ─── API fetch ─── */
-    async function fetchSection(tagSlug, minVol) {
-      const p = new URLSearchParams({
-        tag_slug:  tagSlug,
-        limit:     '50',
-        order:     'volume',
-        ascending: 'false',
-        active:    'true',
-        closed:    'false',
-        archived:  'false',
-      });
-      // APIレベルの出来高フィルター（minVol指定時 or 一律$50K以上）
-      const vol_min = Math.max(minVol, 50000);
-      p.set('volume_num_min', String(vol_min));
-      const res = await fetch('https://gamma-api.polymarket.com/events?' + p);
-      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-      return res.json();
-    }
-
-    /* クライアント側でも終了済み・低出来高をダブルチェック */
-    function isActiveEvent(ev) {
-      if (ev.closed   === true)  return false;
-      if (ev.archived === true)  return false;
-      if (ev.active   === false) return false;
-      if (ev.ended    === true)  return false;
-      // 終了日が過去のものを除外
-      if (ev.endDate && new Date(ev.endDate) < new Date()) return false;
-      // 出来高 $50K 未満を除外
-      if ((parseFloat(ev.volume) || 0) < 50000) return false;
-      return true;
-    }
-
-    function buildCard(ev) {
-      const title = ev.title || ev.slug || '';
-      if (isExcluded(title)) return null;
-
-      const slug = ev.slug || ev.id;
-      const url = 'https://polymarket.com/event/' + slug;
-      const markets = Array.isArray(ev.markets) ? ev.markets : [];
-      const vol = parseFloat(ev.volume) || 0;
-      const endDate = ev.endDate;
-
-      function getProb(m) {
-        try {
-          const prices = typeof m.outcomePrices === 'string'
-            ? JSON.parse(m.outcomePrices)
-            : (Array.isArray(m.outcomePrices) ? m.outcomePrices : []);
-          return Math.round(parseFloat(prices[0] || 0) * 100);
-        } catch(e) { return 0; }
-      }
-
-      const sorted = [...markets].sort((a,b) => getProb(b) - getProb(a)).slice(0, 4);
-
-      let rowsHTML = '';
-      sorted.forEach(m => {
-        const prob = getProb(m);
-        const color = barColor(prob);
-        const label = m.groupItemTitle || m.question || '';
-        const safe = label.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-        rowsHTML += `<div class="market-row">
-          <span class="market-label" title="${safe}">${safe}</span>
-          <div class="bar-wrap"><div class="bar" style="width:${prob}%;background:${color}"></div></div>
-          <span class="prob" style="color:${color}">${prob}%</span>
-        </div>`;
-      });
-
-      if (!rowsHTML) {
-        const safe = title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-        rowsHTML = `<div class="market-row">
-          <span class="market-label">${safe}</span>
-          <div class="bar-wrap"><div class="bar" style="width:50%;background:var(--accent)"></div></div>
-          <span class="prob" style="color:var(--accent)">—</span>
-        </div>`;
-      }
-
-      const safeTitle = title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      const safeUrl = url.replace(/"/g,'&quot;');
-
-      return `<div class="card">
-        <div class="card-title"><a href="${safeUrl}" target="_blank" rel="noopener">${safeTitle}</a></div>
-        ${rowsHTML}
-        <div class="card-footer">
-          <span class="vol-badge">${t('vol')}${fmtVol(vol)}</span>
-          <span>${markets.length}${t('markets_unit')}</span>
-          <span class="days-badge">${fmtDays(endDate)}</span>
-        </div>
-      </div>`;
-    }
-
-    function switchSubTab(tabId, subId, btn) {
-      const tabEl = document.getElementById(tabId);
-      tabEl.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-      tabEl.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(subId).classList.add('active');
-    }
-
-    async function loadTab(tabId) {
-      const sections = TABS[tabId];
-      const container = document.getElementById(tabId);
-      if (!sections || !container) return;
-
-      // サブタブあり（tab-btc）
-      const hasSubTabs = sections.some(s => s.subTab);
-
-      if (!hasSubTabs) {
-        container.innerHTML = `<div class="loading"><span class="spinner"></span>${t('loading')}</div>`;
-      } else {
-        // サブコンテナにローディング表示
-        sections.forEach(sec => {
-          const sub = document.getElementById(sec.subTab);
-          if (sub) sub.innerHTML = `<div class="loading"><span class="spinner"></span>${t('loading')}</div>`;
-        });
-      }
-
-      try {
-        const seen = new Set();
-
-        for (const sec of sections) {
-          let events;
-          try { events = await fetchSection(sec.tagSlug, sec.minVol); }
-          catch(e) { continue; }
-
-          const cards = events
-            .filter(ev => {
-              const k = ev.slug || ev.id;
-              if (seen.has(k)) return false;
-              seen.add(k);
-              return isActiveEvent(ev); // 終了済み・低出来高を除外
-            })
-            .map(buildCard)
-            .filter(Boolean);
-
-          if (hasSubTabs) {
-            // サブタブモード：各セクションを専用コンテナへ
-            const sub = document.getElementById(sec.subTab);
-            if (!sub) continue;
-            if (!cards.length) {
-              sub.innerHTML = `<div class="loading">${t('nodata')}</div>`;
-              continue;
-            }
-            const grid = document.createElement('div');
-            grid.className = 'grid';
-            grid.innerHTML = cards.join('');
-            sub.innerHTML = '';
-            sub.appendChild(grid);
-          } else {
-            // 通常モード：初回セクションでローディングをクリア
-            if (container.querySelector('.loading')) container.innerHTML = '';
-            if (!cards.length) continue;
-            const secLabel = document.createElement('div');
-            secLabel.className = 'section-label';
-            secLabel.dataset.secKey = sec.secKey;
-            secLabel.textContent = t(sec.secKey);
-            const grid = document.createElement('div');
-            grid.className = 'grid';
-            grid.innerHTML = cards.join('');
-            container.appendChild(secLabel);
-            container.appendChild(grid);
-          }
-        }
-
-        if (!hasSubTabs && container.querySelectorAll('.grid').length === 0) {
-          container.innerHTML = `<div class="loading">${t('nodata')}</div>`;
-        }
-      } catch(e) {
-        container.innerHTML = `<div class="loading">${t('error')}${e.message}</div>`;
-      }
-    }
-
-    function loadAll() {
-      clearTimeout(refreshTimer);
-      Object.keys(TABS).forEach(id => loadTab(id));
-      refreshTimer = setTimeout(loadAll, REFRESH_MS);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      applyLang();
-      loadAll();
-    });
-  </script>
 </body>
 </html>
