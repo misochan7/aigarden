@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Meteoraステークプログラム リサーチ — METステークでDLMM手数料を分配 | AIGARDEN</title>
+  <meta name="description" content="SolanaのDEX Meteoraが開始したステークプログラムを解説。METトークンをステークするとDLMM手数料の10%が分配され、招待による報酬もある仕組みや引き出し条件、注意点を整理しました。">
+  <meta property="og:title" content="Meteoraステークプログラム リサーチ — METステークでDLMM手数料を分配">
+  <meta property="og:description" content="METトークンのステークでDLMM手数料の10%が分配されるMeteoraの新プログラムを整理しました。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/meteora-stake.html">
+  <meta property="og:site_name" content="AIGARDEN">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f2ec;
+      --text: #111111;
+      --muted: #666666;
+      --line: #1e1e1e;
+      --accent: #0d5f66;
+      --accent-light: rgba(13,95,102,0.08);
+      --amber: #92600a;
+      --amber-light: rgba(146,96,10,0.08);
+      --red: #8b1a1a;
+      --red-light: rgba(139,26,26,0.07);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ═══ HEADER ═══ */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .brand:hover { opacity: 0.65; }
+    .diamond {
+      width: 18px; height: 18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      align-items: center;
+    }
+    .nav-links a { color: var(--muted); transition: color 0.2s; letter-spacing: 0.02em; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .lang-switch button {
+      background: transparent; border: none;
+      padding: 6px 10px; cursor: pointer;
+      font-size: 11px; font-family: 'Inter', sans-serif;
+      font-weight: 600; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .lang-switch button.active { background: var(--text); color: white; }
+
+    /* ═══ ARTICLE HEADER ═══ */
+    .article-hero {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .breadcrumb a { color: var(--accent); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: 0.4; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.75;
+    }
+    .notice-date {
+      font-size: 0.9rem !important;
+      font-weight: 600;
+      color: #5a3c06 !important;
+      letter-spacing: 0.02em;
+      padding-bottom: 10px;
+      margin-bottom: 2px !important;
+      border-bottom: 1px solid rgba(146,96,10,0.2);
+    }
+
+    /* ═══ ARTICLE BODY ═══ */
+    .article-body {
+      max-width: 720px;
+      padding: 44px 0 60px;
+    }
+
+    /* 注意事項ボックス（本文冒頭） */
+    .notice-box {
+      border: 1px solid rgba(146,96,10,0.3);
+      background: var(--amber-light);
+      padding: 16px 20px;
+      margin-bottom: 40px;
+    }
+    .notice-box p {
+      font-size: 0.88rem;
+      color: #5a3c06;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .notice-box p + p { margin-top: 8px; }
+    .notice-box a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .notice-box a:hover { opacity: 0.75; }
+
+    /* セクション */
+    .section {
+      margin-bottom: 44px;
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(30,30,30,0.15);
+    }
+    .section p {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ポイントリスト */
+    .point-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+    .point-list li {
+      font-size: 0.97rem;
+      color: #222;
+      line-height: 1.8;
+      padding: 8px 0 8px 18px;
+      border-bottom: 1px solid rgba(30,30,30,0.07);
+      position: relative;
+    }
+    .point-list li:last-child { border-bottom: none; }
+    .point-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* 懸念点ボックス */
+    .concern-box {
+      border: 1px solid rgba(139,26,26,0.25);
+      background: var(--red-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .concern-box .concern-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .concern-box ul {
+      list-style: none;
+    }
+    .concern-box ul li {
+      font-size: 0.93rem;
+      color: #3a1010;
+      line-height: 1.8;
+      padding: 6px 0 6px 16px;
+      border-bottom: 1px solid rgba(139,26,26,0.1);
+      position: relative;
+    }
+    .concern-box ul li:last-child { border-bottom: none; }
+    .concern-box ul li::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* 結論ボックス */
+    .verdict-box {
+      border: 1px solid rgba(13,95,102,0.3);
+      background: var(--accent-light);
+      padding: 20px 22px;
+      margin-top: 12px;
+    }
+    .verdict-box .verdict-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .verdict-box p {
+      font-size: 0.95rem;
+      color: #0a3b40;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .verdict-box p:last-child { margin-bottom: 0; }
+
+    /* 外部リンクボタン */
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: var(--text);
+      border: 1px solid var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: white;
+      transition: all 0.2s;
+    }
+    .ext-link:hover { background: #333; border-color: #333; color: white; }
+    .ext-link .code-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+    }
+
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .link-buttons .ext-link,
+    .link-buttons .x-btn { margin-top: 0; }
+    .x-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .x-btn:hover { background: var(--text); color: var(--bg); }
+
+    /* ナビゲーション（前後記事） */
+    .article-nav {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      margin-top: 0;
+      gap: 20px;
+    }
+    .article-nav a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .article-nav a:hover { color: var(--accent); }
+
+    /* ═══ FOOTER PROFILE ═══ */
+    .profile-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--line);
+    }
+    .profile-icon {
+      width: 140px; height: 140px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .profile-icon img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .profile-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px; margin-bottom: 8px;
+    }
+    .profile-links {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+    }
+    .profile-links a {
+      border: 1px solid var(--line);
+      padding: 10px 18px; font-size: 13px; transition: all 0.2s;
+    }
+    .profile-links a:hover { background: var(--text); color: white; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
+      .article-hero h1 { font-size: 1.8rem; }
+      .profile-section { flex-direction: column; }
+      .profile-icon { width: 96px; height: 96px; }
+      .profile-section h2 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <div class="container nav">
+      <a href="/crypto/" class="brand">
+        <div class="diamond"></div>
+        <span>CRYPTO TOOLS</span>
+        <span style="font-weight:400; opacity:.7;">BY SASAMI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/crypto/fdv/">FDV Calculator</a>
+        <a href="/crypto/prompt/">AI Prompts</a>
+        <a href="/crypto/prediction/">Prediction</a>
+        <a href="/crypto/research/" class="active">Research</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ARTICLE HEADER -->
+      <div class="article-hero">
+        <div class="breadcrumb">
+          <a href="/crypto/research/">Research</a>
+          <span>›</span>
+          
+          <span>Meteora</span>
+        </div>
+
+        <div class="project-tag">Solana / DeFi</div>
+
+        <h1>Meteora ステークプログラム — METステークでDLMM手数料を分配</h1>
+
+        <p class="lead">
+          Solanaの主要DEX「Meteora」が、ガバナンストークンMETのステークプログラムを開始しました。ステーク量と期間に応じてDLMM（流動性プール）の手数料の一部が分配される仕組みで、招待コードによる追加報酬もあります。
+        </p>
+      </div>
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body">
+
+        <!-- 注意事項＋調査時点（全記事共通・日付だけ書き換える） -->
+        <div class="notice-box">
+
+          <p class="notice-date">調査時点：2026年7月21日 午前4:40</p>
+          <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は<a href="https://x.com/neko_smg/status/2079290432815792405" target="_blank" rel="noopener noreferrer">元のポスト</a>をご確認ください。</p>
+        </div>
+
+        
+        <div class="section">
+          <h2 class="section-title">どんなサービスか</h2>
+          <p>
+            Meteoraは、Solana上で流動性提供（LP）を行えるDEXで、なかでもDLMM（Dynamic Liquidity Market Maker）という価格帯ごとに流動性を配置できる仕組みが特徴です。今回開始したステークプログラムは、ガバナンストークンのMETをステーク（預け入れ）することで、そのDLMMで発生する取引手数料の一部を受け取れるというものです。
+          </p>
+          <p>
+            分配の大きさは「ステークしたMETの量 × ステーク期間」で決まります。長く多く預けるほど取り分が増える設計です。METを保有していて、Meteoraのエコシステムに中長期で関わりたい人向けの仕組みと言えます。
+          </p>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">仕組みのポイント</h2>
+          <ul class="point-list">
+            <li>METのステーク量 × 期間に応じて、DLMM手数料の10%が分配される。</li>
+            <li>引き出しには7日間の待機期間があり、その間は該当サイクルの報酬が失効する。</li>
+            <li>招待した相手の対象LP手数料の8%を獲得できる（上限は自分のステーク量で決まる）。</li>
+            <li>誰かの招待コードを踏んで始めると、自分のLP手数料の2%がUSDCで還元される。</li>
+            <li>自分の招待コードを生成するには、まず他の人のコードで始める必要がある。</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">懸念点</h2>
+          <div class="concern-box">
+            <div class="concern-title">チェックすべきポイント</div>
+            <ul>
+              <li>引き出しに7日の待機期間があり、その間の報酬が失効するため、資金の流動性が下がる。</li>
+              <li>分配原資はDLMMの取引手数料に依存するため、出来高が落ちると報酬も減る。</li>
+              <li>開始間もないプログラムで、条件やパラメータが今後変更される可能性がある。</li>
+              <li>METの価格変動リスクをそのまま負う点に注意。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2 class="section-title">現時点の判断</h2>
+          <div class="verdict-box">
+            <div class="verdict-title">まとめ</div>
+            <p>
+              筆者はとりあえず1,000ドル分を入れて触ってみています。METを保有していてMeteoraを継続的に使う予定があるなら、手数料分配を受け取れる分だけ持っているより有利になり得ます。
+            </p>
+            <p>
+              一方で7日の待機期間や報酬失効の条件があるため、すぐ動かしたい資金を入れるのには向きません。まずは少額で挙動を確認しつつ、出来高や報酬の実績を見て判断するのが無難です。
+            </p>
+          </div>
+
+          <div class="link-buttons">
+            <!-- 外部リンクボタン（公式サイト・Waitlistなど。不要なら削除） -->
+            <a href="https://app.meteora.ag/ref/EJJ2PTHPEB" target="_blank" rel="noopener noreferrer" class="ext-link">
+              Meteoraを見る（招待リンク）
+              <span class="code-note">コード：EJJ2PTHPEB</span>
+            </a>
+
+            <a href="https://x.com/neko_smg/status/2079290432815792405" target="_blank" rel="noopener noreferrer" class="x-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Xでポストを見る
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- 前後ナビ -->
+      <div class="article-nav">
+        <a href="/crypto/research/">← Research 一覧に戻る</a>
+        <span></span>
+      </div>
+
+      <!-- FOOTER PROFILE -->
+      <section class="profile-section">
+        <div class="profile-icon">
+          <img src="../../images/pfp.png" alt="sasami profile" />
+        </div>
+        <div>
+          <h2>sasami</h2>
+          <div class="profile-links">
+            <a href="https://x.com/neko_smg" target="_blank">X / Twitter →</a>
+            <a href="https://note.com/neko_smg" target="_blank">note →</a>
+            <a href="https://ai-garden-lab.com/" target="_blank">AIGARDEN →</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 AIGARDEN Crypto Tools.</div>
+  </footer>
+
+</body>
+</html>
