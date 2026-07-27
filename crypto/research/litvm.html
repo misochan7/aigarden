@@ -135,25 +135,16 @@
     .article-hero .lead {
       font-size: 1.05rem;
       color: #333;
-      max-width: 680px;
       line-height: 1.75;
     }
-    .post-date {
-      font-size: 14px;
-      color: var(--text);
+    .notice-date {
+      font-size: 0.9rem !important;
+      font-weight: 600;
+      color: #5a3c06 !important;
       letter-spacing: 0.02em;
-      display: block;
-      border: 1px solid rgba(30,30,30,0.3);
-      border-bottom: none;
-      padding: 8px 14px 4px;
-    }
-    .disclaimer-inline {
-      font-size: 14px;
-      color: #c45200;
-      display: block;
-      border: 1px solid rgba(30,30,30,0.3);
-      border-top: none;
-      padding: 4px 14px 8px;
+      padding-bottom: 10px;
+      margin-bottom: 2px !important;
+      border-bottom: 1px solid rgba(146,96,10,0.2);
     }
 
     /* ═══ ARTICLE BODY ═══ */
@@ -161,6 +152,27 @@
       max-width: 720px;
       padding: 44px 0 60px;
     }
+
+    /* 注意事項ボックス（本文冒頭） */
+    .notice-box {
+      border: 1px solid rgba(146,96,10,0.3);
+      background: var(--amber-light);
+      padding: 16px 20px;
+      margin-bottom: 40px;
+    }
+    .notice-box p {
+      font-size: 0.88rem;
+      color: #5a3c06;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .notice-box p + p { margin-top: 8px; }
+    .notice-box a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .notice-box a:hover { opacity: 0.75; }
 
     /* セクション */
     .section {
@@ -263,6 +275,43 @@
     }
     .verdict-box p:last-child { margin-bottom: 0; }
 
+    /* ═══ この記事専用 ═══ */
+    /* 追記ノート（後から分かったこと） */
+    .update-note {
+      border-left: 3px solid var(--amber);
+      background: var(--amber-light);
+      padding: 14px 18px;
+      margin-top: 16px;
+    }
+    .update-note p {
+      font-size: 0.9rem !important;
+      color: #5a3c06;
+      line-height: 1.75;
+      margin-bottom: 0 !important;
+    }
+    .update-note .update-label {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .update-note ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .update-note ul li {
+      font-size: 0.9rem;
+      color: #5a3c06;
+      line-height: 1.75;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+    .update-note ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      opacity: 0.6;
+      font-size: 11px;
+    }
+
     /* 外部リンクボタン */
     .ext-link {
       display: inline-flex;
@@ -285,15 +334,16 @@
       font-weight: 400;
     }
 
-    /* Xボタン */
-    .x-post-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 44px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(30,30,30,0.15);
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
+    .link-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
     }
+    .link-buttons .ext-link,
+    .link-buttons .x-btn { margin-top: 0; }
     .x-btn {
       display: inline-flex;
       align-items: center;
@@ -405,18 +455,25 @@
           <span>›</span>
           <span>LitVM</span>
         </div>
+
         <div class="project-tag">Litecoin / L2 テストネット</div>
+
         <h1>LitVM — Litecoin L2テストネット、ブリッジするだけでOKだが品質に難あり</h1>
+
         <p class="lead">
           急に煽られ始めたLitVMのテストネットを調べてみました。参加自体は新規ウォレット作成＋ブリッジのみでシンプル。ただしサイトの品質やエコシステムの中身に疑問を感じる点が複数ありました。
         </p>
-        <div style="display:inline-flex; flex-direction:column; margin-top:20px;">
-          <p class="post-date">調査時点：2026年4月18日 午前3:30</p>
-          <p class="disclaimer-inline">※ 本記事は投稿時点の情報です。投資判断は自己責任でお願いします。</p>
-        </div>
       </div>
 
+      <!-- ARTICLE BODY -->
       <article class="article-body">
+
+        <!-- 注意事項＋調査時点 -->
+        <div class="notice-box">
+          <p class="notice-date">調査時点：2026年4月18日 午前3:30</p>
+          <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は<a href="https://x.com/neko_smg/status/2045208240745799737" target="_blank" rel="noopener noreferrer">元のポスト</a>をご確認ください。</p>
+        </div>
 
         <!-- 参加方法 -->
         <div class="section">
@@ -441,6 +498,20 @@
               <li>全体的に安っぽくやる気を感じられない仕上がり</li>
             </ul>
           </div>
+
+          <!-- 追記：改めて調べた結果 -->
+          <div class="update-note">
+            <p>
+              <span class="update-label">【追記】</span>
+              改めてLitVMを調べましたが、普通に厳しいという印象です。
+            </p>
+            <ul>
+              <li>色んなところで公式のポイントシステムらしきものが始まっている</li>
+              <li>Xの接続国が微妙</li>
+              <li>Litecoin本体があまり関わっていない感じがする</li>
+              <li>いまどきOnChainGM・InfinityName・OmniHubを公式に載せている時点で察し。エコシステムが溝口界隈</li>
+            </ul>
+          </div>
         </div>
 
         <!-- まとめ -->
@@ -452,16 +523,16 @@
               Litecoin公式にフォローされており主体は大きいが、現時点のクオリティは低い。参加自体はブリッジするだけで簡単なので、新規ウォレットで軽く触っておく程度はアリ。エコシステムが育つかどうかは今後次第。
             </p>
           </div>
-        </div>
 
-        <!-- Xボタン -->
-        <div class="x-post-link">
-          <a href="https://x.com/neko_smg/status/2045208240745799737" target="_blank" rel="noopener noreferrer" class="x-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-            Xでポストを見る
-          </a>
+          <!-- 下部ボタン（Xポスト） -->
+          <div class="link-buttons">
+            <a href="https://x.com/neko_smg/status/2045208240745799737" target="_blank" rel="noopener noreferrer" class="x-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Xでポストを見る
+            </a>
+          </div>
         </div>
 
       </article>
