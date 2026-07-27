@@ -43,6 +43,7 @@
       margin: 0 auto;
     }
 
+    /* ═══ HEADER ═══ */
     header {
       border-bottom: 1px solid var(--line);
       padding: 18px 0;
@@ -94,6 +95,7 @@
     }
     .lang-switch button.active { background: var(--text); color: white; }
 
+    /* ═══ ARTICLE HEADER ═══ */
     .article-hero {
       padding: 48px 0 40px;
       border-bottom: 1px solid var(--line);
@@ -133,7 +135,6 @@
     .article-hero .lead {
       font-size: 1.05rem;
       color: #333;
-      max-width: 680px;
       line-height: 1.75;
     }
     .notice-date {
@@ -146,11 +147,13 @@
       border-bottom: 1px solid rgba(146,96,10,0.2);
     }
 
+    /* ═══ ARTICLE BODY ═══ */
     .article-body {
       max-width: 720px;
       padding: 44px 0 60px;
     }
 
+    /* 注意事項ボックス（本文冒頭） */
     .notice-box {
       border: 1px solid rgba(146,96,10,0.3);
       background: var(--amber-light);
@@ -164,7 +167,14 @@
       margin: 0;
     }
     .notice-box p + p { margin-top: 8px; }
+    .notice-box a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .notice-box a:hover { opacity: 0.75; }
 
+    /* セクション */
     .section {
       margin-bottom: 44px;
     }
@@ -184,6 +194,7 @@
     }
     .section p:last-child { margin-bottom: 0; }
 
+    /* ポイントリスト */
     .point-list {
       list-style: none;
       margin-top: 4px;
@@ -205,6 +216,7 @@
       font-size: 12px;
     }
 
+    /* 懸念点ボックス */
     .concern-box {
       border: 1px solid rgba(139,26,26,0.25);
       background: var(--red-light);
@@ -240,6 +252,7 @@
       font-size: 11px;
     }
 
+    /* 結論ボックス */
     .verdict-box {
       border: 1px solid rgba(13,95,102,0.3);
       background: var(--accent-light);
@@ -262,6 +275,7 @@
     }
     .verdict-box p:last-child { margin-bottom: 0; }
 
+    /* 外部リンクボタン */
     .ext-link {
       display: inline-flex;
       align-items: center;
@@ -283,6 +297,7 @@
       font-weight: 400;
     }
 
+    /* 下部ボタン（公式サイト＋Xポストを縦並び） */
     .link-buttons {
       display: flex;
       flex-direction: column;
@@ -306,6 +321,7 @@
     }
     .x-btn:hover { background: var(--text); color: var(--bg); }
 
+    /* ナビゲーション（前後記事） */
     .article-nav {
       display: flex;
       justify-content: space-between;
@@ -325,6 +341,7 @@
     }
     .article-nav a:hover { color: var(--accent); }
 
+    /* ═══ FOOTER PROFILE ═══ */
     .profile-section {
       display: flex;
       gap: 28px;
@@ -361,6 +378,7 @@
       font-size: 13px;
     }
 
+    /* ═══ RESPONSIVE ═══ */
     @media (max-width: 640px) {
       .nav { flex-wrap: wrap; gap: 12px; }
       .nav-links { order: 3; width: 100%; gap: 16px; font-size: 12px; }
@@ -373,6 +391,7 @@
 </head>
 <body>
 
+  <!-- ═══ HEADER ═══ -->
   <header>
     <div class="container nav">
       <a href="/crypto/" class="brand">
@@ -392,6 +411,7 @@
   <main>
     <div class="container">
 
+      <!-- ARTICLE HEADER -->
       <div class="article-hero">
         <div class="breadcrumb">
           <a href="/crypto/research/">Research</a>
@@ -408,14 +428,17 @@
         </p>
       </div>
 
+      <!-- ARTICLE BODY -->
       <article class="article-body">
 
+        <!-- 注意事項＋調査時点 -->
         <div class="notice-box">
           <p class="notice-date">調査時点：2026年6月26日 午後10:02</p>
           <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
-          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は<a href="https://x.com/neko_smg/status/2070492807253631329" target="_blank" rel="noopener noreferrer">元のポスト</a>をご確認ください。</p>
         </div>
 
+        <!-- 概要 -->
         <div class="section">
           <h2 class="section-title">どんなサービスか</h2>
           <p>
@@ -423,6 +446,7 @@
           </p>
         </div>
 
+        <!-- バッジ条件 -->
         <div class="section">
           <h2 class="section-title">バッジ取得の条件</h2>
           <ul class="point-list">
@@ -432,6 +456,7 @@
           </ul>
         </div>
 
+        <!-- まとめ -->
         <div class="section">
           <h2 class="section-title">現時点の判断</h2>
           <div class="verdict-box">
@@ -441,9 +466,10 @@
             </p>
           </div>
 
+          <!-- 下部ボタン（公式サイト＋Xポスト。縦並び） -->
           <div class="link-buttons">
-            <a href="http://titan.exchange/@sasami" target="_blank" rel="noopener noreferrer" class="ext-link">
-              Titanのプロフィールを見る
+            <a href="https://titan.exchange/@sasami" target="_blank" rel="noopener noreferrer" class="ext-link">
+              Titanを見る（招待リンク）
             </a>
 
             <a href="https://x.com/neko_smg/status/2070492807253631329" target="_blank" rel="noopener noreferrer" class="x-btn">
@@ -455,14 +481,15 @@
           </div>
         </div>
 
-
       </article>
 
+      <!-- 前後ナビ -->
       <div class="article-nav">
         <a href="/crypto/research/">← Research 一覧に戻る</a>
         <span></span>
       </div>
 
+      <!-- FOOTER PROFILE -->
       <section class="profile-section">
         <div class="profile-icon">
           <img src="../../images/pfp.png" alt="sasami profile" />
