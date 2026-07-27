@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grvt リサーチ — エアドロ登録開始、TGEは7月21日 | AIGARDEN</title>
-  <meta name="description" content="Grvt（@grvt_io）のエアドロ登録が開始。ウォレット登録期限は7月27日0時UTC、乗数選択の締切は7月17日0時UTCまで。乗数の種類や受け取り方法、TGE日程（7月21日）をまとめました。">
-  <meta property="og:title" content="Grvt リサーチ — エアドロ登録開始、TGEは7月21日">
-  <meta property="og:description" content="Grvtのエアドロ登録が開始。乗数選択・ウォレット登録期限・受け取り方法をまとめました。">
+  <title>Grvt リサーチ — エアドロ登録開始、TGEは7月30日に延期 | AIGARDEN</title>
+  <meta name="description" content="Grvt（@grvt_io）のエアドロ登録が開始。TGEは7月21日から7月30日に延期。ウォレット登録期限は7月27日0時UTC、乗数選択の締切は7月17日0時UTCまで。乗数の種類や受け取り方法をまとめました。">
+  <meta property="og:title" content="Grvt リサーチ — エアドロ登録開始、TGEは7月30日に延期">
+  <meta property="og:description" content="Grvtのエアドロ登録が開始。TGEは7月30日に延期。乗数選択・ウォレット登録期限・受け取り方法をまとめました。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ai-garden-lab.com/crypto/research/grvt.html">
   <meta property="og:site_name" content="AIGARDEN">
@@ -135,7 +135,6 @@
     .article-hero .lead {
       font-size: 1.05rem;
       color: #333;
-      max-width: 680px;
       line-height: 1.75;
     }
     .notice-date {
@@ -168,6 +167,12 @@
       margin: 0;
     }
     .notice-box p + p { margin-top: 8px; }
+    .notice-box a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .notice-box a:hover { opacity: 0.75; }
 
     /* セクション */
     .section {
@@ -245,6 +250,17 @@
       color: var(--red);
       font-weight: 700;
       font-size: 11px;
+    }
+
+    /* 訂正表記（延期・変更があった箇所） */
+    .corr-old {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+    .corr-new {
+      font-weight: 600;
+      color: var(--red);
     }
 
     /* 結論ボックス */
@@ -416,22 +432,25 @@
 
         <div class="project-tag">Multi-chain / Perp Exchange</div>
 
-        <h1>Grvt — エアドロ登録開始、TGEは7月21日</h1>
+        <h1>Grvt — エアドロ登録開始、TGEは7月30日に延期</h1>
 
         <p class="lead">
-          Grvt（@grvt_io）のエアドロ登録がスタート。質問に答えてプロファイルを作成し、受け取り乗数とウォレットを登録する流れです。乗数選択の締切は7月17日、ウォレット登録期限は7月27日（いずれも0時UTC）で、TGEは7月21日を予定。
+          Grvt（@grvt_io）のエアドロ登録がスタート。質問に答えてプロファイルを作成し、受け取り乗数とウォレットを登録する流れです。乗数選択の締切は7月17日、ウォレット登録期限は7月27日（いずれも0時UTC）で、TGEは<span class="corr-old">7月21日</span> <span class="corr-new">7月30日に延期</span>されています。
         </p>
       </div>
 
       <!-- ARTICLE BODY -->
       <article class="article-body">
 
+        <!-- 注意事項＋調査時点 -->
         <div class="notice-box">
           <p class="notice-date">調査時点：2026年7月10日 午後3:57</p>
+          <p><strong>【追記】TGEは当初予定の7月21日から7月30日に延期されました。</strong></p>
           <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
-          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は<a href="https://x.com/neko_smg/status/2075474450171236527" target="_blank" rel="noopener noreferrer">元のポスト</a>をご確認ください。</p>
         </div>
 
+        <!-- エアドロ登録の流れ -->
         <div class="section">
           <h2 class="section-title">エアドロ登録の流れ</h2>
           <p>
@@ -442,6 +461,7 @@
           </p>
         </div>
 
+        <!-- 受け取り乗数 -->
         <div class="section">
           <h2 class="section-title">受け取り乗数（マルチプライヤー）の選択</h2>
           <ul class="point-list">
@@ -454,6 +474,7 @@
           </p>
         </div>
 
+        <!-- 受け取り先アドレス -->
         <div class="section">
           <h2 class="section-title">受け取り先アドレスについて</h2>
           <ul class="point-list">
@@ -462,6 +483,7 @@
           </ul>
         </div>
 
+        <!-- 懸念点 -->
         <div class="section">
           <h2 class="section-title">懸念点</h2>
           <div class="concern-box">
@@ -474,15 +496,17 @@
           </div>
         </div>
 
+        <!-- まとめ -->
         <div class="section">
           <h2 class="section-title">現時点の判断</h2>
           <div class="verdict-box">
             <div class="verdict-title">まとめ</div>
             <p>
-              TGEは7月21日と近く、乗数選択の締切（7月17日）も控えています。長期保有でより多くの受け取りを狙うか、早めにClaimするかは乗数選択で決まるため、期限前に自分の方針を決めて登録を済ませておくのがよさそうです。
+              TGEは<span class="corr-old">7月21日</span> <span class="corr-new">7月30日に延期</span>されましたが、乗数選択の締切（7月17日）は控えたままです。長期保有でより多くの受け取りを狙うか、早めにClaimするかは乗数選択で決まるため、期限前に自分の方針を決めて登録を済ませておくのがよさそうです。
             </p>
           </div>
 
+          <!-- 下部ボタン（公式サイト＋Xポスト。縦並び） -->
           <div class="link-buttons">
             <a href="https://grvt.io/ja/exchange/reward-portal" target="_blank" rel="noopener noreferrer" class="ext-link">
               Reward Portalで登録する
