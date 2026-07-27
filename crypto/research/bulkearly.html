@@ -135,7 +135,6 @@
     .article-hero .lead {
       font-size: 1.05rem;
       color: #333;
-      max-width: 680px;
       line-height: 1.75;
     }
     .notice-date {
@@ -168,6 +167,12 @@
       margin: 0;
     }
     .notice-box p + p { margin-top: 8px; }
+    .notice-box a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .notice-box a:hover { opacity: 0.75; }
 
     /* セクション */
     .section {
@@ -426,18 +431,12 @@
       <!-- ARTICLE BODY -->
       <article class="article-body">
 
-        <!-- 注意事項＋調査時点（全記事共通・日付だけ書き換える） -->
+        <!-- 注意事項＋調査時点 -->
         <div class="notice-box">
           <p class="notice-date">調査時点：2026年6月7日 午後7:12</p>
           <p>⚠︎ 本記事は上記の調査時点における情報です。投資判断は自己責任でお願いします。</p>
-          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は元のポストをご確認ください。</p>
+          <p>各記事はXの投稿をもとにAIが整理したものです。ニュアンスの違いが生じる場合があるため、詳細は<a href="https://x.com/neko_smg/status/2063564721132015985" target="_blank" rel="noopener noreferrer">元のポスト</a>をご確認ください。</p>
         </div>
-
-        <!-- ============================================================
-          セクションの構成は自由。以下はよく使うパターン。
-          不要なセクションは削除、必要なら追加してOK。
-          <h2>のテキストも自由に変えてよい。
-        ============================================================ -->
 
         <!-- 概要 -->
         <div class="section">
@@ -452,7 +451,7 @@
           <h2 class="section-title">煽りの経緯</h2>
           <ul class="point-list">
             <li>去年からステークを開始し、ステーカーへ〇〇（伏字）を配布するとアナウンス</li>
-            <li>テストネットの参加人数を制限し、リプライから選ばれた人のみが参加できる形にした</li>
+            <li>初期テストネット参加人数を制限し、ディスコロールホルダーとXのリプライから選ばれた人のみが参加できる形にした</li>
             <li>上記2点で期待を煽ったものの、その期間分の配布量は<strong>50万ポイントのみ</strong></li>
             <li>先週から始まったプレデポジットでは、<strong>毎週100万ポイント</strong>を山分けしている</li>
           </ul>
