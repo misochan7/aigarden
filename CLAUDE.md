@@ -46,7 +46,7 @@ GitHub Actions から起動された場合は、Issue本文（フォーム）に
    - `<!-- 【1】... -->` 〜 `<!-- 【12】... -->` の番号付きコメント
    - 「セクションの構成は自由…」のブロックコメント、`<!-- 外部リンクボタン（…） -->`、`<!-- 招待コードなどあれば: … -->`
    - `<!-- ARTICLE HEADER -->` `<!-- 前後ナビ -->` のような構造コメントは残してよい
-4. `crypto/research/index.html` のフィード（`<ul class="feed-list" id="feedList">` の直後）の**先頭**に新しい `<li>` を追加する（下の「一覧カード」参照）
+4. `crypto/research/index.html` のフィード（`<ul class="feed-list" id="feedList">` ）に新しい `<li>` を追加する。位置は**元ポストの投稿日順（新しい順）**で、作業した順ではない。自分より新しい日付のカードがあればその下に入れる（下の「一覧カード」参照）
 5. 差分を要約して報告する
 6. **確認を取ってから** commit / push する（GitHub Actions では、PRを作ることが確認の代わり。main へは直接pushしない）
 
@@ -93,6 +93,7 @@ GitHub Actions から起動された場合は、Issue本文（フォーム）に
 
 - カテゴリは `research` / `security` / `tips` の3種類。`class="feed-item cat-xxx"` と `data-cat="xxx"` の両方を揃える
 - `feed-date` は元ポストの投稿日（`2026/7/25` のように月日はゼロ埋めしない）
+- 一覧は `feed-date` の新しい順に並べる。同じ日付なら新しく追加したものを上にする
 
 ### セクション構成
 
@@ -152,5 +153,5 @@ GitHub Actions から起動された場合は、Issue本文（フォーム）に
 - [ ] 「調査時点」が元ポストの投稿日時になっている（今日の日付になっていないか）
 - [ ] 外部リンクすべてに `target="_blank" rel="noopener noreferrer"` が付いている
 - [ ] 使わなかったセクション／ボタンのブロックを削除した
-- [ ] `research/index.html` のフィード先頭に新記事の `<li>` を追加した（カテゴリのclassとdata-catが一致）
+- [ ] `research/index.html` のフィードの日付順の位置に新記事の `<li>` を追加した（前後のカードと日付の並びが崩れていない／カテゴリのclassとdata-catが一致）
 - [ ] 相対パス（`../../images/pfp.png` など）が階層と合っている
