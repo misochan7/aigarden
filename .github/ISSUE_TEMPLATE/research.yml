@@ -1,0 +1,59 @@
+name: リサーチ記事の依頼
+description: Xのポストからリサーチ記事を作る（research ラベルで自動作成が走る）
+title: "[research] "
+labels: ["research"]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: プロジェクト名
+      placeholder: 例）Phoenix
+    validations:
+      required: true
+  - type: input
+    id: post_url
+    attributes:
+      label: 元ポストのURL
+      placeholder: https://x.com/neko_smg/status/...
+    validations:
+      required: true
+  - type: input
+    id: posted_at
+    attributes:
+      label: 元ポストの投稿日時
+      description: 記事の「調査時点」になる。今日の日付ではなくポストの日時
+      placeholder: 2026年7月28日 午前6:32
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: カテゴリ（一覧のタブ）
+      options:
+        - research
+        - security
+        - tips
+    validations:
+      required: true
+  - type: input
+    id: chain
+    attributes:
+      label: チェーン / カテゴリ（任意）
+      description: 空欄ならポスト内容から判断
+      placeholder: 例）Solana / Perp DEX
+  - type: input
+    id: link
+    attributes:
+      label: 公式サイト・招待リンク（任意）
+      description: 空欄なら下部の公式ボタンは削除される
+  - type: input
+    id: code
+    attributes:
+      label: 招待コード（任意）
+  - type: textarea
+    id: body
+    attributes:
+      label: ポスト本文
+      description: スレッドなら全部貼る。ここに書いてある事実だけが記事になる
+    validations:
+      required: true
